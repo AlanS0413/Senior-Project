@@ -1,0 +1,62 @@
+extends layout.pug
+block content
+    .container.rounded
+        .card.col-mx-auto.rounded.log.cardopacity
+                    .card-header
+                        h1.card-title.text-black
+                            b Sign Up 
+                            h3
+                            p
+                            h.text-black 
+                            b Please select a username and password
+                            br 
+                            b Password must contain at least one number, one uppercase letter, one lowercase letter, and be at least 8 characters long
+                            p
+                        .row.g-3.align-items-center
+                            .form
+                                form(action="/signup", method = "post") 
+                                    .form.row.g-3
+                                        .col-md-3
+                                            label(class="form-label", for = 'first').text-black 
+                                            b First Name
+                                            input(class= "form-control", aria-labelledby="first", name = 'first' required = "").log.text-black.bg-danger.bg-gradient
+
+
+                                        .col-md-3
+                                            label(class="form-label",for = 'last').text-black 
+                                            b Last Name
+                                            input(class= "form-control", aria-labelledby="last",name = 'last' required= "").log.text-black.bg-danger.bg-gradient
+                                        .col-md-6
+                                        hr
+
+                                        .col-md-3
+                                            label(class="form-label", for = 'username').text-black 
+                                            b Username
+                                            input(class= "form-control", aria-labelledby="username",type='text', name = 'username' required="").log.text-black.bg-danger.bg-gradient
+                                        .col-md-9
+
+                                        .col-md-3
+                                            label(class="form-label", for = 'password').text-black  
+                                            b Password
+                                            input(class= "form-control", aria-labelledby="password",type = 'password' name = 'signuppassword' required pattern= "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}").log.text-black.bg-danger.bg-gradient
+                                        .col-md-9
+
+                                        .col-md-3
+                                            label(class="form-label",for = 'confirmpassword').text-black 
+                                            b Confirm Password
+                                            input(class= "form-control", aria-labelledby="confirmpassword",type = 'password' name = 'confirmpassword' required pattern= "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}").log.text-black.bg-danger.bg-gradient
+                                        .col-md-9
+                                        hr
+                                
+                                    p
+                                        button.btn.btn-outline-primary(type='submit') 
+                                            b Sign Up
+                                        a.btn.btn-link-danger(href='/') 
+                                            b Nevermind
+                                    if message 
+                                        p #{message}
+                                    p 
+                                    b.text-black Already have an account?
+                                        a.btn.btn-link(href='/login') 
+                                            b Sign in Here!
+                                    p

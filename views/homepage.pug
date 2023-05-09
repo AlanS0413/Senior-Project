@@ -1,0 +1,71 @@
+extends layout.pug
+
+mixin getByBrands(brandname)
+    ul
+        each brandname in product_brands
+            li
+
+
+mixin getProducts(product)
+    ul
+        each product in productsByBrand
+            li
+
+block content
+    body
+           .container.rounded
+                .row
+                    .col-12
+                        aside.sidebar
+                            .offcanvas-lg.offcanvas-start#bdSidebar(tabindex="-1" aria-labelledby="bdSidebarOffcanvasLabel")
+                                h5.my-2
+                                    b Shoes
+                            .offcanvas-body
+                                .nav
+                                    ul.bd-links-nav.list-unstyled
+                                        li.sidebar-lists
+                                            a.text-black(href='#')
+                                                b Jordan
+                                        li.sidebar-lists
+                                            a.text-black(href='#')
+                                                b Nike
+                                        li.sidebar-lists
+                                            a.text-black(href='#')
+                                                b Yeezy
+                                h5.my-2
+                                    b Clothing
+                                .nav
+                                    ul.bd-links-nav.list-unstyled
+                                        li.sidebar-lists
+                                            a.text-black(href='#')
+                                                b Supreme
+                                        li.sidebar-lists
+                                            a.text-black(href='#')
+                                                b Nike
+                                        li.sidebar-lists
+                                            a.text-black(href='#')
+                                                b Sp5der
+                                h5.my-2
+                                    b Accessories
+                                .nav
+                                    ul.bd-links-nav.list-unstyled.mb-0.pb-3.pb-md-2.pe-lg-2
+                                        li.sidebar-lists
+                                            a.text-black(href='#')
+                                                b Supreme
+                                        li.sidebar-lists
+                                            a.text-black(href='#')
+                                                b Nike
+                                        li.sidebar-lists
+                                            a.text-black(href='#')
+                                                b Other
+                    .container.rounded
+                        ul.text-center
+                            each brandname in product_brands
+                                .row.gy-4
+                                    .col-lg-8
+                                        a(href=`/products/${product_brands[0]}`)
+                                            img.img-thumbnail.straight(src=getS3ImageUrl("barts"))
+                                        br
+                                        label(for= "SHOES")
+                                            b.text-black Shoes
+

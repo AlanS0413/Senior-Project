@@ -1,0 +1,53 @@
+extends layout.pug
+
+block content
+    body
+        .card.row.mx-auto.cardopacity(style="width: 30rem")
+            .card-header.text-center
+                h3
+                    b Inventory
+            ul.col-6.mx-auto.text-center
+                form.form(action='/addproduct', method='post', enctype='multipart/form-data')
+                    label.my-2.text-black(for='brand')
+                        b Brand
+                        input#brand(type='text', name='brand')
+
+                    label.text-black(for='title')
+                        b Name
+                        input#title(type='text', name='title')
+
+                    label.my-2.text-black(for='sku')
+                        b Sku
+                        input#sku(type='text', name='sku')
+
+                    label.my-2.text-black(for='size')
+                        b Size
+                        input#size(type='text', name='size')
+
+                    label.my-2.text-black(for='stock')
+                        b Stock
+                        input#stock(type='text', name='stock')
+
+                    label.text-black(for='price')
+                        b Price
+                        input#price(type='text', name='price')
+
+                    label.my-2.text-black(for='condition')
+                        b Condition
+                        input#condition(type='text', name='condition')
+
+                    label.text-black(for='availbility')
+                        b Availbility
+                        br
+                        input(type="checkbox" name = "instock", class= "form-check-input", unchecked = instock, aria-labelledby="instock")
+                        label.text-black(class="form-check-label", for='instock') In Stock
+                        br
+                        input(type="checkbox" name = "outofstock", class= "form-check-input", unchecked = outofstock, aria-labelledby="outofstock")
+                        label.text-black(class= "form-check-label", for='outofstock') Out of Stock
+                    br
+                    label.text-black(for='csvFile')
+                        b Import CSV
+                    input(type='file', name='csvFile', id='csvFile')
+                    br
+                    button.btn.btn-outline-success.my-2(type='submit', value ="upload")
+                        b Add Product

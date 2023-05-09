@@ -1,0 +1,145 @@
+doctype html
+html 
+    head
+        link(rel="stylesheet", href="/style.css")
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous")
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous")
+        title= title
+    body
+        if show_login
+            if user
+                span
+                    ul.navbar.navbar-expand-sm.bars
+                        form(role="search")
+                            input.form-control.me-2(type="search", placeholder="Search", aria-label="Search")
+                        button.btn.btn-outline-success.mx-1(type="submit") Search
+                        .col.justify-content-end.text-end
+                            span.text-white.mx-2 
+                                b   Logged in as #{user.username}
+                            a.btn.btn-outline-danger.btn-md.mx-2(href='/logout') Logout
+                            a.btn.btn-sm(href='/cart')
+                                img(src="https://www.dropbox.com/s/ywasy8lwkk2pldb/thenounproject.png?dl=1", alt="Cart", style="width: 35px; height: 35px;")
+
+            else
+                ul.navbar.navbar-expand-sm.bars
+                    form(role="search")
+                        input.form-control.me-2(type="search", placeholder="Search", aria-label="Search")
+                    button.btn.btn-outline-success.mx-1(type="submit") Search
+                    .col.justify-content-end.text-end
+                        a.btn.btn-md.mx-1(href='/account')
+                            img(src="https://www.dropbox.com/s/160nat60id0a9ar/Account.jpg?dl=1", alt="Account login", style="width: 35px; height: 35px;")
+                        a.btn.btn-md(href='/cart')
+                            img(src="https://www.dropbox.com/s/ywasy8lwkk2pldb/thenounproject.png?dl=1", alt="Cart", style="width: 35px; height: 35px;")
+
+
+
+        if at_Home
+            .container
+                .row.justify-content-center
+                    .col-12.col-md-12.col-lg-12.col-sm-12.text-center.text-md-end
+                        ul.nav.flex-row.justify-content-center
+                            li.nav-item
+                                h3.dropdown-spacing
+                                    a.nav-link.text-black(data-bs-toggle="button", role="button", aria-expanded="false")  
+                                            b All Products 
+                                h3.dropdown-spacing
+                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")  
+                                            b Shoes 
+                                    ul.dropdown-menu
+                                        li
+                                        a.dropdown-item(href="/jordanshoes")
+                                            b Jordan
+                                        li
+                                        a.dropdown-item(href="/nikeshoes") 
+                                            b Nike
+                                        li
+                                        a.dropdown-item(href="/yeezyshoes") 
+                                            b Yeezy
+                                h3.dropdown-spacing
+                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")    
+                                            b Clothing 
+                                    ul.dropdown-menu(id="Clothing")
+                                        li
+                                        a.dropdown-item(href="/supremeclothing")
+                                            b Supreme
+                                        li
+                                        a.dropdown-item(href="nikeclothing") 
+                                            b Nike
+                                        li
+                                        a.dropdown-item(href="/sp5derclothing") 
+                                            b Sp5der
+                                h3.dropdown-spacing 
+                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")  
+                                        b Accessories 
+                                    ul.dropdown-menu(id="Accessories")
+                                        li
+                                        a.dropdown-item(href="/supremeacc")
+                                            b Supreme
+                                        li
+                                        a.dropdown-item(href="/nikeacc") 
+                                            b Nike
+                                        li
+                                        a.dropdown-item(href="/otheracc") 
+                                            b Other
+        else 
+            .container
+                .row
+                    .col-12.col-md-12.text-center.col-lg-1.col-sm-12
+                        ul.nav.flex-column 
+                            li.nav-item.dropdown
+                                h3.home-spacing 
+                                    a.nav-link.active.text-black(href="/")  
+                                        b Home
+                    .col-12.col-md-10.col-lg-11.col-sm-10.text-center
+                        ul.nav.justify-content-center 
+                            li.nav-item
+                                h3.dropdown-spacing.col-3
+                                    a.nav-link.text-black.text-center(data-bs-toggle="button", role="button") 
+                                        b All Products 
+                                h3.dropdown-spacing.col-2
+                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false") 
+                                        b Shoes 
+                                    ul.dropdown-menu
+                                        li
+                                        a.dropdown-item(href="/jordanshoes")
+                                            b Jordan
+                                        li
+                                        a.dropdown-item(href="/nikeshoes") 
+                                            b Nike
+                                        li
+                                        a.dropdown-item(href="/yeezyshoes") 
+                                            b Yeezy
+                                        li
+                                h3.dropdown-spacing.col-3
+                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")
+                                        b Clothing
+                                    ul.dropdown-menu(id="Clothing")
+                                        li
+                                        a.dropdown-item(href="/supremeclothing")
+                                            b Supreme
+                                        li
+                                        a.dropdown-item(href="/nikeclothing") 
+                                            b Nike
+                                        li
+                                        a.dropdown-item(href="/sp5derclothing") 
+                                            b Sp5der
+                                        li
+                                h3.dropdown-spacing.col-1
+                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false") 
+                                        b Accessories
+                                    ul.dropdown-menu(id="Accessories")
+                                        li
+                                        a.dropdown-item(href="/supremeacc")
+                                            b Supreme
+                                        li
+                                        a.dropdown-item(href="/nikeacc") 
+                                            b Nike
+                                        li
+                                        a.dropdown-item(href="/otheracc") 
+                                            b Other
+                                        li
+
+        
+
+
+        block content

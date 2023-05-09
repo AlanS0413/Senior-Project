@@ -1,0 +1,37 @@
+extends layout.pug
+mixin getProductInfo(product)
+    ul
+        each product in products
+            li
+
+block content
+    body
+        header
+            h2.text-center
+                b Your Cart
+            hr
+        .container.rounded
+                .row
+                    .col-12
+                        form.form(class='cart', action='/cart', method='post')
+                            ul
+                                .container.justify-content-center.rounded
+                                    .row.lg-3
+                                        .col-lg-3
+                                            a(href=`/products/${id}`)
+                                                img.img-thumbnail(src=`https://www.dropbox.com/s/kns9zjzyzl2jj6u/thunder.jpg?dl=1`)
+                                        .col-lg-3.text-center
+                                            h5.text-black
+                                                b Product Name
+                                                p.text-black
+                                                b Product Description
+                                                p.text-black
+                                                .text-center Size / Condition
+                                        .row.text-end
+                                            p Price
+                                                .row-lg-3
+                                                    a.btn.btn-outline-success.btn-lg(href="#") Check Out
+
+                                    .col-6
+                                    br
+                                    hr

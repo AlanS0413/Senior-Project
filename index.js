@@ -2,16 +2,10 @@ const express = require('express');
 const session = require('express-session');
 const Database = require('./database.js');
 const db = new Database('product.db');
+const axios = require('axios');
 const bodyParser = require('body-parser');
 db.initialize();
 const router = express.Router();
-const AWS = require('aws-sdk');
-
-const s3 = new AWS.S3({
-  accessKeyId: 'AKIATS4FQMQJ2PPI3N5X',
-  secretAccessKey: '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',
-  region: 'us-east-1'
-});
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
@@ -65,7 +59,14 @@ app.locals.pretty = true;
 
 app.use(express.static('public/styles'));
 app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
+
+app.get('/data', async (req, res) => {
+    const data = await req.db.findAllProducts();
+    res.json(data);
+});
 app.use('/', require('./routes/startup'));
 app.use('/', require('./routes/account'));
 app.use('/', require('./routes/logout'));

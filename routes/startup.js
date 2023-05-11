@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     const brands = ['Jordan', 'Yeezy', 'Nike', 'Supreme', 'Sp5der'];
     const product_brands = await req.db.findByBrands(brands);
     const productsByBrand = await req.db.findAllProducts();
-    
+
     res.render('homepage', {
         title: 'Homepage',
         show_login: true,

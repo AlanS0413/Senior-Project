@@ -252,3 +252,17 @@ ul.list-group:after {
 .list-group-item {
     float: left;
 }
+
+#maindisplay{
+    display: flex;
+}
+
+
+#producttable li {
+    display:inline-block;
+}
+
+.center-img {
+    display: block;
+    margin: 0 auto;
+}

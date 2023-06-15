@@ -54,9 +54,9 @@ router.post('/addproduct', upload.single('csvFile'), async (req, res) => {
                             record.sku,
                             record.size,
                             record.stock,
+                            record.itemtype,
                             record.condition,
-                            record.instock,
-                            record.outofstock
+                            record.gender
                         );
                     }
                     res.redirect('/addproduct');
@@ -70,9 +70,9 @@ router.post('/addproduct', upload.single('csvFile'), async (req, res) => {
             const psku = req.body.sku;
             const psize = req.body.size;
             const pstock = req.body.stock;
+            const pitemtype = req.body.itemtype;
             const pcondition = req.body.condition;
-            const pinstock = req.body.instock !== undefined;
-            const poos = req.body.outofstock !== undefined;
+            const pgender = req.body.gender;
 
             csvData.push({
                 brand: pbrand,
@@ -81,9 +81,9 @@ router.post('/addproduct', upload.single('csvFile'), async (req, res) => {
                 sku: psku,
                 size: psize,
                 stock: pstock,
+                type: pitemtype,
                 condition: pcondition,
-                instock: pinstock,
-                outofstock: poos,
+                gender: pgender
             });
             for (const record of csvData) {
                 const newProduct = await db.addProduct(
@@ -93,9 +93,9 @@ router.post('/addproduct', upload.single('csvFile'), async (req, res) => {
                     record.sku,
                     record.size,
                     record.stock,
+                    record.itemtype,
                     record.condition,
-                    record.instock,
-                    record.outofstock
+                    record.gender
                 );
             }
             res.redirect('/addproduct');

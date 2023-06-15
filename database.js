@@ -17,10 +17,10 @@ class ProductDB{
             {name: 'price', type: 'TEXT'},
             {name: 'sku', type: 'INTEGER'},
             {name: 'size', type: 'TEXT'},
+            {name: 'gender', type: 'TEXT'},
             {name: 'stock', type: 'TEXT'},
-            {name: 'condition', type: 'TEXT'},
-            {name: 'instock', type: 'BOOLEAN'},
-            {name: 'outofstock', type: 'BOOLEAN'},
+            {name: 'itemtype', type: 'TEXT'},
+            {name: 'condition', type: 'TEXT'}
         ], 'id')
 
         await this.db.schema('Users', [
@@ -60,17 +60,17 @@ class ProductDB{
         return id;
     }
 
-    async addProduct(brand, title, price, sku, size, stock, condition, instock, outofstock) {
+    async addProduct(brand, title, price, sku, size, stock, itemtype, condition, gender) {
         const id = await this.db.create('Products', [
             {column: 'brand', value: brand},
             {column: 'title', value: title},
             {column: 'price', value: price},
             {column: 'sku', value: sku},
             {column: 'size', value: size},
+            {column: 'gender', value: gender},
             {column: 'stock', value: stock},
-            {column: 'condition', value: condition},
-            {column: 'instock', value: instock},
-            {column: 'outofstock', value: outofstock},
+            {column: 'itemtype', value: itemtype},
+            {column: 'condition', value: condition}
         ], 'id')
         return id;
     }
@@ -83,19 +83,24 @@ class ProductDB{
         }
     }
 
+    async findProductByBrandAndType(brand, itemtype) {
+        const brand_id = await this.db.read('Products', [{column: 'brand', value: brand}]);
+        const type_id = await this.db.read('Products', [{column: 'itemtype', value: itemtype}]);
+        if (brand_id.length > 0 ){
+            if (type_id.length > 0){
+                return brand_id;
+            }
+        }
+    }
+
     async findAllProducts() {
         const products = await this.db.read('Products', []);
         return products;
     }
 
-    async findAllProductsByBrands(brands) {
-        const products = await this.db.readCertainProducts('Products', 'brand', [{ column: 'brand', value: brands }]);
-        return products;
-    }
-
-    async findByBrands(brands) {
-        const rows = await this.db.readNonDupes('Products', [{ column: 'brand', value: brands }]);
-        return brands;
+    async findByBrands(brand) {
+        const brands_id = await this.db.readNonDupes('Products', [{ column: 'brand', value: brand }]);
+        return brands_id;
     }
 
     async findUserByUserName(username) {

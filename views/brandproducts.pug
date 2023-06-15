@@ -1,0 +1,28 @@
+extends layout.pug
+
+mixin jordanBrand(brandProducts)
+    ul
+        each jordan in brandProducts
+            li
+mixin brandOptions(brandTypes)
+    ul
+        each types in brandTypes
+            li
+
+block content
+    body
+
+        .container.rounded.text-center
+            ul#brandproducttable.text-center.text-black.justify-content-center
+
+
+
+
+
+
+
+            script.
+                    loadBrandProducts();
+                    jQuery(document).ready(function() {
+                            jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
+                    });

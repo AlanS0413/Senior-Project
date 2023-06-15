@@ -70,9 +70,18 @@ app.get('/data', async (req, res) => {
 app.use('/', require('./routes/startup'));
 app.use('/', require('./routes/account'));
 app.use('/', require('./routes/logout'));
-app.use('/', require('./routes/productinfo'));
 app.use('/', require('./routes/cart'));
+app.post('/cart');
 app.use('/', require('./routes/addproduct'));
+app.use('/', require('./routes/allproducts'))
+app.use('/', require('./routes/brandclothing'));
+app.use('/', require('./routes/brandaccessories'));
+app.use('/', require('./routes/brandfootwear'));
+app.use('/', require('./routes/productinfo'));
+app.use('/', require('./routes/brands'));
+
+
+
 
 
 app.listen(8080, () => {

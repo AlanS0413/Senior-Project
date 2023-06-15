@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
         title: 'Homepage',
         show_login: true,
         at_Home: true,
+        showSidebar: true,
         product_brands,productsByBrand,
         getS3ImageUrl: filename => {
             const s3 = new AWS.S3({

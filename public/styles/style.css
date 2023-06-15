@@ -95,13 +95,13 @@ ul.nav.nav-pills.flex-row {
     margin-left: 25px;
     margin-top: 25px;
     margin-bottom: 25px;
-    position: static;
     text-align: center;
     justify-content: center;
     font-weight: bold;
     font-size: 20px;
     display: inline-block;
     padding: 3rem;
+    cursor: pointer;
 }
 
 .home-spacing
@@ -177,15 +177,14 @@ li.nav-item.dropdown > ul.dropdown-menu {
 }
 
 .sidebar {
-    position: fixed;
+    position:absolute;
     top: 6%;
     bottom: 0;
     left: 0;
-    z-index: 1032;
-    width: 400px;
+    height: 1150px;
+    width: 450px;
     padding: 6rem;
     overflow-y: clip;
-    background-color: transparent;
 }
 
 h5.my-2 {
@@ -198,6 +197,11 @@ h5.my-2 {
     font-weight: bold;
     font-size: 20px;
     font-family:Arial, Helvetica, sans-serif;
+    display: flex;
+}
+
+.sidebar-checks{
+    margin-left:auto;
 }
 
 .forminput {
@@ -265,4 +269,187 @@ ul.list-group:after {
 .center-img {
     display: block;
     margin: 0 auto;
+}
+
+#brandtypetable li {
+    display:inline-block;
+}
+.carddisplay{
+    display:inline-block;
+    margin-left: 500px;
+}
+
+.cardbodydisplay{
+   display:grid
+}
+
+#brandproducttable li {
+    display:inline-block;
+}
+
+a.text-black {
+    text-transform: capitalize;
+  }
+.textcap{
+    text-transform: capitalize;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+.homenav{
+    display:flex;
+    list-style: none;
+    --bs-nav-link-padding-x: 1rem;
+    --bs-nav-link-padding-y: 0.5rem;
+}
+
+.homepad{
+    margin-right: auto;
+}
+
+
+.accordion-button{
+    background-color: rgba(255, 255, 255, 0.1)!important;
+}
+
+.accordion-button::after{
+    background-image: url("https://s3.amazonaws.com/static.graphemica.com/glyphs/i300s/000/012/536/original/2212-300x300.png?1275331328")!important;
+}
+
+.accordion {
+    --bs-accordion-bg: transparent!important;
+}
+
+.accordion-body#brand{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1px;
+}
+.barbody.text-black{
+    float: right;
+}
+
+label.barbodylabels{
+    color:black;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-weight: bold;
+}
+.accordion-body#sizes{
+    display: grid;
+    grid-template-columns: repeat(3, 3fr);
+    grid-gap: 3px;
+}
+label.sizebodylabels{
+    color:black;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-weight: bold;
+}
+.accordion-body#price{
+    display: grid;
+    grid-template-columns: repeat(1, 2fr);
+    grid-gap: 3px;
+}
+label.pricebodylabels{
+    color:black;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-weight: bold;
+}
+.pricebodylabels.text-black{
+    float: right;
+}
+.accordion-body#gender{
+    display: grid;
+    grid-template-columns: repeat(3, 3fr);
+    grid-gap: 1px;
+}
+.toggle-button {
+    display: inline-block;
+    padding: 3px 8px;
+    margin: 2px;
+    border: 1px solid black;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-family:Verdana, Tahoma, sans-serif;
+    text-transform: capitalize;
+}
+
+.toggle-button.active {
+    background-color: rgba(255, 0, 0, 0.651);
+    color: white;
+    font-family:Verdana, Tahoma, sans-serif;
+}
+
+.pricebodylabels[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid gray;
+    border-radius: 3px;
+    outline: none;
+    position: relative;
+}
+
+.pricebodylabels[type="checkbox"]:checked {
+    background-color: rgba(255, 0, 0, 0.651);
+    border-color: gray;
+}
+
+.pricebodylabels[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.pricebodylabels[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+
+.barbody[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid gray;
+    border-radius: 3px;
+    outline: none;
+    position: relative;
+}
+
+.barbody[type="checkbox"]:checked {
+    background-color: rgba(255, 0, 0, 0.651);
+    border-color: gray;
+}
+
+.barbody[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.barbody[type="checkbox"]:checked::before {
+    opacity: 1;
 }

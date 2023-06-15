@@ -10,40 +10,40 @@ block content
                 form.form(action='/addproduct', method='post', enctype='multipart/form-data')
                     label.my-2.text-black(for='brand')
                         b Brand
-                        input#brand(type='text', name='brand')
+                        input#brand(type='text', name='brand', placeholder="Nike" oninput="this.value = this.value.toLowerCase()")
 
                     label.text-black(for='title')
                         b Name
-                        input#title(type='text', name='title')
+                        input#title(type='text', name='title', placeholder="Panda" oninput="this.value = this.value.toLowerCase()")
 
                     label.my-2.text-black(for='sku')
                         b Sku
-                        input#sku(type='text', name='sku')
+                        input#sku(type='text', name='sku', placeholder="12345-001" oninput="this.value = this.value.toLowerCase()")
 
                     label.my-2.text-black(for='size')
                         b Size
-                        input#size(type='text', name='size')
+                        input#size(type='text', name='size', placeholder="11" oninput="this.value = this.value.toLowerCase()")
 
                     label.my-2.text-black(for='stock')
                         b Stock
-                        input#stock(type='text', name='stock')
+                        input#stock(type='text', name='stock', placeholder="1" oninput="this.value = this.value.toLowerCase()")
+
+                    label.my-2.text-black(for='itemtype')
+                        b Item Type
+                        input#stock(type='text', name='itemtype', placeholder="F/C/A" oninput="this.value = this.value.toLowerCase()")
 
                     label.text-black(for='price')
                         b Price
-                        input#price(type='text', name='price')
+                        input#price(type='text', name='price', placeholder="$" oninput="this.value = this.value.toLowerCase()")
 
                     label.my-2.text-black(for='condition')
                         b Condition
-                        input#condition(type='text', name='condition')
+                        input#condition(type='text', name='condition', placeholder="New/Used/DS" oninput="this.value = this.value.toLowerCase()")
 
-                    label.text-black(for='availbility')
-                        b Availbility
-                        br
-                        input(type="checkbox" name = "instock", class= "form-check-input", unchecked = instock, aria-labelledby="instock")
-                        label.text-black(class="form-check-label", for='instock') In Stock
-                        br
-                        input(type="checkbox" name = "outofstock", class= "form-check-input", unchecked = outofstock, aria-labelledby="outofstock")
-                        label.text-black(class= "form-check-label", for='outofstock') Out of Stock
+                    label.my-2.text-black(for='gender')
+                        b Gender
+                        input#condition(type='text', name='gender', placeholder="M/W/GS/PS/TD/All" oninput="this.value = this.value.toLowerCase()")
+
                     br
                     label.text-black(for='csvFile')
                         b Import CSV

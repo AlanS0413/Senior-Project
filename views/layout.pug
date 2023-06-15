@@ -1,6 +1,9 @@
+mixin 
+
 doctype html
 html
     head
+    
         script(src="https://code.jquery.com/jquery-3.6.0.min.js")
         script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
         script(src="/jquery.nailthumb.1.1.js")
@@ -46,74 +49,74 @@ html
                         ul.nav.flex-row.justify-content-center
                             li.nav-item
                                 h3.dropdown-spacing
-                                    a.nav-link.text-black(data-bs-toggle="button", role="button", aria-expanded="false")  
+                                    a.nav-link.text-black(type="button", href="/AllProducts")  
                                             b All Products 
                                 h3.dropdown-spacing
-                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")  
-                                            b Shoes 
+                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")
+                                        b Shoes
                                     ul.dropdown-menu
-                                        li
-                                        a.dropdown-item(href="/jordanshoes")
+                                        li.dropdown-item
+                                        a.dropdown-item(href="/Footwear/jordan")
                                             b Jordan
                                         li
-                                        a.dropdown-item(href="/nikeshoes") 
+                                        a.dropdown-item(href="/Footwear/nike") 
                                             b Nike
                                         li
-                                        a.dropdown-item(href="/yeezyshoes") 
+                                        a.dropdown-item(href="/Footwear/yeezy") 
                                             b Yeezy
                                 h3.dropdown-spacing
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")    
                                             b Clothing 
                                     ul.dropdown-menu(id="Clothing")
                                         li
-                                        a.dropdown-item(href="/supremeclothing")
+                                        a.dropdown-item(href="/Clothing/Supreme")
                                             b Supreme
                                         li
-                                        a.dropdown-item(href="nikeclothing") 
+                                        a.dropdown-item(href="/Clothing/Nike") 
                                             b Nike
                                         li
-                                        a.dropdown-item(href="/sp5derclothing") 
+                                        a.dropdown-item(href="/Clothing/Sp5der") 
                                             b Sp5der
                                 h3.dropdown-spacing 
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")  
                                         b Accessories 
                                     ul.dropdown-menu(id="Accessories")
                                         li
-                                        a.dropdown-item(href="/supremeacc")
+                                        a.dropdown-item(href="/Accessories/Supreme")
                                             b Supreme
                                         li
-                                        a.dropdown-item(href="/nikeacc") 
+                                        a.dropdown-item(href="/Accessories/Nike") 
                                             b Nike
                                         li
-                                        a.dropdown-item(href="/otheracc") 
+                                        a.dropdown-item(href="/Accessories/Other") 
                                             b Other
         else 
             .container
                 .row
-                    .col-12.col-md-12.text-center.col-lg-1.col-sm-12
-                        ul.nav.flex-column 
-                            li.nav-item.dropdown
-                                h3.home-spacing 
+                    .col-1.text-center
+                        ul.nav.justify-content-center.d-flex
+                            li.nav-item.dropdown.col-1
+                                h3.home-spacing
                                     a.nav-link.active.text-black(href="/")  
                                         b Home
                     .col-12.col-md-10.col-lg-11.col-sm-10.text-center
                         ul.nav.justify-content-center 
                             li.nav-item
-                                h3.dropdown-spacing.col-3
-                                    a.nav-link.text-black.text-center(data-bs-toggle="button", role="button") 
+                                h3.dropdown-spacing.col-3.homepad
+                                    a.nav-link.text-black(type="button", href="/AllProducts")  
                                         b All Products 
                                 h3.dropdown-spacing.col-2
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false") 
                                         b Shoes 
                                     ul.dropdown-menu
                                         li
-                                        a.dropdown-item(href="/jordanshoes")
+                                        a.dropdown-item(href="/Footwear/Jordan")
                                             b Jordan
                                         li
-                                        a.dropdown-item(href="/nikeshoes") 
+                                        a.dropdown-item(href="/Footwear/Nike") 
                                             b Nike
                                         li
-                                        a.dropdown-item(href="/yeezyshoes") 
+                                        a.dropdown-item(href="/Footwear/Yeezy") 
                                             b Yeezy
                                         li
                                 h3.dropdown-spacing.col-3
@@ -121,13 +124,13 @@ html
                                         b Clothing
                                     ul.dropdown-menu(id="Clothing")
                                         li
-                                        a.dropdown-item(href="/supremeclothing")
+                                        a.dropdown-item(href="/Clothing/Supreme")
                                             b Supreme
                                         li
-                                        a.dropdown-item(href="/nikeclothing") 
+                                        a.dropdown-item(href="/Clothing/Nike") 
                                             b Nike
                                         li
-                                        a.dropdown-item(href="/sp5derclothing") 
+                                        a.dropdown-item(href="/Clothing/Sp5der") 
                                             b Sp5der
                                         li
                                 h3.dropdown-spacing.col-1
@@ -135,17 +138,54 @@ html
                                         b Accessories
                                     ul.dropdown-menu(id="Accessories")
                                         li
-                                        a.dropdown-item(href="/supremeacc")
+                                        a.dropdown-item(href="/Accessories/Supreme")
                                             b Supreme
                                         li
-                                        a.dropdown-item(href="/nikeacc") 
+                                        a.dropdown-item(href="/Accessories/Nike") 
                                             b Nike
                                         li
-                                        a.dropdown-item(href="/otheracc") 
+                                        a.dropdown-item(href="/Accessories/Other") 
                                             b Other
                                         li
 
-        
+        if showSidebar
+            .container.rounded
+                .row
+                    .col-lg-12
+                        aside.sidebar.row
+                            .col-lg-12
+                                .offcanvas-lg.offcanvas-start#bdSidebar(aria-labelledby="bdSidebarOffcanvasLabel")
+                                    .accordion
+                                        .accordion-item
+                                            h5.accordion-header#headingOne
+                                                button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseOne.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseOne.accordion-collapse.collapse")
+                                                    b Gender
+                                            #collapseOne.accordion-collapse.collapse.show(aria-labelledby="headingOne")
+                                                .accordion-body#gender
 
+                                    .accordion
+                                        .accordion-item
+                                            h5.accordion-header#headingTwo
+                                                button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseTwo.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseTwo.accordion-collapse.collapse")
+                                                    b Brand
+                                            #collapseTwo.accordion-collapse.collapse.show(aria-labelledby="headingTwo")
+                                                .accordion-body#brand
+
+
+                                    .accordion
+                                        .accordion-item
+                                            h5.accordion-header#headingThree
+                                                button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseThree.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseThree.accordion-collapse.collapse")
+                                                    b Size
+                                            #collapseThree.accordion-collapse.collapse.show(aria-labelledby="headingThree")
+                                                .accordion-body#sizes
+
+                                    .accordion
+                                        .accordion-item
+                                            h5.accordion-header#headingFour
+                                                button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseFour.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseThree.accordion-collapse.collapse")
+                                                    b Price
+                                            #collapseFour.accordion-collapse.collapse.show(aria-labelledby="headingFour")
+                                                .accordion-body#price
 
         block content

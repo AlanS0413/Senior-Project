@@ -11,6 +11,13 @@ block content
                 script.
                     loadProducts();
                     sideBarGen();
+                    searchItems();
+                    window.onload = function() {
+                        var searchBar = document.getElementById('searchform');
+                        searchBar.onfocus = function() {
+                            this.value = '';
+                        };
+                    };
 
                     jQuery(document).ready(function() {
                             jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});

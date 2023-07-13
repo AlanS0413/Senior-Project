@@ -103,6 +103,21 @@ class ProductDB{
         return brands_id;
     }
 
+    async findBySize(size) {
+        const size_id = await this.db.readNonDupes('Products', [{ column: 'size', value: size }]);
+        return size_id;
+    }
+
+    async findByGender(gender) {
+        const gender_id = await this.db.readNonDupes('Products', [{ column: 'gender', value: gender }]);
+        return gender_id;
+    }
+
+    async findByPrice(price) {
+        const price_id = await this.db.readNonDupes('Products', [{ column: 'price', value: price }]);
+        return price_id;
+    }
+
     async findUserByUserName(username) {
         const us = await this.db.read('Users', [{ column: 'username', value: username }]);
         if (us.length > 0) return us[0];

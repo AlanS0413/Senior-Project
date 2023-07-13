@@ -10,7 +10,27 @@ h1 {
     background-color: transparent!important;
 }
 
-
+#searchform {
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-control {
+    flex: 1;
+    margin-bottom: 5%;
+  }
+  
+  .input-group-append {
+    display: flex;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+  
+  .btn-outline-success {
+    margin-left: 5px;
+    margin-bottom: 5%;
+  }
 
 h3.dropdown-spacing {
     color: black;
@@ -83,6 +103,11 @@ a.btn.btn-outline-primary.btn-md{
 
 ul.navbar.navbar-expand-sm.bars {
     background-color: black;
+}
+
+button.btn.btn-outline-success.my-1{
+    margin-right: auto;
+
 }
 
 ul.nav.nav-pills.flex-row {
@@ -326,7 +351,7 @@ a.text-black {
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 1px;
 }
-.barbody.text-black{
+.barbody.brand-buttons{
     float: right;
 }
 
@@ -358,7 +383,7 @@ label.pricebodylabels{
     text-decoration: none;
     font-weight: bold;
 }
-.pricebodylabels.text-black{
+.pricebodylabels.price-buttons{
     float: right;
 }
 .accordion-body#gender{
@@ -452,4 +477,26 @@ label.pricebodylabels{
 
 .barbody[type="checkbox"]:checked::before {
     opacity: 1;
+}
+input#searchform{
+    margin: 20px 10px 10px;
+    padding: 5px;
+}
+
+button#searchbtn{
+    margin-top: 10px;
+}
+
+li#cartbutton{
+    margin: 0;
+    padding: 0;
+}
+
+li#logoutbutton{
+    padding: 0;
+    margin: 0;
+}
+li#logouttext{
+    padding: 0;
+    margin: 0;
 }

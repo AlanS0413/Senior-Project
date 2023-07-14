@@ -42,11 +42,9 @@ router.post('/addproduct', upload.single('csvFile'), async (req, res) => {
             const csvStream = fastcsv.parse({ headers: true })
                 .on("data", function (data) {
                     csvData.push(data);
-                    console.log(csvData, ('Data'))
                 })
                 .on("end", async function () {
                     for (const record of csvData) {
-                        console.log(record, "record")
                         const newProduct = await db.addProduct(
                             record.brand,
                             record.title,

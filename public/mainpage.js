@@ -9,7 +9,6 @@ function addProducts() {
       }
     },
     error: function (xhr, status, error) {
-      console.log(data)
       console.error('Error fetching data:', error);
     }
   });
@@ -66,7 +65,6 @@ const loadBrandProducts = async () => {
   if (response && response.data) {
     // Filter products by the specific brand
     const brandProducts = response.data.filter(product => product.brand.toLowerCase() === brand);
-    console.log(brandProducts, "Brand products")
     for (const product of brandProducts) {
       const ubodyli = document.createElement('li');
       ubodyli.innerHTML = `
@@ -178,7 +176,6 @@ const sideBarGen = async () => {
     
       // Get active genders
       const activeGenders = Array.from(document.querySelectorAll('.gender-button.active')).map(button => button.getAttribute('data-gender-key'));
-      console.log(activeGenders, "activeGenders")
       if (activeGenders.length > 0) {
         filteredProducts = filteredProducts.filter(product => activeGenders.includes(product.gender));
         refreshThumbnails();
@@ -189,12 +186,10 @@ const sideBarGen = async () => {
       if (activeBrands.length > 0) {
         filteredProducts = filteredProducts.filter(product => activeBrands.includes(product.brand));
         refreshThumbnails();
-        console.log(activeBrands, "activeBrands")
       }
     
       // Get active sizes
       const activeSizes = Array.from(document.querySelectorAll('.size-button.active')).map(button => button.textContent);
-      console.log(activeSizes, "activeSizes")
       if (activeSizes.length > 0) {
         filteredProducts = filteredProducts.filter(product => activeSizes.includes(product.size));
         refreshThumbnails();
@@ -393,7 +388,6 @@ const searchItems = async () => {
     event.preventDefault();
 
     var searchTerm = form.querySelector("input[type='search']").value;
-    console.log(searchTerm, "searchTerm")
 
     var filteredProducts = response.data.filter(product =>
       product.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -13,13 +13,14 @@ app.use(express.urlencoded({extended: true}));
 app.use((req, res, next) => {
     req.db = db;
     next();
-  });
+});
 app.use(session({
     secret: 'cmps450',
     resave: false,
     saveUninitialized: true,
     cookie: {secure: false}
 }));
+
 
 app.use((req, res, next)=>{
     if (req.session.Admin) {
@@ -85,6 +86,5 @@ app.use('/', require('./routes/brands'));
 
 
 app.listen(8080, () => {
-
     console.log("Server is running on port 8080")
 });

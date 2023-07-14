@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const AWS = require('aws-sdk');
-const ProductDB = require('C:\\Users\\Alan\\Documents\\School\\Senior Project\\database.js');
+const ProductDB = require('../database.js');
 const db = new ProductDB();
 
 
@@ -9,13 +9,14 @@ router.get('/', async (req, res) => {
     const brands = ['Jordan', 'Yeezy', 'Nike', 'Supreme', 'Sp5der'];
     const product_brands = await req.db.findByBrands(brands);
     const productsByBrand = await req.db.findAllProducts();
+    const dbRefresh = await req.db.updateProductStock()
 
     res.render('homepage', {
         title: 'Homepage',
         show_login: true,
         at_Home: true,
         showSidebar: true,
-        product_brands,productsByBrand,
+        product_brands,productsByBrand,dbRefresh,
         getS3ImageUrl: filename => {
             const s3 = new AWS.S3({
                 accessKeyId: 'AKIATS4FQMQJ2PPI3N5X',

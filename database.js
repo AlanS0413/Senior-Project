@@ -18,9 +18,21 @@ class ProductDB{
             {name: 'sku', type: 'INTEGER'},
             {name: 'size', type: 'TEXT'},
             {name: 'gender', type: 'TEXT'},
-            {name: 'stock', type: 'TEXT'},
+            {name: 'stock', type: 'INTEGER'},
             {name: 'itemtype', type: 'TEXT'},
             {name: 'condition', type: 'TEXT'}
+        ], 'id')
+
+        await this.db.schema('Cart', [
+            {name: 'id', type: 'INTEGER'},
+            {name: 'cart_id', type: 'INTEGER'},
+            {name: 'product', type: 'TEXT'},
+            {name: 'quantity', type: 'INTEGER'},
+            {name: 'size', type: 'INTEGER'},
+            {name: 'price', type: 'INTEGER'},
+            {name: 'sku', type: 'INTEGER'},
+            {name: 'brand', type: 'TEXT'},
+            {name: 'stock', type: 'INTEGER'}
         ], 'id')
 
         await this.db.schema('Users', [
@@ -140,6 +152,57 @@ class ProductDB{
             creatercnj = await this.db.createUser('admin', 'admin', 'cmps450', 'rcnj');
             else
                 return undefined;
+    }
+
+    async addToCart(cart_id, product, quantity, size, price, sku, brand, stock) {
+        const id = await this.db.create('Cart',[
+            {column: 'cart_id', value: cart_id},
+            {column: 'product', value: product},
+            {column: 'quantity', value: quantity},
+            {column: 'size', value: size},
+            {column: 'price', value: price},
+            {column: 'sku', value: sku},
+            {column: 'brand', value: brand},
+            {column: 'stock', value: stock},
+        ], 'id');
+        return id;
+    }
+
+    async getCartItems(cart_id) {
+        const cart = await this.db.read('Cart', [{column: 'cart_id', value: cart_id}])
+
+        return cart;
+    }
+
+    async getItemFromCart(cart_id, product) {
+        const cart = await this.db.read('Cart', [{column: 'cart_id', value: cart_id},{column: 'product', value: product}])
+        return cart;
+    }
+
+    async updateItemQuantity(cart_id,product, quantity) {
+        const cart = await this.db.read('Cart', [{column: 'cart_id', value: cart_id}, {column: 'product', value: product}, {column: 'quantity', value: quantity}])
+        return cart;
+    }
+
+    async updateProductStock(sku, size, quantity) {
+        try {
+            // Find existing product by SKU and size
+            let product = await this.db.query('SELECT * FROM Products WHERE sku = ? AND size = ?', [sku, size]);
+    
+            // If product exists, update the stock
+            if (product.length > 0) {
+                let newStock = product[0].stock - quantity;
+                await this.db.query('UPDATE Products SET stock = ? WHERE sku = ? AND size = ?', [newStock, sku, size]);
+            } else {
+                // If product doesn't exist, you may want to handle this situation. 
+                // For example, you can throw an error or create a new product entry.
+            }
+            // Commit transaction if everything is fine
+            await this.db.commit();
+        } catch (error) {
+            // If anything goes wrong, rollback the transaction
+            throw error;
+        }
     }
 
 

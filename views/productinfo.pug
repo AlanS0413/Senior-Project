@@ -11,32 +11,41 @@ block content
                 .row.justify-content-center
                     .col-lg-4
                         img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style="max-width: 80%; height: auto;")
+                        input(type='hidden', name='sku', value=`${product.sku}`)
                     .col-lg-3
                         .row
                             .col-12.textcap
                                 h4.card-title.text-start
                                     b= `${product.brand}`
+                                    input(type='hidden', name='brand', value=`${product.brand}`)
                                 p.text-start
                                     b= `${product.title}`
+                                    input(type='hidden', name='title', value=`${product.title}`)
                                 p.text-start
                                     b= `$${product.price}`
+                                    input(type='hidden', name='price', value=`${product.price}`)
                         .row
                             .col-12.my-2
                                 label.text-black.text-start(for="sizing-dropdown") Size
                                 br
                                 select#sizing-dropdown(name="size")
-                                    option(value=`${product.size}`)= `${product.size}`
+                                    - for (var i = `${product.size}`; i <= product.size; i++)
+                                            option(value=i)= i
                         .row
                             .col-12.my-2
                                 label.text-black.text-start(for="condition-dropdown") Condition
                                 br
                                 select#condition-dropdown(name="condition")
-                                    option(value=`${product.condition}`)= `${product.condition}`
+                                    - for (var i = `${product.condition}`; i <= product.condition; i++)
+                                            option(value=i)= i
                         .row
                             .col-12.my-2
                                 label.text-black.text-start(for="quantity-dropdown") Quantity
                                 br
-                                input(name="quantity", value="1", type="number", max=`${product.stock}`, min="1")
+                                select(name="quantity")
+                                    - for (var i = 1; i <= product.stock; i++)
+                                        option(value=i)= i
+                                input(type='hidden', name='stock', value=`${product.stock}`)
                         .row
                             .col-12.my-2
                                 button.btn.btn-outline-success.btn-lg.cartbtn(type="submit") Add To Cart

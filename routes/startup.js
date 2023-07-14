@@ -9,14 +9,13 @@ router.get('/', async (req, res) => {
     const brands = ['Jordan', 'Yeezy', 'Nike', 'Supreme', 'Sp5der'];
     const product_brands = await req.db.findByBrands(brands);
     const productsByBrand = await req.db.findAllProducts();
-    const dbRefresh = await req.db.updateProductStock()
 
     res.render('homepage', {
         title: 'Homepage',
         show_login: true,
         at_Home: true,
         showSidebar: true,
-        product_brands,productsByBrand,dbRefresh,
+        product_brands,productsByBrand,
         getS3ImageUrl: filename => {
             const s3 = new AWS.S3({
                 accessKeyId: 'AKIATS4FQMQJ2PPI3N5X',

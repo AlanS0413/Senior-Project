@@ -184,26 +184,26 @@ class ProductDB{
         return cart;
     }
 
-    async updateProductStock(sku, size, quantity) {
-        try {
-            // Find existing product by SKU and size
-            let product = await this.db.query('SELECT * FROM Products WHERE sku = ? AND size = ?', [sku, size]);
+    // async updateProductStock(sku, size, quantity) {
+    //     try {
+    //         // Find existing product by SKU and size
+    //         let product = await this.db.query('SELECT * FROM Products WHERE sku = ? AND size = ?', [sku, size]);
     
-            // If product exists, update the stock
-            if (product.length > 0) {
-                let newStock = product[0].stock - quantity;
-                await this.db.query('UPDATE Products SET stock = ? WHERE sku = ? AND size = ?', [newStock, sku, size]);
-            } else {
-                // If product doesn't exist, you may want to handle this situation. 
-                // For example, you can throw an error or create a new product entry.
-            }
-            // Commit transaction if everything is fine
-            await this.db.commit();
-        } catch (error) {
-            // If anything goes wrong, rollback the transaction
-            throw error;
-        }
-    }
+    //         // If product exists, update the stock
+    //         if (product.length > 0) {
+    //             let newStock = product[0].stock - quantity;
+    //             await this.db.query('UPDATE Products SET stock = ? WHERE sku = ? AND size = ?', [newStock, sku, size]);
+    //         } else {
+    //             // If product doesn't exist, you may want to handle this situation. 
+    //             // For example, you can throw an error or create a new product entry.
+    //         }
+    //         // Commit transaction if everything is fine
+    //         await this.db.commit();
+    //     } catch (error) {
+    //         // If anything goes wrong, rollback the transaction
+    //         throw error;
+    //     }
+    // }
 
 
 }

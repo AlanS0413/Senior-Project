@@ -399,3 +399,50 @@ const searchItems = async () => {
     refreshThumbnails();
   });
 }
+
+const updateTotal = async() => {
+  const response = await fetch('/api/cart');
+  const cartItems = await response.json();
+  var total = 0;
+    var quantityElements = document.querySelectorAll(".cartQuantity");
+    quantityElements.forEach(quantityElement => {
+        var sku = quantityElement.getAttribute('data-sku');
+        var item = cartItems.find(item => item.sku === sku);
+        var quantity = parseInt(quantityElement.value);
+        total += item.price * quantity;
+    });
+    document.querySelector("#totalPrice").innerText = "$" + total.toFixed(2);
+
+  window.onload = updateTotal;
+}
+
+
+let count = localStorage.getItem("cartCount") || 0;
+
+const stockNumbers = async () => {
+  const itemstock = document.getElementById("stock");
+  const form = document.getElementById("cartForm");
+  const messageContainer = document.getElementById("messageContainer");
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    count++;
+    const stock = parseInt(itemstock.value);
+
+    if (count <= stock) {
+      // Display success message
+      messageContainer.textContent = "Item added to cart successfully.";
+      form.submit();
+      console.log(count, "count if");
+    } else {
+      // Display error message
+      messageContainer.textContent = "Not enough stock. Please select a lower quantity.";
+      form.disabled = true;
+      window.addEventListener("beforeunload", function() {
+        localStorage.removeItem("cartCount"); // Clear the count when leaving the page
+      });
+    }
+    localStorage.setItem("cartCount", count); // Store the updated count in local storage
+  });
+  console.log(count, "count stock");
+};

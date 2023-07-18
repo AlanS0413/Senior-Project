@@ -168,42 +168,58 @@ class ProductDB{
         return id;
     }
 
-    async getCartItems(cart_id) {
+    async getCart(cart_id) {
         const cart = await this.db.read('Cart', [{column: 'cart_id', value: cart_id}])
 
         return cart;
     }
 
-    async getItemFromCart(cart_id, product) {
-        const cart = await this.db.read('Cart', [{column: 'cart_id', value: cart_id},{column: 'product', value: product}])
-        return cart;
-    }
-
-    async updateItemQuantity(cart_id,product, quantity) {
-        const cart = await this.db.read('Cart', [{column: 'cart_id', value: cart_id}, {column: 'product', value: product}, {column: 'quantity', value: quantity}])
-        return cart;
-    }
-
-    // async updateProductStock(sku, size, quantity) {
-    //     try {
-    //         // Find existing product by SKU and size
-    //         let product = await this.db.query('SELECT * FROM Products WHERE sku = ? AND size = ?', [sku, size]);
+    async getItemFromCart(cart_id, size, sku) {
+        const cartItems = await this.db.read('Cart', [
+            {column: 'cart_id', value: cart_id},
+            {column: 'size', value: size},
+            {column: 'sku', value: sku}
+        ])
     
-    //         // If product exists, update the stock
-    //         if (product.length > 0) {
-    //             let newStock = product[0].stock - quantity;
-    //             await this.db.query('UPDATE Products SET stock = ? WHERE sku = ? AND size = ?', [newStock, sku, size]);
-    //         } else {
-    //             // If product doesn't exist, you may want to handle this situation. 
-    //             // For example, you can throw an error or create a new product entry.
-    //         }
-    //         // Commit transaction if everything is fine
-    //         await this.db.commit();
-    //     } catch (error) {
-    //         // If anything goes wrong, rollback the transaction
-    //         throw error;
-    //     }
-    // }
+        if (cartItems && cartItems.length > 0) {
+            // If the cartItems array is not empty, return the first item
+            return cartItems[0];
+        } else {
+            // If the cartItems array is empty, return null
+            return null;
+        }
+    }
+
+    async updateItemQuantity(cart_id, product, size, sku, quantityToAdd) {
+        // First, fetch the current quantity
+        const currentCartItems = await this.db.read('Cart', [
+            {column: 'cart_id', value: cart_id},
+            {column: 'product', value: product},
+            {column: 'size', value: size},
+            {column: 'sku', value: sku}
+        ]);
+        let currentQuantity = 0;
+        if(currentCartItems && currentCartItems.length > 0){
+            currentQuantity = currentCartItems[0].quantity;
+        }
+    
+        // Calculate the new quantity
+        const newQuantity = currentQuantity + quantityToAdd;
+    
+        // Update the quantity
+        await this.db.update('Cart', [
+            { column: 'quantity', value: newQuantity }
+        ], [
+            { column: 'cart_id', value: cart_id },
+            { column: 'product', value: product },
+            { column: 'size', value: size },
+            { column: 'sku', value: sku }
+        ]);
+    }
+
+    async removeFromCart(cart_id, sku, size) {
+        await this.db.delete('Cart', [{ column: 'cart_id', value: cart_id }, { column: 'sku', value: sku },{ column: 'size', value: size }]);
+    }
 
 
 }

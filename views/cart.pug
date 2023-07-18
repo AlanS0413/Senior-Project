@@ -13,38 +13,43 @@ block content
         .container.rounded
                 .row
                     .col-12
-                        form.form(action='/cart', method='GET')
-                            ul
-                                each product in cartItems
-                                    .container#cart.justify-content-center.rounded
-                                        .row.lg-3
-                                            .col-lg-4
-                                                img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style="max-width: 80%; height: auto;")
-                                            .col-lg-4
-                                                p
-                                                    b=`${product.brand}`
-                                                p
-                                                    b=`${product.product} - $${product.price}`
-                                                p
-                                                    label#cartQuantity.text-black.text-start 
-                                                    b Quantity:
-                                                        select#cartQuantity(name="quantity")
-                                                            option(value= `${product.stock}`, type="number", max=`${product.stock}`, min=`${product.quantity}`)= `${product.quantity}`
-                                            .col-6
-                                            br
-                                            hr
-                                        .row.lg-3
+                        ul
+                            each product in cartItems
+                                .container#cart.justify-content-center.rounded
+                                    .row.lg-3
+                                        .col-lg-4
+                                            img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style="max-width: 80%; height: 80%;")
+                                        .col-lg-4
                                             p
-                                                button.btn.btn-danger.float-right(type="submit")= 'Remove'
-                                p.text-end
-                                    b Total: $#{totalPrice}
-                                    br
-                                    button.btn.btn-success.float-left.my-2(type="submit")= 'Checkout'
+                                                b=`${product.brand}`
+                                            p
+                                                b=`${product.product} - $${product.price}`
+                                            p
+                                                b=`${product.size}`
+                                            p
+                                                form.form(action='/cart', method='GET')
+                                                    label#cartQuantity.text-black.text-start
+                                                    b Quantity:
+                                                        select.cartQuantity(name="quantity", onchange='updateTotal()', data-sku=`${product.sku}`)
+                                                            - for (var i = 1; i <= Math.min(product.stock, 20); i++)
+                                                                option(value=i, selected=i==product.quantity)= i
+                                        .col-lg-4.d-flex.justify-content-end
+                                            p.text-end
+                                                form(action=`/cart/${product.sku}/${product.size}`, method="POST")
+                                                    button.btn.btn-danger(id="removerCartItem", type="submit")= 'Remove'
+                                        .col-lg-4
+                                        br
+                                        hr
+                        form(action='/checkout', method="POST")
+                            p.text-end
+                                b Total: 
+                                    span(id="totalPrice") $0.00
+                                br
+                                button.btn.btn-success.float-left.my-2(type="submit")= 'Checkout'
 
                                     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM", crossorigin="anonymous")
                                     script.
+                                        updateTotal();
                                         jQuery(document).ready(function() {
                                                 jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
                                         });
-
-

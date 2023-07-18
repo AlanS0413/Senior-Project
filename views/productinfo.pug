@@ -7,7 +7,7 @@ mixin getProductBySku(product)
 block content
     body
         .container-fluid
-            form(action="/cart" method="POST")
+            form#cartForm(action="/cart" method="POST")
                 .row.justify-content-center
                     .col-lg-4
                         img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style="max-width: 80%; height: auto;")
@@ -45,10 +45,16 @@ block content
                                 select(name="quantity")
                                     - for (var i = 1; i <= product.stock; i++)
                                         option(value=i)= i
-                                input(type='hidden', name='stock', value=`${product.stock}`)
+                                input(id="stock", type='hidden', name='stock', value=`${product.stock}`)
+                                input(type='hidden', name='quantity', value=`${product.quantity}`)
                         .row
                             .col-12.my-2
-                                button.btn.btn-outline-success.btn-lg.cartbtn(type="submit") Add To Cart
+                                button.btn.btn-outline-success.btn-lg.cartbtn(id= "addToCart",type="submit") Add To Cart
+                                div#messageContainer
+
+
+                            script.
+                                stockNumbers()
 
 
 

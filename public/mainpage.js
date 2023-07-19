@@ -433,7 +433,6 @@ const stockNumbers = async () => {
       // Display success message
       messageContainer.textContent = "Item added to cart successfully.";
       form.submit();
-      console.log(count, "count if");
     } else {
       // Display error message
       messageContainer.textContent = "Not enough stock. Please select a lower quantity.";
@@ -444,5 +443,4 @@ const stockNumbers = async () => {
     }
     localStorage.setItem("cartCount", count); // Store the updated count in local storage
   });
-  console.log(count, "count stock");
 };

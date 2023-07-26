@@ -60,7 +60,7 @@ html
         if at_Home
             .container
                 .row.justify-content-center
-                    .col-12.col-md-12.col-lg-12.col-sm-12.text-center.text-md-end
+                    .col-lg-12.col-md-8.text-center.col-sm-8.text-center
                         ul.nav.flex-row.justify-content-center
                             li.nav-item
                                 h3.dropdown-spacing
@@ -106,21 +106,20 @@ html
                                         a.dropdown-item(href="/Accessories/Other") 
                                             b Other
         else 
-            .container
-                .row
-                    .col-1.text-center
-                        ul.nav.justify-content-center.d-flex
-                            li.nav-item.dropdown.col-1
-                                h3.home-spacing
-                                    a.nav-link.active.text-black(href="/")  
-                                        b Home
-                    .col-12.col-md-10.col-lg-11.col-sm-10.text-center
-                        ul.nav.justify-content-center 
+            .container-fluid
+                .row.justify-content-center
+                    .col-lg-12.col-md-8.text-center.col-sm-3.text-center
+                        ul.nav.justify-content-center
                             li.nav-item
-                                h3.dropdown-spacing.col-3.homepad
+                                h3#Home.mx-3.dropdown-spacing
+                                    a.nav-link.active.text-black(type="button", href="/")
+                                        b Home
+                            li.nav-item
+                                h3#AllProducts.mx-3.dropdown-spacing
                                     a.nav-link.text-black(type="button", href="/AllProducts")  
                                         b All Products 
-                                h3.dropdown-spacing.col-2
+                            li.nav-item
+                                h3#Shoes.mx-3.dropdown-spacing
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false") 
                                         b Shoes 
                                     ul.dropdown-menu
@@ -134,7 +133,8 @@ html
                                         a.dropdown-item(href="/Footwear/Yeezy") 
                                             b Yeezy
                                         li
-                                h3.dropdown-spacing.col-3
+                            li.nav-item
+                                h3#Clothing.mx-2.dropdown-spacing
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")
                                         b Clothing
                                     ul.dropdown-menu(id="Clothing")
@@ -148,7 +148,8 @@ html
                                         a.dropdown-item(href="/Clothing/Sp5der") 
                                             b Sp5der
                                         li
-                                h3.dropdown-spacing.col-1
+                            li.nav-item
+                                h3#Accessories.mx-1.dropdown-spacing
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false") 
                                         b Accessories
                                     ul.dropdown-menu(id="Accessories")
@@ -164,43 +165,41 @@ html
                                         li
 
         if showSidebar
-            .container.rounded
-                .row
-                    .col-lg-12
-                        aside.sidebar.row
-                            .col-lg-12
-                                .offcanvas-lg.offcanvas-start#bdSidebar(aria-labelledby="bdSidebarOffcanvasLabel")
-                                    .accordion
-                                        .accordion-item
-                                            h5.accordion-header#headingOne
-                                                button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseOne.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseOne.accordion-collapse.collapse")
-                                                    b Gender
-                                            #collapseOne.accordion-collapse.collapse.show(aria-labelledby="headingOne")
-                                                .accordion-body#gender
+            .container#sidebar.rounded.d-none.d-xxl-block
+                aside.sidebar
+                        .col-xxl-12.col-xl-12.col-lg-12
+                            .offcanvas-lg.offcanvas-start#bdSidebar(aria-labelledby="bdSidebarOffcanvasLabel")
+                                .accordion
+                                    .accordion-item
+                                        h5.accordion-header#headingOne
+                                            button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseOne.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseOne.accordion-collapse.collapse")
+                                                b Gender
+                                        #collapseOne.accordion-collapse.collapse.show(aria-labelledby="headingOne")
+                                            .accordion-body#gender
 
-                                    .accordion
-                                        .accordion-item
-                                            h5.accordion-header#headingTwo
-                                                button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseTwo.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseTwo.accordion-collapse.collapse")
-                                                    b Brand
-                                            #collapseTwo.accordion-collapse.collapse.show(aria-labelledby="headingTwo")
-                                                .accordion-body#brand
+                                .accordion
+                                    .accordion-item
+                                        h5.accordion-header#headingTwo
+                                            button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseTwo.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseTwo.accordion-collapse.collapse")
+                                                b Brand
+                                        #collapseTwo.accordion-collapse.collapse.show(aria-labelledby="headingTwo")
+                                            .accordion-body#brand
 
 
-                                    .accordion
-                                        .accordion-item
-                                            h5.accordion-header#headingThree
-                                                button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseThree.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseThree.accordion-collapse.collapse")
-                                                    b Size
-                                            #collapseThree.accordion-collapse.collapse.show(aria-labelledby="headingThree")
-                                                .accordion-body#sizes
+                                .accordion
+                                    .accordion-item
+                                        h5.accordion-header#headingThree
+                                            button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseThree.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseThree.accordion-collapse.collapse")
+                                                b Size
+                                        #collapseThree.accordion-collapse.collapse.show(aria-labelledby="headingThree")
+                                            .accordion-body#sizes
 
-                                    .accordion
-                                        .accordion-item
-                                            h5.accordion-header#headingFour
-                                                button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseFour.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseThree.accordion-collapse.collapse")
-                                                    b Price
-                                            #collapseFour.accordion-collapse.collapse.show(aria-labelledby="headingFour")
-                                                .accordion-body#price
+                                .accordion
+                                    .accordion-item
+                                        h5.accordion-header#headingFour
+                                            button.accordion-button.text-black(data-bs-parent="accordian", type="button", data-bs-toggle="collapse", data-bs-target="#collapseFour.accordion-collapse.collapse", aria-expanded="false", aria-controls="#collapseThree.accordion-collapse.collapse")
+                                                b Price
+                                        #collapseFour.accordion-collapse.collapse.show(aria-labelledby="headingFour")
+                                            .accordion-body#price
 
         block content

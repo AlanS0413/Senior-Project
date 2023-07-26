@@ -2,37 +2,37 @@ extends layout.pug
 block content
     body
         .container.my-5
-                .card.col-lg-5.mx-auto.rounded.log.cardopacity
+                .card.col-lg-5.col-md-8.col-sm-12.mx-auto.rounded.log.cardopacity
                     .card-header
                         h1.card-title.text-black
                             b Sign in
                             form.form(action="/account", method = "post") 
-                                .container.row.justify-content-center.my-2
+                                .container.row.justify-content-around
                                     .row
-                                        .col-lg-4
-                                            label.text-black(for="username") 
+                                        .col-lg-12.col-md-12.col-sm-12
+                                            label.text-black(for="username")
                                                 b Username
                                                 input(type="text" name="username").rounded.forminput.bg-danger.bg-gradient
-                                    .row    
-                                        .col-lg-4
-                                            label.text-black(for="password") 
+                                    .row
+                                        .col-lg-12.col-md-12.col-sm-12
+                                            label.text-black(for="password")
                                                 b Password
                                                 input(type="password" name="password").rounded.forminput.bg-danger.bg-gradient
                                     .row
-                                        .col-12.my-2.text-center
+                                        .col-lg-12.col-md-12.col-sm-12.my-2.text-center
                                             button.btn.btn-outline-primary.text-black.btn-lg(type="submit")
                                                 b Sign in
                                                     if message 
                                                         p #{message}
                                     .row
-                                        .col-12.my-2.text-center
+                                        .col-lg-12.col-md-12.col-sm-12.my-2.text-center
                                             a.btn.btn-outline-danger.btn-lg(href='/') 
                                                 b Nevermind
                                     .row
-                                        .col-12.my-2.text-center
+                                        .col-lg-12.col-md-12.col-sm-12.my-2.text-center
                                             span.text-black.accttext.mx-auto 
                                                 b Don't have an account yet?
-                                        .col-12.my-2.text-center
+                                        .col-lg-12.col-md-12.col-sm-12.my-2.text-center
                                             a.btn.btn-outline-primary.btn-md.text-black.btn-lg(href='/signup') 
                                                 b Sign up Here!
                                         p

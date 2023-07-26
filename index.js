@@ -4,11 +4,15 @@ const Database = require('./database.js');
 const db = new Database('product.db');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const paypal = require('paypal-rest-sdk');
+
+
 db.initialize();
 const router = express.Router();
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
+
 
 app.use((req, res, next) => {
     req.db = db;
@@ -68,6 +72,21 @@ app.get('/data', async (req, res) => {
     const data = await req.db.findAllProducts();
     res.json(data);
 });
+app.post('/data', function(req, res) {
+    var transactionData = req.body.transactionData;
+    var cartItems = req.body.cartItems;
+
+    // Update the database
+    cartItems.forEach(item => {
+        db.products.update(
+            { stock: db.literal('stock - ' + item.quantity) },
+            { where: { id: item.productId } }
+        );
+    });
+
+    // Respond to the client
+    res.json({ success: true });
+});
 app.use('/', require('./routes/startup'));
 app.use('/', require('./routes/account'));
 app.use('/', require('./routes/logout'));
@@ -84,7 +103,6 @@ app.use('/', require('./routes/brands'));
 
 
 
-
-app.listen(8080, () => {
-    console.log("Server is running on port 8080")
+app.listen(8888, () => {
+    console.log("Server is running on port 8888")
 });

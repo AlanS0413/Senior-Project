@@ -41,15 +41,59 @@ block content
                                         br
                                         hr
                         form(action='/checkout', method="POST")
-                            p.text-end
-                                b Total: 
-                                    span(id="totalPrice") $0.00
-                                br
-                                button.btn.btn-success.float-left.my-2(type="submit")= 'Checkout'
+                            .col-lg-12.col-md-10.col-sm-8.col-xs-12
+                                p.text-end
+                                    b Total: 
+                                        span(id="totalPrice") $0.00
+                                #paypal-button-container
+                            .col-lg-3
+
 
                                     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM", crossorigin="anonymous")
+                                    script(src="https://www.paypal.com/sdk/js?client-id=Af2AfpaS9hVvqkAmIYFgjes8XN00wOtPtfFvO1KVhkPdRIWyeRkEEPRXpkikeItaowW63b4OwBX5x1Bz&components=buttons")
                                     script.
-                                        updateTotal();
                                         jQuery(document).ready(function() {
                                                 jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
                                         });
+                                        paypal.Buttons({
+                                            createOrder: function(data, actions) {
+                                                var totalPrice = document.getElementById('totalPrice').textContent.replace('$', '');
+                                                totalPrice = parseFloat(totalPrice).toFixed(2); 
+
+                                                return actions.order.create({
+                                                    purchase_units: [{
+                                                        amount: {
+                                                            value: totalPrice
+                                                        }
+                                                    }]
+                                                });
+                                            },
+                                            onApprove: function(data, actions) {
+                                                return actions.order.capture().then(function(details) {
+                                                    alert('Transaction completed by ' + details.payer.name.given_name);
+
+                                                    // Now, we will make a call to the server to record this transaction
+                                                    fetch('/data', {
+                                                        method: 'POST', 
+                                                        headers: {
+                                                            'Content-Type': 'application/json',
+                                                        },
+                                                        body: JSON.stringify({
+                                                            transactionData: details,
+
+                                                        }),
+                                                    })
+                                                    .then(function(response) {
+                                                        return response.json();
+                                                    })
+                                                    .then(function(data) {
+                                                        console.log('Success:', data);
+                                                        
+                                                    })
+                                                    .catch((error) => {
+                                                        console.error('Error:', error);
+                                                    });
+                                                });
+                                            }
+                                        }).render('#paypal-button-container');
+                                        updateTotal();

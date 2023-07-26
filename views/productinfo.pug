@@ -9,38 +9,38 @@ block content
         .container-fluid
             form#cartForm(action="/cart" method="POST")
                 .row.justify-content-center
-                    .col-lg-4
+                    .col-lg-4.col-md-4.col-sm-4.text-center.text-md-start
                         img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style="max-width: 80%; height: auto;")
                         input(type='hidden', name='sku', value=`${product.sku}`)
-                    .col-lg-3
+                    .col-md-3.col-sm-3.col-lg-3
                         .row
-                            .col-12.textcap
-                                h4.card-title.text-start
+                            .col-sm-12.text-center.text-md-start
+                                h4.card-title
                                     b= `${product.brand}`
                                     input(type='hidden', name='brand', value=`${product.brand}`)
-                                p.text-start
+                                p
                                     b= `${product.title}`
                                     input(type='hidden', name='title', value=`${product.title}`)
-                                p.text-start
+                                p
                                     b= `$${product.price}`
                                     input(type='hidden', name='price', value=`${product.price}`)
                         .row
-                            .col-12.my-2
-                                label.text-black.text-start(for="sizing-dropdown") Size
+                            .col-12.my-2.text-center.text-md-start
+                                label.text-black(for="sizing-dropdown") Size
                                 br
                                 select#sizing-dropdown(name="size")
                                     - for (var i = `${product.size}`; i <= product.size; i++)
                                             option(value=i)= i
                         .row
-                            .col-12.my-2
-                                label.text-black.text-start(for="condition-dropdown") Condition
+                            .col-12.my-2.text-center.text-md-start
+                                label.text-black(for="condition-dropdown") Condition
                                 br
                                 select#condition-dropdown(name="condition")
                                     - for (var i = `${product.condition}`; i <= product.condition; i++)
                                             option(value=i)= i
                         .row
-                            .col-12.my-2
-                                label.text-black.text-start(for="quantity-dropdown") Quantity
+                            .col-12.my-2.text-center.text-md-start
+                                label.text-black(for="quantity-dropdown") Quantity
                                 br
                                 select(name="quantity")
                                     - for (var i = 1; i <= product.stock; i++)
@@ -48,7 +48,7 @@ block content
                                 input(id="stock", type='hidden', name='stock', value=`${product.stock}`)
                                 input(type='hidden', name='quantity', value=`${product.quantity}`)
                         .row
-                            .col-12.my-2
+                            .col-12.my-2.text-center.text-md-start
                                 button.btn.btn-outline-success.btn-lg.cartbtn(id= "addToCart",type="submit") Add To Cart
                                 div#messageContainer
 

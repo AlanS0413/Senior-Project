@@ -10,7 +10,7 @@ router.get('/allproducts', async (req, res) => {
     return;
   }
 
-  res.render('allproducts', { allproducts: allproducts, title: "All Products", show_login: true, at_Home: false });
+  res.render('allproducts', { allproducts: allproducts, title: "All Products", show_login: true, at_Home: false, showSidebar: true });
 });
 
 

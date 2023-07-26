@@ -32,8 +32,18 @@ router.get('/addproduct', async (req, res) => {
     res.render('addproduct', { title: 'Inventory Management', show_login: true, at_Home: false});
 });
 
+const adminLogin = (req, res, next) =>
+{
+    if(req.session.Admin){
+        next();
+    }
+    else{
+        res.status(401).send('Not authorized');
+    }
+}
 
-router.post('/addproduct', upload.single('csvFile'), async (req, res) => {
+
+router.post('/addproduct', adminLogin, upload.single('csvFile'), async (req, res) => {
     try {
         const db = req.db;
         const csvData = [];

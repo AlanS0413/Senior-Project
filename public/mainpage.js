@@ -444,3 +444,8 @@ const stockNumbers = async () => {
     localStorage.setItem("cartCount", count); // Store the updated count in local storage
   });
 };
+
+const paypalCheckout = async () => {
+  paypal.Buttons().render('#paypal-buttons-container');
+
+}

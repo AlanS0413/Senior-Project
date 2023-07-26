@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router();
 
 
-
 router.get('/cart', async (req, res) => {
     const cartItems = await req.db.getCart(req.session.id)
     const inventory = await req.db.findAllProducts();
@@ -31,7 +30,7 @@ router.post('/cart', async (req, res) => {
 
     try {
         const existingItem = await req.db.getItemFromCart(cart_id, size, sku);
-        
+
         if (existingItem) {
             // Calculate the new quantity
             const newQuantity = quantity;
@@ -59,6 +58,7 @@ router.post('/cart/:sku/:size', async (req, res) => {
     await req.db.removeFromCart(req.session.id, req.params.sku,req.params.size);
     res.redirect('/cart');
 });
+
 
 
 

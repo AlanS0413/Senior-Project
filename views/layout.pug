@@ -16,7 +16,7 @@ html
 
     body
         if show_login
-            if user
+            if user || Admin
                 span
                     ul.navbar.navbar-expand-sm.bars
                         .container-fluid
@@ -28,32 +28,35 @@ html
                                             .input-group-append
                                                 button#searchbtn.btn.btn-outline-success.rounded(type="submit") Search
                             .navbar-nav.ml-auto
-                                li#logouttext.nav-item
-                                    span.nav-link.text-white
-                                        b Logged in as #{user.username}
+                                if Admin
+                                    li.nav-item
+                                        span.nav-link.text-white
+                                            b Logged in as Admin #{Admin.username}
+                                else if user
+                                    li.nav-item
+                                        span.nav-link.text-white
+                                            b Logged in as #{user.username}
                                 li#logoutbutton.nav-item
                                     a#logoutbutton.btn.btn-outline-danger.btn-md(href='/logout') Logout
                                 li#cartbutton.nav-item
                                     a.btn.btn-sm(href='/cart')
                                         img(src="https://www.dropbox.com/s/ywasy8lwkk2pldb/thenounproject.png?dl=1", alt="Cart", style="width: 40px; height: 40px;")
-
-
-
             else
                 ul.navbar.navbar-expand-sm.bars
-                        .container-fluid
-                            .navbar-nav.mr-auto
-                                li.nav-item
-                                    form#searchform(role="search")
-                                        .input-group
-                                        input#searchform.rounded( type="search", placeholder="Search", aria-label="Search")
-                                        .input-group-append
-                                            button#searchbtn.btn.btn-outline-success.rounded(type="submit") Search
-                            .navbar-nav.ml-auto
-                                a.btn.btn-md.mx-1(href='/account')
-                                    img(src="https://www.dropbox.com/s/160nat60id0a9ar/Account.jpg?dl=1", alt="Account login", style="width: 35px; height: 35px;")
-                                a.btn.btn-md(href='/cart')
-                                    img(src="https://www.dropbox.com/s/ywasy8lwkk2pldb/thenounproject.png?dl=1", alt="Cart", style="width: 35px; height: 35px;")
+                    .container-fluid
+                        .navbar-nav.mr-auto
+                            li.nav-item
+                                form#searchform(role="search")
+                                    .input-group
+                                    input#searchform.rounded(type="search", placeholder="Search", aria-label="Search")
+                                    .input-group-append
+                                        button#searchbtn.btn.btn-outline-success.rounded(type="submit") Search
+                        .navbar-nav.ml-auto
+                            a.btn.btn-md.mx-1(href='/account')
+                                img(src="https://www.dropbox.com/s/160nat60id0a9ar/Account.jpg?dl=1", alt="Account login", style="width: 35px; height: 35px;")
+                            a.btn.btn-md(href='/cart')
+                                img(src="https://www.dropbox.com/s/ywasy8lwkk2pldb/thenounproject.png?dl=1", alt="Cart", style="width: 35px; height: 35px;")
+
 
 
 

@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "@paypal/checkout-server-sdk": "^1.0.3",
         "@paypal/paypal-js": "^6.0.1",
         "ajax": "^0.0.4",
         "aws-sdk": "^2.1363.0",

@@ -7,6 +7,16 @@ const multer = require('multer');
 const fastcsv = require("fast-csv");
 const AWS = require('aws-sdk');
 
+function ensureAdmin(req, res, next) {
+    if (req.session.Admin) {
+        return next();
+    } else {
+        res.redirect('/account');
+    }
+}
+
+
+
 const s3 = new AWS.S3({
   accessKeyId: 'AKIATS4FQMQJ2PPI3N5X',
   secretAccessKey: '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',
@@ -28,7 +38,7 @@ function getS3ImageUrl(filename) {
 }
 
 const upload = multer({ storage: multer.memoryStorage() });
-router.get('/addproduct', async (req, res) => {
+router.get('/addproduct', ensureAdmin, async (req, res) => {
     res.render('addproduct', { title: 'Inventory Management', show_login: true, at_Home: false});
 });
 
@@ -43,7 +53,7 @@ const adminLogin = (req, res, next) =>
 }
 
 
-router.post('/addproduct', adminLogin, upload.single('csvFile'), async (req, res) => {
+router.post('/addproduct', ensureAdmin, upload.single('csvFile'), async (req, res) => {
     try {
         const db = req.db;
         const csvData = [];
@@ -115,7 +125,7 @@ router.post('/addproduct', adminLogin, upload.single('csvFile'), async (req, res
 });
 
 
-router.post('/product/:id/delete', async (req, res) => {
+router.post('/product/:id/delete', ensureAdmin, async (req, res) => {
     await req.db.deleteProduct(req.params.id);
     res.redirect('/');
 });

@@ -27,36 +27,19 @@ app.use(session({
 
 
 app.use((req, res, next)=>{
-    if (req.session.Admin) {
-        console.log(req.session.Admin, "Admin session")
-        Admin.findAdminByUsername(req.session.Admin.admin_id, (err, Admin) => {
-            if (err) {
-                return next(err);
-            }
-            if (!Admin) {
-                return next(new Error('Admin not found'));
-            }
-            res.locals.admin = {
-                id: Admin._id,
-                username: Admin.username
-            };
-            next();
-        });
-    } else {
-        next();
-    }
-});
-
-app.use((req, res, next)=>{
     if (req.session.user) {
         res.locals.user= {
             id: req.session.user.user_id,
             username: req.session.user.username
         }
+    }else if (req.session.Admin) {
+        res.locals.Admin= {
+            id: req.session.Admin.Admin_id,
+            username: req.session.Admin.username
+        }
     }
     next();
 });
-
 
 app.set('view engine', 'pug');
 
@@ -72,6 +55,7 @@ app.get('/data', async (req, res) => {
     const data = await req.db.findAllProducts();
     res.json(data);
 });
+
 app.post('/data', function(req, res) {
     var transactionData = req.body.transactionData;
     var cartItems = req.body.cartItems;
@@ -87,11 +71,13 @@ app.post('/data', function(req, res) {
     // Respond to the client
     res.json({ success: true });
 });
+
 app.use('/', require('./routes/startup'));
 app.use('/', require('./routes/account'));
 app.use('/', require('./routes/logout'));
 app.use('/', require('./routes/cart'));
 app.post('/cart');
+app.use('/', require('./routes/checkoutsuccess'));
 app.use('/', require('./routes/addproduct'));
 app.use('/', require('./routes/allproducts'))
 app.use('/', require('./routes/brandclothing'));
@@ -99,6 +85,7 @@ app.use('/', require('./routes/brandaccessories'));
 app.use('/', require('./routes/brandfootwear'));
 app.use('/', require('./routes/productinfo'));
 app.use('/', require('./routes/brands'));
+
 
 
 

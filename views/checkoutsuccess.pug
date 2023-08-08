@@ -1,0 +1,28 @@
+extends layout.pug
+
+block content
+    body
+        .row.text-center
+            .col-lg-12
+                h1
+                    b Thank you for your purchase!
+                    hr
+                h2
+                    b Transaction Details
+                    h3
+                        each item in transactionItems
+                            b= item.name + " x " + item.quantity + ": $" + item.unit_amount.value
+                h2
+                    hr
+                    b Shipping Details
+                p
+                    b #{transactionShipping.name.full_name}
+                    br
+                    b #{transactionShipping.address.address_line_1}
+                    br
+                    b #{transactionShipping.address.admin_area_2}
+                    br
+                    b #{transactionShipping.address.admin_area_1}
+                    br
+                    b #{transactionShipping.address.postal_code}
+                hr

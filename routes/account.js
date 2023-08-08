@@ -39,24 +39,23 @@ router.post('/account', async (req, res) => {
     const password = req.body.password.trim();
     const user = await req.db.findUserByUserName(username);
     const admin = await req.db.findAdminByUsername(username)
-    
-    if(admin && bcrypt.compareSync(password, admin.password)){
-        req.session.user = admin;
-        res.redirect('/');
-        return;
-    }
-    else if(!admin){
-        res.render('account', {show_login: false, message: 'Get outta here.'});
-        return;
-    }
 
     if(user && bcrypt.compareSync(password, user.password)){
         req.session.user = user;
         res.redirect('/');
         return;
     }
+    else if(admin && bcrypt.compareSync(password, admin.password)){
+        req.session.Admin = admin;
+        res.redirect('/');
+        return;
+    }
     else if(!user){
         res.render('account', {show_login: false, message: 'Could not find.'});
+        return;
+    }
+    else if(!admin){
+        res.render('account', {show_login: false, message: 'Get outta here.'});
         return;
     }
 });

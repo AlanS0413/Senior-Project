@@ -401,9 +401,9 @@ const searchItems = async () => {
 }
 
 const updateTotal = async() => {
-  const response = await fetch('/api/cart');
-  const cartItems = await response.json();
-  var total = 0;
+    const response = await fetch('/api/cart');
+    const { cartItems } = await response.json();
+    var total = 0;
     var quantityElements = document.querySelectorAll(".cartQuantity");
     quantityElements.forEach(quantityElement => {
         var sku = quantityElement.getAttribute('data-sku');
@@ -412,9 +412,9 @@ const updateTotal = async() => {
         total += item.price * quantity;
     });
     document.querySelector("#totalPrice").innerText = "$" + total.toFixed(2);
-
-  window.onload = updateTotal;
 }
+
+window.onload = updateTotal;
 
 
 let count = localStorage.getItem("cartCount") || 0;

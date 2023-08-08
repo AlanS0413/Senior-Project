@@ -73,6 +73,17 @@ class ProductDB{
     }
 
     async addProduct(brand, title, price, sku, size, stock, itemtype, condition, gender) {
+        const existingProduct = await this.db.productExists('Products', {
+            title: title,
+            sku: sku,
+            size: size,
+            itemtype: itemtype,
+            condition: condition
+        });
+    
+        if (existingProduct) {
+            return `Product with SKU ${sku} already exists and was skipped.`;
+        }
         const id = await this.db.create('Products', [
             {column: 'brand', value: brand},
             {column: 'title', value: title},
@@ -106,27 +117,27 @@ class ProductDB{
     }
 
     async findAllProducts() {
-        const products = await this.db.read('Products', []);
-        return products;
+        const products_id = await this.db.read('Products', []);
+        return products_id;
     }
 
     async findByBrands(brand) {
-        const brands_id = await this.db.readNonDupes('Products', [{ column: 'brand', value: brand }]);
+        const brands_id = await this.db.readDistinctTitles('Products', [{ column: 'brand', value: brand }]);
         return brands_id;
     }
 
     async findBySize(size) {
-        const size_id = await this.db.readNonDupes('Products', [{ column: 'size', value: size }]);
+        const size_id = await this.db.readDistinctTitles('Products', [{ column: 'size', value: size }]);
         return size_id;
     }
 
     async findByGender(gender) {
-        const gender_id = await this.db.readNonDupes('Products', [{ column: 'gender', value: gender }]);
+        const gender_id = await this.db.readDistinctTitles('Products', [{ column: 'gender', value: gender }]);
         return gender_id;
     }
 
     async findByPrice(price) {
-        const price_id = await this.db.readNonDupes('Products', [{ column: 'price', value: price }]);
+        const price_id = await this.db.readDistinctTitles('Products', [{ column: 'price', value: price }]);
         return price_id;
     }
 
@@ -174,11 +185,15 @@ class ProductDB{
         return cart;
     }
 
-    async getItemFromCart(cart_id, size, sku) {
+    async getItemFromCart(cart_id, product, quantity, size, price, sku) {
         const cartItems = await this.db.read('Cart', [
             {column: 'cart_id', value: cart_id},
+            {column: 'product', value: product},
+            {column: 'quantity', value: quantity},
             {column: 'size', value: size},
+            {column: 'price', value: price},
             {column: 'sku', value: sku}
+
         ])
     
         if (cartItems && cartItems.length > 0) {
@@ -219,6 +234,37 @@ class ProductDB{
 
     async removeFromCart(cart_id, sku, size) {
         await this.db.delete('Cart', [{ column: 'cart_id', value: cart_id }, { column: 'sku', value: sku },{ column: 'size', value: size }]);
+    }
+
+    async reduceProductStock(sku, quantityToSubtract) {
+        // First, fetch the current stock
+        const currentProduct = await this.db.read('Products', [
+            {column: 'sku', value: sku}
+        ]);
+    
+        let currentStock = 0;
+        if(currentProduct && currentProduct.length > 0){
+            currentStock = currentProduct[0].stock;
+        }
+    
+        // Check if there's enough stock
+        if (currentStock < quantityToSubtract){
+            throw new Error('Not enough stock');
+        }
+    
+        // Calculate the new stock
+        const newStock = currentStock - quantityToSubtract;
+    
+        // Update the stock
+        await this.db.update('Products', [
+            { column: 'stock', value: newStock }
+        ], [
+            { column: 'sku', value: sku }
+        ]);
+    }
+
+    async clearCart(cart_id) {
+        await this.db.delete('Cart', [{ column: 'cart_id', value: cart_id }]);
     }
 
 

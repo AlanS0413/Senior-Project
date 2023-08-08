@@ -39,13 +39,13 @@ block content
                                             .col-md-3
                                                 label(class="form-label", for = 'password').text-black  
                                                 b Password
-                                                input(class= "form-control", aria-labelledby="password",type = 'password' name = 'signuppassword' required pattern= "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}").log.text-black.bg-danger.bg-gradient
+                                                input(class= "form-control", aria-labelledby="password",type = 'password' name = 'signuppassword' required pattern= "^.{8,}$").log.text-black.bg-danger.bg-gradient
                                             .col-md-9
 
                                             .col-md-3
                                                 label(class="form-label",for = 'confirmpassword').text-black 
                                                 b Confirm Password
-                                                input(class= "form-control", aria-labelledby="confirmpassword",type = 'password' name = 'confirmpassword' required pattern= "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}").log.text-black.bg-danger.bg-gradient
+                                                input(class= "form-control", aria-labelledby="confirmpassword",type = 'password' name = 'confirmpassword' required pattern= "^.{8,}$").log.text-black.bg-danger.bg-gradient
                                             .col-md-9
                                             hr
 
@@ -54,8 +54,6 @@ block content
                                                 b Sign Up
                                             a.btn.btn-link-danger(href='/') 
                                                 b Nevermind
-                                        if message 
-                                            p #{message}
                                         p 
                                         b.text-black Already have an account?
                                             a.btn.btn-link(href='/login') 

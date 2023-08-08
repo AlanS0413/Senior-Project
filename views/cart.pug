@@ -23,14 +23,16 @@ block content
                                             p
                                                 b=`${product.brand}`
                                             p
-                                                b=`${product.product} - $${product.price}`
+                                                b#itemName=`${product.product} - $${product.price}`
                                             p
                                                 b=`${product.size}`
+                                            p
+                                                b#productsku=`${product.sku}`
                                             p
                                                 form.form(action='/cart', method='GET')
                                                     label#cartQuantity.text-black.text-start
                                                     b Quantity:
-                                                        select.cartQuantity(name="quantity", onchange='updateTotal()', data-sku=`${product.sku}`)
+                                                        select#cartQuantityTotal.cartQuantity(name="quantity", onchange='updateTotal()', data-sku=`${product.sku}`)
                                                             - for (var i = 1; i <= Math.min(product.stock, 20); i++)
                                                                 option(value=i, selected=i==product.quantity)= i
                                         .col-lg-4.d-flex.justify-content-end
@@ -45,8 +47,8 @@ block content
                                 p.text-end
                                     b Total: 
                                         span(id="totalPrice") $0.00
+                            .col-lg-4.mx-auto
                                 #paypal-button-container
-                            .col-lg-3
 
 
                                     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM", crossorigin="anonymous")
@@ -55,45 +57,77 @@ block content
                                         jQuery(document).ready(function() {
                                                 jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
                                         });
-                                        paypal.Buttons({
-                                            createOrder: function(data, actions) {
-                                                var totalPrice = document.getElementById('totalPrice').textContent.replace('$', '');
-                                                totalPrice = parseFloat(totalPrice).toFixed(2); 
+                                        fetch('/api/cart')
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                const cart_id = data.cart_id; // this is just the cart id
+                                                const cartItems = data.cartItems; // these are the actual items in the cart
 
-                                                return actions.order.create({
-                                                    purchase_units: [{
-                                                        amount: {
-                                                            value: totalPrice
+                                                paypal.Buttons({
+                                                    createOrder: function(data, actions) {
+                                                        let items = [];
+                                                        let total = 0;
+
+                                                        for (let i = 0; i < cartItems.length; i++) {
+                                                            let itemTotal = cartItems[i].quantity * cartItems[i].price; // calculate total for each item
+                                                            total += itemTotal; // accumulate totals for all items
+
+                                                            // push each item to the items array
+                                                            items.push({
+                                                                name: cartItems[i].product,
+                                                                quantity: cartItems[i].quantity.toString(),
+                                                                sku: cartItems[i].sku,
+                                                                category: "PHYSICAL_GOODS",
+                                                                unit_amount: {
+                                                                    currency_code: "USD",
+                                                                    value: cartItems[i].price.toFixed(2) // unit cost for an item
+                                                                }
+                                                            });
                                                         }
-                                                    }]
-                                                });
-                                            },
-                                            onApprove: function(data, actions) {
-                                                return actions.order.capture().then(function(details) {
-                                                    alert('Transaction completed by ' + details.payer.name.given_name);
 
-                                                    // Now, we will make a call to the server to record this transaction
-                                                    fetch('/data', {
-                                                        method: 'POST', 
-                                                        headers: {
-                                                            'Content-Type': 'application/json',
-                                                        },
-                                                        body: JSON.stringify({
-                                                            transactionData: details,
+                                                        total = total.toFixed(2); // format total as string with 2 decimal places
 
-                                                        }),
-                                                    })
-                                                    .then(function(response) {
-                                                        return response.json();
-                                                    })
-                                                    .then(function(data) {
-                                                        console.log('Success:', data);
-                                                        
-                                                    })
-                                                    .catch((error) => {
-                                                        console.error('Error:', error);
-                                                    });
-                                                });
-                                            }
-                                        }).render('#paypal-button-container');
+                                                        return actions.order.create({
+                                                            purchase_units: [{
+                                                                amount: {
+                                                                    value: total, // Total price for all items
+                                                                    breakdown: {
+                                                                        item_total: {
+                                                                            currency_code: "USD",
+                                                                            value: total // Total price for all items
+                                                                        }
+                                                                    }
+                                                                },
+                                                                items: items // add all items
+                                                            }]
+                                                        });
+                                                    },
+                                                    onApprove: function(data, actions) {
+                                                        return actions.order.capture().then(function(details) {
+
+                                                            // make a call to the server to record this transaction
+                                                            fetch('/transaction-success', {
+                                                                method: 'POST', 
+                                                                headers: {
+                                                                    'Content-Type': 'application/json',
+                                                                },
+                                                                body: JSON.stringify({
+                                                                    transactionData: details,
+                                                                }),
+                                                            })
+                                                            .then(function(response) {
+                                                                return response.json();
+                                                            })
+                                                            .then(function(data) {
+                                                                console.log('Success:', data);
+                                                                window.location.href = data.redirectUrl;
+                                                            })
+                                                            .catch((error) => {
+                                                                console.error('Error:', error);
+                                                            });
+                                                        });
+                                                    }
+                                                }).render('#paypal-button-container');
+                                            })
+                                            .catch(error => console.error('Error:', error));
                                         updateTotal();

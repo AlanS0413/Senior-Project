@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pug Documentation</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css" rel="stylesheet" />
+ 
+  <style>
+    html{
+      font-family: Lucida Grande;
+      margin: 10px;
+    }
+
+    @media (min-width: 860px){
+      html{
+        margin: 50px;
+      }
+    }
+
+    .page-title{
+      font-size: 30px;
+    }
+
+    .container{
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /**
+     * Doc item
+     */
+
+    .doc-item{
+      padding: 30px 0;
+    }
+
+    .doc-item__title{
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .doc-item__description{
+      font-size: 12px;
+      margin: 0;
+      border-radius: 3px;
+    }
+
+    .doc-item__file{
+      font-size: 10px;
+      padding: 2px;
+      display: inline-block;
+    }
+
+    .doc-item__meta-title{
+      font-size: 12px;
+      margin-top: 20px;
+    }
+
+    .doc-item__meta{
+      font-size: 11px;
+    }
+
+    .doc-item__meta ul{
+      margin: 0;
+      padding: 0;
+      list-style-position: inside;
+    }
+
+    .doc-item__meta ul ul{
+      margin-left: 15px;
+      margin-top: 5px;
+    }
+
+    .doc-item__meta li{
+      margin-bottom: 5px;
+    }
+
+
+
+    /**
+     * Code snippets
+     */
+
+    .code{
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (min-width: 860px){
+      .code .code__jade{
+        display: table-cell;
+        width: 50%;
+      }
+
+      .code .code__jade:first-of-type{
+        border-right: 20px solid white;
+      }
+    }
+
+
+    /**
+     * Page loader
+     */
+    
+    .is-loading {
+      background-color: red;
+    }
+
+    .is-loading:before {
+      content: '';
+      display: block;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      width: 14px;
+      height: 14px;
+      border: solid 2px transparent;
+      border-top-color: royalblue;
+      border-left-color: royalblue;
+      border-radius: 10px;
+      -webkit-animation: pace-spinner 400ms linear infinite;
+              animation: pace-spinner 400ms linear infinite;
+    }
+
+    @-webkit-keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="container">
+    <h1 class="page-title">Pug Documentation</h1>
+  </div>
+
+
+  <!-- include prism code highlighter -->
+  <script src="../out/scripts/prism.js"></script>
+
+  <!-- load mustache -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.min.js"></script>
+
+  <!-- doc item template -->
+  <div id="template" style="display: none;">
+    <div class="doc-item" id="doc-{{uniqueDocId}}">
+      {{#name.length}}
+        <h2 class="doc-item__title">{{name}}</h2>
+      {{/name.length}}
+
+      {{#description.length}}
+        <p class="doc-item__description">{{description}}</p>
+      {{/description.length}}
+
+      <p class="doc-item__file">{{file}}</p>
+
+      {{#rest.length}}
+        <h3 class="doc-item__meta-title">Meta</h3>
+        <div class="doc-item__meta">
+        {{{rest}}}
+        </div>
+      {{/rest.length}}
+
+      <div class="code">
+        <div class="code__jade">
+          <pre class="language-jade"><code>{{source}}</code></pre>
+        </div>
+
+        <div class="code__html">
+          <pre class="language-html"><code>{{output}}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- load data -->
+  <script>window.DATA = [{"meta":{"name":"addproduct.pug",
+    "description":"Add Product Template This Pug template defines the layout and content for adding a new product to the inventory. It extends the 'layout.pug' template and provides a form for adding product details, including uploading a CSV file for bulk import. The comments below explain the structure and purpose of each section.",
+    "capture":"all"},
+    "file":"views\\addproduct.pug","source":"//- Extend the 'layout.pug' template\r\nextends layout.pug\r\n//- Define the 'content' block for this template\r\nblock content\r\n    body\r\n        //- Card styling for the add product form\r\n        .card.row.mx-auto.cardopacity(style=\"width: 30rem\")\r\n            //- Card header with the title \"Inventory\"\r\n            .card-header.text-center\r\n                h3\r\n                    b Inventory\r\n            //- Form for adding a new product\r\n            ul.col-6.mx-auto.text-center\r\n                form.form(action='/addproduct', method='post', enctype='multipart/form-data')\r\n                    //- Label and input for the product brand\r\n                    label.my-2.text-black(for='brand')\r\n                        b Brand\r\n                        input#brand(type='text', name='brand', placeholder=\"Nike\" oninput=\"this.value = this.value.toLowerCase()\", )\r\n\r\n                    //- Label and input for the product name\r\n                    label.text-black(for='title')\r\n                        b Name\r\n                        input#title(type='text', name='title', placeholder=\"Panda\" oninput=\"this.value = this.value.toLowerCase()\", )\r\n\r\n                    //- Label and input for the product SKU\r\n                    label.my-2.text-black(for='sku')\r\n                        b Sku\r\n                        input#sku(type='text', name='sku', placeholder=\"12345-001\" oninput=\"this.value = this.value.toLowerCase()\", )\r\n\r\n                    //- Label and input for the product size\r\n                    label.my-2.text-black(for='size')\r\n                        b Size\r\n                        input#size(type='text', name='size', placeholder=\"11\" oninput=\"this.value = this.value.toLowerCase()\", )\r\n\r\n                    //- Label and input for the product stock\r\n                    label.my-2.text-black(for='stock')\r\n                        b Stock\r\n                        input#stock(type='text', name='stock', placeholder=\"1\" oninput=\"this.value = this.value.toLowerCase()\", )\r\n\r\n                    //- Label and input for the product type\r\n                    label.my-2.text-black(for='itemtype')\r\n                        b Item Type\r\n                        input#stock(type='text', name='itemtype', placeholder=\"F/C/A\" oninput=\"this.value = this.value.toLowerCase()\", )\r\n\r\n                    //- Label and input for the product price\r\n                    label.text-black(for='price')\r\n                        b Price\r\n                        input#price(type='text', name='price', placeholder=\"$\" oninput=\"this.value = this.value.toLowerCase()\", )\r\n\r\n                    //- Label and input for the product condition\r\n                    label.my-2.text-black(for='condition')\r\n                        b Condition\r\n                        input#condition(type='text', name='condition', placeholder=\"New/Used/DS\" oninput=\"this.value = this.value.toLowerCase()\", )\r\n\r\n                    //- Label and input for the product gender\r\n                    label.my-2.text-black(for='gender')\r\n                        b Gender\r\n                        input#condition(type='text', name='gender', placeholder=\"M/W/GS/PS/TD/All\" oninput=\"this.value = this.value.toLowerCase()\", )\r\n\r\n                    //- Line break\r\n                    br\r\n                    //- Label and input for uploading a CSV file\r\n                    label.text-black(for='csvFile')\r\n                        b Import CSV\r\n                    input(type='file', name='csvFile', id='csvFile')\r\n                    br\r\n                    //- Submit button for adding the product\r\n                    button.btn.btn-outline-success.my-2(type='submit', value=\"upload\")\r\n                        b Add Product\r",
+    "output":"<!DOCTYPE html>\n<html>\n  <head>\n    <script src=\"https://code.jquery.com/jquery-3.6.0.min.js\"><\/script>\n    <script src=\"https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"><\/script>\n    <script src=\"/jquery.nailthumb.1.1.js\"><\/script>\n    <link rel=\"stylesheet\" href=\"/style.css\">\n    <link rel=\"stylesheet\" href=\"/jquery.nailthumb.1.1.css\">\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp\" crossorigin=\"anonymous\">\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N\" crossorigin=\"anonymous\"><\/script>\n    <script src=\"/mainpage.js\"><\/script>\n    <title></title>\n  </head>\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"row justify-content-center\">\n        <div class=\"col-lg-12 col-md-8 text-center col-sm-3 text-center\">\n          <ul class=\"nav justify-content-center\">\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"Home\">\n                <a class=\"nav-link active text-black\" type=\"button\" href=\"/\">\n                  <b>Home</b>\n                </a> \n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"AllProducts\">\n                <a class=\"nav-link text-black\" type=\"button\" href=\"/AllProducts\">\n                  <b>All Products </b>\n                </a> \n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"Shoes\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Shoes </b>\n                </a> \n                <ul class=\"dropdown-menu\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Jordan\">\n                    <b>Jordan</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Yeezy\">\n                    <b>Yeezy</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-2 dropdown-spacing\" id=\"Clothing\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Clothing</b>\n                </a> \n                <ul class=\"dropdown-menu\" id=\"Clothing\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Supreme\">\n                    <b>Supreme</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Sp5der\">\n                    <b>Sp5der</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-1 dropdown-spacing\" id=\"Accessories\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Accessories</b>\n                </a> \n                <ul class=\"dropdown-menu\" id=\"Accessories\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Supreme\">\n                    <b>Supreme</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Other\">\n                    <b>Other</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n          </ul>\n        </div>\n      </div>\n    </div>\n    <div class=\"card row mx-auto cardopacity\" style=\"width: 30rem\">\n      <div class=\"card-header text-center\">\n        <h3>\n          <b>Inventory</b>\n        </h3>\n      </div>\n      <ul class=\"col-6 mx-auto text-center\">\n        <form class=\"form\" action=\"/addproduct\" method=\"post\" enctype=\"multipart/form-data\">\n          <label class=\"my-2 text-black\" for=\"brand\">\n            <b>Brand</b>\n            <input id=\"brand\" type=\"text\" name=\"brand\" placeholder=\"Nike\" oninput=\"this.value = this.value.toLowerCase()\">\n          </label>\n          <label class=\"text-black\" for=\"title\">\n            <b>Name</b>\n            <input id=\"title\" type=\"text\" name=\"title\" placeholder=\"Panda\" oninput=\"this.value = this.value.toLowerCase()\">\n          </label>\n          <label class=\"my-2 text-black\" for=\"sku\">\n            <b>Sku</b>\n            <input id=\"sku\" type=\"text\" name=\"sku\" placeholder=\"12345-001\" oninput=\"this.value = this.value.toLowerCase()\">\n          </label>\n          <label class=\"my-2 text-black\" for=\"size\">\n            <b>Size</b>\n            <input id=\"size\" type=\"text\" name=\"size\" placeholder=\"11\" oninput=\"this.value = this.value.toLowerCase()\">\n          </label>\n          <label class=\"my-2 text-black\" for=\"stock\">\n            <b>Stock</b>\n            <input id=\"stock\" type=\"text\" name=\"stock\" placeholder=\"1\" oninput=\"this.value = this.value.toLowerCase()\">\n          </label>\n          <label class=\"my-2 text-black\" for=\"itemtype\">\n            <b>Item Type</b>\n            <input id=\"stock\" type=\"text\" name=\"itemtype\" placeholder=\"F/C/A\" oninput=\"this.value = this.value.toLowerCase()\">\n          </label>\n          <label class=\"text-black\" for=\"price\">\n            <b>Price</b>\n            <input id=\"price\" type=\"text\" name=\"price\" placeholder=\"$\" oninput=\"this.value = this.value.toLowerCase()\">\n          </label>\n          <label class=\"my-2 text-black\" for=\"condition\">\n            <b>Condition</b>\n            <input id=\"condition\" type=\"text\" name=\"condition\" placeholder=\"New/Used/DS\" oninput=\"this.value = this.value.toLowerCase()\">\n          </label>\n          <label class=\"my-2 text-black\" for=\"gender\">\n            <b>Gender</b>\n            <input id=\"condition\" type=\"text\" name=\"gender\" placeholder=\"M/W/GS/PS/TD/All\" oninput=\"this.value = this.value.toLowerCase()\">\n          </label>\n          <br>\n          <label class=\"text-black\" for=\"csvFile\">\n            <b>Import CSV</b>\n          </label>\n          <input type=\"file\" name=\"csvFile\" id=\"csvFile\">\n          <br>\n          <button class=\"btn btn-outline-success my-2\" type=\"submit\" value=\"upload\">\n            <b>Add Product</b>\n          </button>\n        </form>\n      </ul>\n    </div>\n  </body>\n</html>",
+    "name":"addproduct.pug",
+    "description":"Add Product Template This Pug template defines the layout and content for adding a new product to the inventory. It extends the 'layout.pug' template and provides a form for adding product details, including uploading a CSV file for bulk import. The comments below explain the structure and purpose of each section.",
+    "rest":"<ul>\n<li>capture: all</li>\n</ul>\n"}];
+  </script>
+
+  <!-- render documentation -->
+  <script>
+  'use strict';
+  var $cnt = document.getElementsByClassName('container')[0];
+  var TEMPLATE = document.getElementById('template').innerHTML;
+  var counter = 0;
+
+  function display(obj){
+    obj.uniqueDocId = ++counter;
+
+    var rendered = window.Mustache.render(TEMPLATE, obj);
+    window.Mustache.parse(TEMPLATE);
+    $cnt.innerHTML += rendered;
+    window.Prism.highlightAll();
+  }
+
+
+  var current = 0;
+  function next() {
+    display(window.DATA[current]);
+
+    current++;
+    if (window.DATA[current]) {
+      window.requestAnimationFrame(next);
+    } else {
+      document.body.classList.remove('is-loading');
+    }
+  }
+
+  if (window.DATA.length) {
+    document.body.classList.add('is-loading');
+    next();
+  }
+
+  </script>
+</body>
+</html>

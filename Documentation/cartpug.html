@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pug Documentation</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css" rel="stylesheet" />
+ 
+  <style>
+    html{
+      font-family: Lucida Grande;
+      margin: 10px;
+    }
+
+    @media (min-width: 860px){
+      html{
+        margin: 50px;
+      }
+    }
+
+    .page-title{
+      font-size: 30px;
+    }
+
+    .container{
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /**
+     * Doc item
+     */
+
+    .doc-item{
+      padding: 30px 0;
+    }
+
+    .doc-item__title{
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .doc-item__description{
+      font-size: 18px;
+      margin: 0;
+      border-radius: 3px;
+    }
+
+    .doc-item__file{
+      font-size: 18px;
+      padding: 2px;
+      display: inline-block;
+    }
+
+    .doc-item__meta-title{
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .doc-item__meta{
+      font-size: 18px;
+    }
+
+    .doc-item__meta ul{
+      margin: 0;
+      padding: 0;
+      list-style-position: inside;
+    }
+
+    .doc-item__meta ul ul{
+      margin-left: 15px;
+      margin-top: 5px;
+    }
+
+    .doc-item__meta li{
+      margin-bottom: 5px;
+    }
+
+
+
+    /**
+     * Code snippets
+     */
+
+    .code{
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (min-width: 860px){
+      .code .code__jade{
+        display: table-cell;
+        width: 50%;
+      }
+
+      .code .code__jade:first-of-type{
+        border-right: 20px solid white;
+      }
+    }
+
+
+    /**
+     * Page loader
+     */
+    
+    .is-loading {
+      background-color: red;
+    }
+
+    .is-loading:before {
+      content: '';
+      display: block;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      width: 14px;
+      height: 14px;
+      border: solid 2px transparent;
+      border-top-color: royalblue;
+      border-left-color: royalblue;
+      border-radius: 10px;
+      -webkit-animation: pace-spinner 400ms linear infinite;
+              animation: pace-spinner 400ms linear infinite;
+    }
+
+    @-webkit-keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="container">
+    <h1 class="page-title">Pug Documentation</h1>
+  </div>
+
+
+  <!-- include prism code highlighter -->
+  <script src="../out/scripts/prism.js"></script>
+
+  <!-- load mustache -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.min.js"></script>
+
+  <!-- doc item template -->
+  <div id="template" style="display: none;">
+    <div class="doc-item" id="doc-{{uniqueDocId}}">
+      {{#name.length}}
+        <h2 class="doc-item__title">{{name}}</h2>
+      {{/name.length}}
+
+      {{#description.length}}
+        <p class="doc-item__description">{{description}}</p>
+      {{/description.length}}
+
+      <p class="doc-item__file">{{file}}</p>
+
+      {{#rest.length}}
+        <h3 class="doc-item__meta-title">Meta</h3>
+        <div class="doc-item__meta">
+        {{{rest}}}
+        </div>
+      {{/rest.length}}
+
+      <div class="code">
+        <div class="code__jade">
+          <pre class="language-jade"><code>{{source}}</code></pre>
+        </div>
+
+        <div class="code__html">
+          <pre class="language-html"><code>{{output}}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- load data -->
+  <script>window.DATA = [{"meta":{
+    "name":"getCartInfo mixin",
+    "description":"Mixin to display product information",
+    "arguments":[{
+      "name":"product",
+      "description":"The product object with details ( default:{ product.brand:\"Yeezy\", product.sku:\"GW1934\", product.title:\"Slide Pure\", product.price:\"160\", product.size:\"7.5\", product.condition:\"New\", product.stock:\"5\", product.quantity:\"1\" } )",
+      "type":"",
+      "default":null,
+      "nullable":false,
+      "optional":false,
+      "original":"product - The product object with details ( default:{ product.brand:\"Yeezy\", product.sku:\"GW1934\", product.title:\"Slide Pure\", product.price:\"160\", product.size:\"7.5\", product.condition:\"New\", product.stock:\"5\", product.quantity:\"1\" } )"}],
+      "capture":"all"},
+      "file":"views\\cart.pug",
+      "source":"mixin getCartInfo(cartItems)\r\n    ul\r\n        each product in cartItems\r\n          li Brand: \"Yeezy\",\r\n          li Sku: \"GW1934\", \r\n          li Title: \"Slide Pure\", \r\n          li Price: \"160\", \r\n          li Size: \"7.5\", \r\n          li Condition: \"New\", \r\n          li Stock: \"5\", \r\n          li Quantity: \"1\"\r\n//- @pugdoc\r\n    name: cart.pug\r\n    description: Pug Body with mixin\r\n//- Define the 'content' block for this template\r\nblock content\r\n    body\r\n        //- Header for the shopping cart\r\n        header\r\n            h2.text-center\r\n                b Your Cart\r\n            hr\r\n\r\n        //- Container for displaying cart items\r\n        .container.rounded\r\n            .row\r\n                .col-12\r\n                    ul\r\n                        +getCartInfo({\r\n                            brand: 'Yeezy',\r\n                            sku: 'GW1934',\r\n                            title: 'Slide Pure',\r\n                            price: '160',\r\n                            size: '7.5',\r\n                            condition: 'New',\r\n                            stock: '5',\r\n                            quantity: '1'\r\n                        })\r\n                            each product in cartItems\r\n                                //- Display cart items using the 'getCartInfo' mixin\r\n                                .container#cart.justify-content-center.rounded\r\n                                    .row.lg-3\r\n                                        .col-lg-4\r\n                                            //- Display product image\r\n                                            img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style=\"max-width: 80%; height: 80%;\")\r\n\r\n                                        .col-lg-4\r\n                                            //- Display product details\r\n                                            p\r\n                                                b=`${product.brand}`\r\n                                            p\r\n                                                b#itemName=`${product.product} - $${product.price}`\r\n                                            p\r\n                                                b=`${product.size}`\r\n                                            p\r\n                                                b#productsku=`${product.sku}`\r\n                                            p\r\n                                                //- Form for updating cart quantity\r\n                                                form.form(action='/cart', method='GET')\r\n                                                    label#cartQuantity.text-black.text-start\r\n                                                    b Quantity:\r\n                                                        //- Dropdown for selecting quantity\r\n                                                        select#cartQuantityTotal.cartQuantity(name=\"quantity\", onchange='updateTotal()', data-sku=`${product.sku}`)\r\n                                                            - for (var i = 1; i <= Math.min(product.stock, 20); i++)\r\n                                                                option(value=i, selected=i==product.quantity)= i\r\n\r\n                                        .col-lg-4.d-flex.justify-content-end\r\n                                            //- Form for removing item from cart\r\n                                            p.text-end\r\n                                                form(action=`/cart/${product.sku}/${product.size}`, method=\"POST\")\r\n                                                    button.btn.btn-danger(id=\"removerCartItem\", type=\"submit\")= 'Remove'\r\n\r\n                                        .col-lg-4\r\n                                        br\r\n                                        hr\r\n\r\n                        //- Form for checkout\r\n                        form(action='/checkout', method=\"POST\")\r\n                            .col-lg-12.col-md-10.col-sm-8.col-xs-12\r\n                                p.text-end\r\n                                    b Total: \r\n                                        span(id=\"totalPrice\") $0.00\r\n                            .col-lg-4.mx-auto\r\n                                //- Container for PayPal button\r\n                                #paypal-button-container\r\n\r\n                        //- Include necessary JavaScript libraries and functions\r\n                        script(src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\", integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\", crossorigin=\"anonymous\")\r\n                        script(src=\"https://www.paypal.com/sdk/js?client-id=Af2AfpaS9hVvqkAmIYFgjes8XN00wOtPtfFvO1KVhkPdRIWyeRkEEPRXpkikeItaowW63b4OwBX5x1Bz&components=buttons\")\r\n                        script.\r\n                            //- Call JavaScript functions for thumbnail styling and functionality\r\n                            jQuery(document).ready(function() {\r\n                                jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});\r\n                            });\r\n                            fetch('/api/cart')\r\n                                .then(response => response.json())\r\n                                .then(data => {\r\n                                    //- Extract cart ID and cart items from API response\r\n                                    const cart_id = data.cart_id;\r\n                                    const cartItems = data.cartItems;\r\n\r\n                                    //- Initialize PayPal buttons\r\n                                    paypal.Buttons({\r\n                                        createOrder: function(data, actions) {\r\n                                            //- Define items and calculate total price for PayPal payment\r\n                                            let items = [];\r\n                                            let total = 0;\r\n\r\n                                            for (let i = 0; i < cartItems.length; i++) {\r\n                                                let itemTotal = cartItems[i].quantity * cartItems[i].price;\r\n                                                total += itemTotal;\r\n\r\n                                                //- Push item details to the items array\r\n                                                items.push({\r\n                                                    name: cartItems[i].product,\r\n                                                    quantity: cartItems[i].quantity.toString(),\r\n                                                    sku: cartItems[i].sku,\r\n                                                    category: \"PHYSICAL_GOODS\",\r\n                                                    unit_amount: {\r\n                                                        currency_code: \"USD\",\r\n                                                        value: cartItems[i].price.toFixed(2)\r\n                                                    }\r\n                                                });\r\n                                            }\r\n\r\n                                            total = total.toFixed(2);\r\n\r\n                                            //- Return order details to PayPal\r\n                                            return actions.order.create({\r\n                                                purchase_units: [{\r\n                                                    amount: {\r\n                                                        value: total,\r\n                                                        breakdown: {\r\n                                                            item_total: {\r\n                                                                currency_code: \"USD\",\r\n                                                                value: total\r\n                                                            }\r\n                                                        }\r\n                                                    },\r\n                                                    items: items\r\n                                                }]\r\n                                            });\r\n                                        },\r\n                                        onApprove: function(data, actions) {\r\n                                            return actions.order.capture().then(function(details) {\r\n                                                //- Call the server to record the transaction\r\n                                                fetch('/transaction-success', {\r\n                                                    method: 'POST', \r\n                                                    headers: {\r\n                                                        'Content-Type': 'application/json',\r\n                                                    },\r\n                                                    body: JSON.stringify({\r\n                                                        transactionData: details,\r\n                                                    }),\r\n                                                })\r\n                                                .then(function(response) {\r\n                                                    return response.json();\r\n                                                })\r\n                                                .then(function(data) {\r\n                                                    console.log('Success:', data);\r\n                                                    window.location.href = data.redirectUrl;\r\n                                                })\r\n                                                .catch((error) => {\r\n                                                    console.error('Error:', error);\r\n                                                });\r\n                                            });\r\n                                        }\r\n                                    }).render('#paypal-button-container');\r\n                                })\r\n                                .catch(error => console.error('Error:', error));\r\n                            updateTotal(); //- Call the updateTotal JavaScript function\r",
+      "output":"<body>\n  <header>\n    <h2 class=\"text-center\">\n      <b>Your Cart</b>\n    </h2>\n    <hr/>\n  </header>\n  <div class=\"container rounded\">\n    <div class=\"row\">\n      <div class=\"col-12\">\n        <ul>\n          <ul>\n            <li>Brand: \"Yeezy\",</li>\n            <li>Sku: \"GW1934\", </li>\n            <li>Title: \"Slide Pure\", </li>\n            <li>Price: \"160\", </li>\n            <li>Size: \"7.5\", </li>\n            <li>Condition: \"New\", </li>\n            <li>Stock: \"5\", </li>\n            <li>Quantity: \"1\"</li>\n            <li>Brand: \"Yeezy\",</li>\n            <li>Sku: \"GW1934\", </li>\n            <li>Title: \"Slide Pure\", </li>\n            <li>Price: \"160\", </li>\n            <li>Size: \"7.5\", </li>\n            <li>Condition: \"New\", </li>\n            <li>Stock: \"5\", </li>\n            <li>Quantity: \"1\"</li>\n            <li>Brand: \"Yeezy\",</li>\n            <li>Sku: \"GW1934\", </li>\n            <li>Title: \"Slide Pure\", </li>\n            <li>Price: \"160\", </li>\n            <li>Size: \"7.5\", </li>\n            <li>Condition: \"New\", </li>\n            <li>Stock: \"5\", </li>\n            <li>Quantity: \"1\"</li>\n            <li>Brand: \"Yeezy\",</li>\n            <li>Sku: \"GW1934\", </li>\n            <li>Title: \"Slide Pure\", </li>\n            <li>Price: \"160\", </li>\n            <li>Size: \"7.5\", </li>\n            <li>Condition: \"New\", </li>\n            <li>Stock: \"5\", </li>\n            <li>Quantity: \"1\"</li>\n            <li>Brand: \"Yeezy\",</li>\n            <li>Sku: \"GW1934\", </li>\n            <li>Title: \"Slide Pure\", </li>\n            <li>Price: \"160\", </li>\n            <li>Size: \"7.5\", </li>\n            <li>Condition: \"New\", </li>\n            <li>Stock: \"5\", </li>\n            <li>Quantity: \"1\"</li>\n            <li>Brand: \"Yeezy\",</li>\n            <li>Sku: \"GW1934\", </li>\n            <li>Title: \"Slide Pure\", </li>\n            <li>Price: \"160\", </li>\n            <li>Size: \"7.5\", </li>\n            <li>Condition: \"New\", </li>\n            <li>Stock: \"5\", </li>\n            <li>Quantity: \"1\"</li>\n            <li>Brand: \"Yeezy\",</li>\n            <li>Sku: \"GW1934\", </li>\n            <li>Title: \"Slide Pure\", </li>\n            <li>Price: \"160\", </li>\n            <li>Size: \"7.5\", </li>\n            <li>Condition: \"New\", </li>\n            <li>Stock: \"5\", </li>\n            <li>Quantity: \"1\"</li>\n            <li>Brand: \"Yeezy\",</li>\n            <li>Sku: \"GW1934\", </li>\n            <li>Title: \"Slide Pure\", </li>\n            <li>Price: \"160\", </li>\n            <li>Size: \"7.5\", </li>\n            <li>Condition: \"New\", </li>\n            <li>Stock: \"5\", </li>\n            <li>Quantity: \"1\"</li>\n          </ul>\n          <form action=\"/checkout\" method=\"POST\">\n            <div class=\"col-lg-12 col-md-10 col-sm-8 col-xs-12\">\n              <p class=\"text-end\">\n                <b>Total: <span id=\"totalPrice\">$0.00</span> </b>\n              </p>\n            </div>\n            <div class=\"col-lg-4 mx-auto\">\n              <div id=\"paypal-button-container\"></div>\n            </div>\n          </form>\n          <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\" crossorigin=\"anonymous\"><\/script>\n          <script src=\"https://www.paypal.com/sdk/js?client-id=Af2AfpaS9hVvqkAmIYFgjes8XN00wOtPtfFvO1KVhkPdRIWyeRkEEPRXpkikeItaowW63b4OwBX5x1Bz&amp;components=buttons\"><\/script>\n          <script>\n            //- Call JavaScript functions for thumbnail styling and functionality\n            jQuery(document).ready(function() {\n              jQuery('img.center-img.thumbnails').nailthumb({\n                width: 335,\n                height: 185,\n                method: 'resize'\n              });\n            });\n            fetch('/api/cart')\n              .then(response => response.json())\n              .then(data => {\n                //- Extract cart ID and cart items from API response\n                const cart_id = data.cart_id;\n                const cartItems = data.cartItems;\n                //- Initialize PayPal buttons\n                paypal.Buttons({\n                  createOrder: function(data, actions) {\n                    //- Define items and calculate total price for PayPal payment\n                    let items = [];\n                    let total = 0;\n                    for (let i = 0; i < cartItems.length; i++) {\n                      let itemTotal = cartItems[i].quantity * cartItems[i].price;\n                      total += itemTotal;\n                      //- Push item details to the items array\n                      items.push({\n                        name: cartItems[i].product,\n                        quantity: cartItems[i].quantity.toString(),\n                        sku: cartItems[i].sku,\n                        category: \"PHYSICAL_GOODS\",\n                        unit_amount: {\n                          currency_code: \"USD\",\n                          value: cartItems[i].price.toFixed(2)\n                        }\n                      });\n                    }\n                    total = total.toFixed(2);\n                    //- Return order details to PayPal\n                    return actions.order.create({\n                      purchase_units: [{\n                        amount: {\n                          value: total,\n                          breakdown: {\n                            item_total: {\n                              currency_code: \"USD\",\n                              value: total\n                            }\n                          }\n                        },\n                        items: items\n                      }]\n                    });\n                  },\n                  onApprove: function(data, actions) {\n                    return actions.order.capture().then(function(details) {\n                      //- Call the server to record the transaction\n                      fetch('/transaction-success', {\n                          method: 'POST',\n                          headers: {\n                            'Content-Type': 'application/json',\n                          },\n                          body: JSON.stringify({\n                            transactionData: details,\n                          }),\n                        })\n                        .then(function(response) {\n                          return response.json();\n                        })\n                        .then(function(data) {\n                          console.log('Success:', data);\n                          window.location.href = data.redirectUrl;\n                        })\n                        .catch((error) => {\n                          console.error('Error:', error);\n                        });\n                    });\n                  }\n                }).render('#paypal-button-container');\n              })\n              .catch(error => console.error('Error:', error));\n            updateTotal(); //- Call the updateTotal JavaScript function\n          <\/script>\n        </ul>\n      </div>\n    </div>\n  </div>\n</body>","name":"getCartInfo mixin","description":"Mixin to display product information","rest":"<ul>\n<li>arguments<ul>\n<li>0<ul>\n<li>type: </li>\n<li>default</li>\n<li>nullable: false</li>\n<li>optional: false</li>\n<li>original: product - The product object with details ( default:{ product.brand:&quot;Yeezy&quot;, product.sku:&quot;GW1934&quot;, product.title:&quot;Slide Pure&quot;, product.price:&quot;160&quot;, product.size:&quot;7.5&quot;, product.condition:&quot;New&quot;, product.stock:&quot;5&quot;, product.quantity:&quot;1&quot; } )</li>\n</ul>\n</li>\n</ul>\n</li>\n<li>capture: all</li>\n</ul>\n"}];
+    </script>
+
+  <!-- render documentation -->
+  <script>
+  'use strict';
+  var $cnt = document.getElementsByClassName('container')[0];
+  var TEMPLATE = document.getElementById('template').innerHTML;
+  var counter = 0;
+
+  function display(obj){
+    obj.uniqueDocId = ++counter;
+
+    var rendered = window.Mustache.render(TEMPLATE, obj);
+    window.Mustache.parse(TEMPLATE);
+    $cnt.innerHTML += rendered;
+    window.Prism.highlightAll();
+  }
+
+
+  var current = 0;
+  function next() {
+    display(window.DATA[current]);
+
+    current++;
+    if (window.DATA[current]) {
+      window.requestAnimationFrame(next);
+    } else {
+      document.body.classList.remove('is-loading');
+    }
+  }
+
+  if (window.DATA.length) {
+    document.body.classList.add('is-loading');
+    next();
+  }
+
+  </script>
+</body>
+</html>

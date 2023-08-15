@@ -1,16 +1,34 @@
+/**
+ * Database Module
+ *
+ * This module handles interactions with the database for managing products, users, and carts.
+ * It provides methods to initialize the database schema, create users, add products,
+ * manage carts, and more.
+ *
+ * The module uses the 'dbcmps369' package for database interactions and 'bcryptjs'
+ * for hashing user passwords securely.
+ *
+ * @module database
+ */
+
+// Import required modules
 require('dotenv').config()
 const Database = require('dbcmps369')
 const bcrypt = require('bcryptjs');
 
+// Define a class to handle interactions with the database
 class ProductDB{
     constructor(){
         this.db = new Database();
     }
 
+    // Initialize the database schema and add an admin user if not exists
     async initialize() {
         await this.db.connect()
 
+        // Define schema for 'Products' table
         await this.db.schema('Products', [
+            // Define columns and their data types
             {name: 'id', type: 'INTEGER'},
             {name: 'brand', type: 'TEXT'},
             {name: 'title', type: 'TEXT'},
@@ -21,8 +39,9 @@ class ProductDB{
             {name: 'stock', type: 'INTEGER'},
             {name: 'itemtype', type: 'TEXT'},
             {name: 'condition', type: 'TEXT'}
-        ], 'id')
+        ], 'id')// Define primary key
 
+        // Define schema for 'Cart' table
         await this.db.schema('Cart', [
             {name: 'id', type: 'INTEGER'},
             {name: 'cart_id', type: 'INTEGER'},
@@ -35,6 +54,7 @@ class ProductDB{
             {name: 'stock', type: 'INTEGER'}
         ], 'id')
 
+        // Define schema for 'Users' table
         await this.db.schema('Users', [
             {name: 'id', type: 'INTEGER'},
             {name: 'first', type: 'TEXT'},
@@ -43,6 +63,7 @@ class ProductDB{
             {name: 'password', type: 'TEXT'},
         ], 'id');
 
+        // Define schema for 'Admin' table
         await this.db.schema('Admin', [
             {name: 'id', type: 'INTEGER'},
             {name: 'first', type: 'TEXT'},
@@ -51,6 +72,7 @@ class ProductDB{
             {name: 'password', type: 'TEXT'},
         ], 'id');
 
+        // Check if admin user already exists, if not, create one
         const user = await this.db.read('Admin', [{ column: 'username', value: 'cmps450' }]);
         if (user.length === 0) {
             const salt = await bcrypt.genSalt(10);
@@ -62,17 +84,22 @@ class ProductDB{
 
     }
 
+    // Create a new user in the database
     async createUser(first, last, username, password) {
+        // Call the create method of the database to insert user data
         const id = await this.db.create('Users', [
             { column: 'first', value: first },
             { column: 'last', value: last },
             { column: 'username', value: username },
             { column: 'password', value: password },
-        ])
+        ]);
+        // Return the ID of the newly created user
         return id;
     }
 
+    // Add a new product to the database
     async addProduct(brand, title, price, sku, size, stock, itemtype, condition, gender) {
+        // Check if a product with the same SKU, title, size, itemtype, and condition already exists
         const existingProduct = await this.db.productExists('Products', {
             title: title,
             sku: sku,
@@ -80,10 +107,13 @@ class ProductDB{
             itemtype: itemtype,
             condition: condition
         });
-    
+        
         if (existingProduct) {
+            // If the product exists, return a message indicating the duplication
             return `Product with SKU ${sku} already exists and was skipped.`;
         }
+        
+        // If the product doesn't exist, create a new product in the database
         const id = await this.db.create('Products', [
             {column: 'brand', value: brand},
             {column: 'title', value: title},
@@ -94,108 +124,151 @@ class ProductDB{
             {column: 'stock', value: stock},
             {column: 'itemtype', value: itemtype},
             {column: 'condition', value: condition}
-        ], 'id')
+        ], 'id');
+        
+        // Return the ID of the newly created product
         return id;
     }
 
+    // Find a product by its SKU in the database
     async findProductBySku(sku){
+        // Query the database to find a product with the given SKU
         const sku_id = await this.db.read('Products', [{column: 'sku', value: sku}]);
-        if (sku_id.length > 0) return sku_id[0];
-        else {
+        if (sku_id.length > 0) {
+            // If a product with the given SKU exists, return its data
+            return sku_id[0];
+        } else {
+            // If no product with the given SKU is found, return undefined
             return undefined;
         }
     }
 
+    // Find products by brand and item type in the database
     async findProductByBrandAndType(brand, itemtype) {
+        // Query the database to find products with the given brand and item type
         const brand_id = await this.db.read('Products', [{column: 'brand', value: brand}]);
         const type_id = await this.db.read('Products', [{column: 'itemtype', value: itemtype}]);
         if (brand_id.length > 0 ){
             if (type_id.length > 0){
+                // If products with the given brand and item type are found, return their data
                 return brand_id;
             }
         }
+        // If no products are found for the given brand and item type, return undefined
     }
 
+
+    // Retrieve all products from the database
     async findAllProducts() {
+        // Query the database to retrieve all product data
         const products_id = await this.db.read('Products', []);
         return products_id;
     }
 
+    // Find products by brand in the database
     async findByBrands(brand) {
+        // Query the database to find products with the given brand
         const brands_id = await this.db.readDistinctTitles('Products', [{ column: 'brand', value: brand }]);
         return brands_id;
     }
 
+    // Find products by size in the database
     async findBySize(size) {
+        // Query the database to find products with the given size
         const size_id = await this.db.readDistinctTitles('Products', [{ column: 'size', value: size }]);
         return size_id;
     }
 
+    // Find products by gender in the database
     async findByGender(gender) {
+        // Query the database to find products with the given gender
         const gender_id = await this.db.readDistinctTitles('Products', [{ column: 'gender', value: gender }]);
         return gender_id;
     }
 
+    // Find products by price range in the database
     async findByPrice(price) {
+        // Query the database to find products with the given price range
         const price_id = await this.db.readDistinctTitles('Products', [{ column: 'price', value: price }]);
         return price_id;
     }
 
+    // Find a user by their username in the database
     async findUserByUserName(username) {
+        // Query the database to find a user with the given username
         const us = await this.db.read('Users', [{ column: 'username', value: username }]);
-        if (us.length > 0) return us[0];
-        else {
+        if (us.length > 0) {
+            // If a user with the given username exists, return their data
+            return us[0];
+        } else {
+            // If no user with the given username is found, return undefined
             return undefined;
         }
     }
 
+    // Find an admin user by their username in the database
     async findAdminByUsername(username) {
+        // Query the database to find an admin user with the given username
         const us = await this.db.read('Admin', [{ column: 'username', value: username }]);
-        if (us.length > 0) return us[0];
-        else {
+        if (us.length > 0) {
+            // If an admin user with the given username exists, return their data
+            return us[0];
+        } else {
+            // If no admin user with the given username is found, return undefined
             return undefined;
         }
     }
 
-    async findrcnjUser(user_Id){
-        const defaltUser = await this.db.read('Admin', [{ column: 'username', value: 'cmps450' }, { column: 'password', value: 'rcnj' }], {column: 'id', value: user_Id});
-        if(defaltUser.lenght > [])
+    // Find the default 'rcnj' user by their ID in the database
+    async findrcnjUser(user_Id) {
+        // Query the database to find the default 'rcnj' user by their ID
+        const defaultUser = await this.db.read('Admin', [{ column: 'username', value: 'cmps450' }, { column: 'password', value: 'rcnj' }], { column: 'id', value: user_Id });
+        
+        if (defaultUser.length > 0) {
+            // If the default 'rcnj' user exists, create 'rcnj' user if not present
             creatercnj = await this.db.createUser('admin', 'admin', 'cmps450', 'rcnj');
-            else
-                return undefined;
+        } else {
+            // If the default 'rcnj' user does not exist, return undefined
+            return undefined;
+        }
     }
 
+    // Add a product to the cart in the database
     async addToCart(cart_id, product, quantity, size, price, sku, brand, stock) {
-        const id = await this.db.create('Cart',[
-            {column: 'cart_id', value: cart_id},
-            {column: 'product', value: product},
-            {column: 'quantity', value: quantity},
-            {column: 'size', value: size},
-            {column: 'price', value: price},
-            {column: 'sku', value: sku},
-            {column: 'brand', value: brand},
-            {column: 'stock', value: stock},
+        // Add the product details to the cart in the database
+        const id = await this.db.create('Cart', [
+            { column: 'cart_id', value: cart_id },
+            { column: 'product', value: product },
+            { column: 'quantity', value: quantity },
+            { column: 'size', value: size },
+            { column: 'price', value: price },
+            { column: 'sku', value: sku },
+            { column: 'brand', value: brand },
+            { column: 'stock', value: stock },
         ], 'id');
         return id;
     }
 
-    async getCart(cart_id) {
-        const cart = await this.db.read('Cart', [{column: 'cart_id', value: cart_id}])
 
+    // Retrieve the cart data for a given cart_id from the database
+    async getCart(cart_id) {
+        // Query the database to retrieve the cart data for the given cart_id
+        const cart = await this.db.read('Cart', [{ column: 'cart_id', value: cart_id }])
         return cart;
     }
 
+    // Get an item from the cart in the database based on its details
     async getItemFromCart(cart_id, product, quantity, size, price, sku) {
+        // Query the database to retrieve an item from the cart based on its details
         const cartItems = await this.db.read('Cart', [
-            {column: 'cart_id', value: cart_id},
-            {column: 'product', value: product},
-            {column: 'quantity', value: quantity},
-            {column: 'size', value: size},
-            {column: 'price', value: price},
-            {column: 'sku', value: sku}
-
+            { column: 'cart_id', value: cart_id },
+            { column: 'product', value: product },
+            { column: 'quantity', value: quantity },
+            { column: 'size', value: size },
+            { column: 'price', value: price },
+            { column: 'sku', value: sku }
         ])
-    
+        
         if (cartItems && cartItems.length > 0) {
             // If the cartItems array is not empty, return the first item
             return cartItems[0];
@@ -205,23 +278,24 @@ class ProductDB{
         }
     }
 
+    // Update the quantity of an item in the cart in the database
     async updateItemQuantity(cart_id, product, size, sku, quantityToAdd) {
-        // First, fetch the current quantity
+        // Fetch the current quantity of the item from the cart
         const currentCartItems = await this.db.read('Cart', [
-            {column: 'cart_id', value: cart_id},
-            {column: 'product', value: product},
-            {column: 'size', value: size},
-            {column: 'sku', value: sku}
+            { column: 'cart_id', value: cart_id },
+            { column: 'product', value: product },
+            { column: 'size', value: size },
+            { column: 'sku', value: sku }
         ]);
         let currentQuantity = 0;
         if(currentCartItems && currentCartItems.length > 0){
             currentQuantity = currentCartItems[0].quantity;
         }
-    
-        // Calculate the new quantity
+
+        // Calculate the new quantity by adding quantityToAdd
         const newQuantity = currentQuantity + quantityToAdd;
-    
-        // Update the quantity
+
+        // Update the quantity of the item in the cart
         await this.db.update('Cart', [
             { column: 'quantity', value: newQuantity }
         ], [
@@ -232,30 +306,37 @@ class ProductDB{
         ]);
     }
 
+    // Remove an item from the cart in the database
     async removeFromCart(cart_id, sku, size) {
-        await this.db.delete('Cart', [{ column: 'cart_id', value: cart_id }, { column: 'sku', value: sku },{ column: 'size', value: size }]);
+        // Delete the item from the cart based on cart_id, sku, and size
+        await this.db.delete('Cart', [
+            { column: 'cart_id', value: cart_id },
+            { column: 'sku', value: sku },
+            { column: 'size', value: size }
+        ]);
     }
 
+    // Reduce the stock of a product in the database by a given quantity
     async reduceProductStock(sku, quantityToSubtract) {
-        // First, fetch the current stock
+        // Fetch the current stock of the product
         const currentProduct = await this.db.read('Products', [
-            {column: 'sku', value: sku}
+            { column: 'sku', value: sku }
         ]);
-    
+
         let currentStock = 0;
         if(currentProduct && currentProduct.length > 0){
             currentStock = currentProduct[0].stock;
         }
-    
-        // Check if there's enough stock
+
+        // Check if there's enough stock to subtract
         if (currentStock < quantityToSubtract){
             throw new Error('Not enough stock');
         }
-    
-        // Calculate the new stock
+
+        // Calculate the new stock after subtracting quantityToSubtract
         const newStock = currentStock - quantityToSubtract;
-    
-        // Update the stock
+
+        // Update the stock of the product in the database
         await this.db.update('Products', [
             { column: 'stock', value: newStock }
         ], [
@@ -263,11 +344,11 @@ class ProductDB{
         ]);
     }
 
+    // Clear the cart for a given cart_id in the database
     async clearCart(cart_id) {
+        // Delete all items in the cart associated with the given cart_id
         await this.db.delete('Cart', [{ column: 'cart_id', value: cart_id }]);
     }
-
-
 }
-
+// Export the ProductDB class to be used in other modules
 module.exports = ProductDB;

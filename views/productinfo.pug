@@ -1,60 +1,88 @@
+//- @pugdoc
+    Template: productinfo.pug
+    Description: Product Information TemplateThis Pug template defines the structure for displaying detailed product information.
+        It includes a form for adding the product to the cart.
+        The comments below explain the structure and purpose of each section.
+
+//- Extending the layout template
 extends layout.pug
+
+//- Define a mixin to display product information by SKU
 mixin getProductBySku(product)
     ul
         each product in products
             li
 
+//- Define the content block
 block content
     body
+        //- Container for the product information
         .container-fluid
+            //- Form to add the product to the cart
             form#cartForm(action="/cart" method="POST")
                 .row.justify-content-center
+                    //- Column for product image
                     .col-lg-4.col-md-4.col-sm-4.text-center.text-md-start
                         img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style="max-width: 80%; height: auto;")
+                        //- Hidden input fields to capture product details
                         input(type='hidden', name='sku', value=`${product.sku}`)
+
+                    //- Column for product details
                     .col-md-3.col-sm-3.col-lg-3
                         .row
                             .col-sm-12.text-center.text-md-start
+                                //- Display product brand
                                 h4.card-title
                                     b= `${product.brand}`
                                     input(type='hidden', name='brand', value=`${product.brand}`)
+
+                                //- Display product title
                                 p
                                     b= `${product.title}`
                                     input(type='hidden', name='title', value=`${product.title}`)
+
+                                //- Display product price
                                 p
                                     b= `$${product.price}`
                                     input(type='hidden', name='price', value=`${product.price}`)
+
                         .row
                             .col-12.my-2.text-center.text-md-start
+                                //- Select dropdown for product size
                                 label.text-black(for="sizing-dropdown") Size
                                 br
                                 select#sizing-dropdown(name="size")
                                     - for (var i = `${product.size}`; i <= product.size; i++)
-                                            option(value=i)= i
+                                        option(value=i)= i
+
                         .row
                             .col-12.my-2.text-center.text-md-start
+                                //- Select dropdown for product condition
                                 label.text-black(for="condition-dropdown") Condition
                                 br
                                 select#condition-dropdown(name="condition")
                                     - for (var i = `${product.condition}`; i <= product.condition; i++)
-                                            option(value=i)= i
+                                        option(value=i)= i
+
                         .row
                             .col-12.my-2.text-center.text-md-start
+                                //- Select dropdown for product quantity
                                 label.text-black(for="quantity-dropdown") Quantity
                                 br
                                 select(name="quantity")
                                     - for (var i = 1; i <= product.stock; i++)
                                         option(value=i)= i
+                                //- Hidden input fields to capture stock and quantity
                                 input(id="stock", type='hidden', name='stock', value=`${product.stock}`)
                                 input(type='hidden', name='quantity', value=`${product.quantity}`)
+
                         .row
                             .col-12.my-2.text-center.text-md-start
-                                button.btn.btn-outline-success.btn-lg.cartbtn(id= "addToCart",type="submit") Add To Cart
+                                //- Button to add product to the cart
+                                button.btn.btn-outline-success.btn-lg.cartbtn(id="addToCart", type="submit") Add To Cart
+                                //- Container to display messages
                                 div#messageContainer
 
-
+                            //- Script to handle stock numbers
                             script.
                                 stockNumbers()
-
-
-

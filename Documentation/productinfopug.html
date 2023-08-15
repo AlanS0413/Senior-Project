@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pug Documentation</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css" rel="stylesheet" />
+ 
+  <style>
+    html{
+      font-family: Lucida Grande;
+      margin: 10px;
+    }
+
+    @media (min-width: 860px){
+      html{
+        margin: 50px;
+      }
+    }
+
+    .page-title{
+      font-size: 30px;
+    }
+
+    .container{
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /**
+     * Doc item
+     */
+
+    .doc-item{
+      padding: 30px 0;
+    }
+
+    .doc-item__title{
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .doc-item__description{
+      font-size: 18px;
+      margin: 0;
+      border-radius: 3px;
+    }
+
+    .doc-item__file{
+      font-size: 18px;
+      padding: 2px;
+      display: inline-block;
+    }
+
+    .doc-item__meta-title{
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .doc-item__meta{
+      font-size: 18px;
+    }
+
+    .doc-item__meta ul{
+      margin: 0;
+      padding: 0;
+      list-style-position: inside;
+    }
+
+    .doc-item__meta ul ul{
+      margin-left: 15px;
+      margin-top: 5px;
+    }
+
+    .doc-item__meta li{
+      margin-bottom: 5px;
+    }
+
+
+
+    /**
+     * Code snippets
+     */
+
+    .code{
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (min-width: 860px){
+      .code .code__jade{
+        display: table-cell;
+        width: 50%;
+      }
+
+      .code .code__jade:first-of-type{
+        border-right: 20px solid white;
+      }
+    }
+
+
+    /**
+     * Page loader
+     */
+    
+    .is-loading {
+      background-color: red;
+    }
+
+    .is-loading:before {
+      content: '';
+      display: block;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      width: 14px;
+      height: 14px;
+      border: solid 2px transparent;
+      border-top-color: royalblue;
+      border-left-color: royalblue;
+      border-radius: 10px;
+      -webkit-animation: pace-spinner 400ms linear infinite;
+              animation: pace-spinner 400ms linear infinite;
+    }
+
+    @-webkit-keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="container">
+    <h1 class="page-title">Pug Documentation</h1>
+  </div>
+
+
+  <!-- include prism code highlighter -->
+  <script src="../out/scripts/prism.js"></script>
+
+  <!-- load mustache -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.min.js"></script>
+
+  <!-- doc item template -->
+  <div id="template" style="display: none;">
+    <div class="doc-item" id="doc-{{uniqueDocId}}">
+      {{#name.length}}
+        <h2 class="doc-item__title">{{name}}</h2>
+      {{/name.length}}
+
+      {{#description.length}}
+        <p class="doc-item__description">{{description}}</p>
+      {{/description.length}}
+
+      <p class="doc-item__file">{{file}}</p>
+
+      {{#rest.length}}
+        <h3 class="doc-item__meta-title">Meta</h3>
+        <div class="doc-item__meta">
+        {{{rest}}}
+        </div>
+      {{/rest.length}}
+
+      <div class="code">
+        <div class="code__jade">
+          <pre class="language-jade"><code>{{source}}</code></pre>
+        </div>
+
+        <div class="code__html">
+          <pre class="language-html"><code>{{output}}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- load data -->
+  <script>
+    window.DATA = [{"meta":{
+      "name":"productinfo.pug",
+      "description":"Product Information TemplateThis Pug template defines the structure for displaying detailed product information. It includes a form for adding the product to the cart. The comments below explain the structure and purpose of each section.",
+      "capture":"all"},"file":"views\\productinfo.pug",
+      "source":"//- Extending the layout template\r\nextends layout.pug\r\n//- @pugdoc\r\n    name: displayProduct mixin\r\n    description: Mixin to display product information\r\n    arguments:\r\n    - product - The product object with details (\r\n      default:{\r\n        brand:\"Yeezy\", \r\n        sku:\"GW1934\", \r\n        title:\"Slide Pure\", \r\n        price:\"160\", \r\n        size:\"7.5\", \r\n        condition:\"New\", \r\n        stock:\"5\", \r\n        quantity:\"1\" }\r\n      )\r\n    capture: all\r\n//- Define a mixin to display product information by SKU\r\nmixin displayProduct(product)\r\n    ul\r\n        li Product Brand: #{product.brand}\r\n        li Product SKU: #{product.sku}\r\n        li Product Title: #{product.title}\r\n        li Product Price: #{product.price}\r\n        li Product Size: #{product.size}\r\n        li Product Condition: #{product.condition}\r\n        li Product Stock: #{product.stock}\r\n        li Product Quantity: #{product.quantity}\r\n//- @pugdoc\r\n    name: productinfo.pug\r\n    description: Pug Body with mixin\r\n//- Define the content block\r\nblock content\r\n    body\r\n        //- Container for the product information\r\n        .container-fluid\r\n            //- Form to add the product to the cart\r\n            form#cartForm(action=\"/cart\" method=\"POST\")\r\n                .row.justify-content-center\r\n                    //- Column for product image\r\n                    .col-lg-4.col-md-4.col-sm-4.text-center.text-md-start\r\n                        +displayProduct({\r\n                          brand: 'Yeezy',\r\n                          sku: 'GW1934',\r\n                          title: 'Slide Pure',\r\n                          price: '160',\r\n                          size: '7.5',\r\n                          condition: 'New',\r\n                          stock: '5',\r\n                          quantity: '1'})\r\n                          img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style=\"max-width: 80%; height: auto;\")\r\n                          //- Hidden input fields to capture product details\r\n                          input(type='hidden', name='sku', value=`${product.sku}`)\r\n\r\n                    //- Column for product details\r\n                    .col-md-3.col-sm-3.col-lg-3\r\n                        +displayProduct({\r\n                          brand: 'Yeezy',\r\n                          sku: 'GW1934',\r\n                          title: 'Slide Pure',\r\n                          price: '160',\r\n                          size: '7.5',\r\n                          condition: 'New',\r\n                          stock: '5',\r\n                          quantity: '1'})\r\n                          .row\r\n                              .col-sm-12.text-center.text-md-start\r\n                                  //- Display product brand\r\n                                  h4.card-title\r\n                                      b= `${product.brand}`\r\n                                      input(type='hidden', name='brand', value=`${product.brand}`)\r\n\r\n                                  //- Display product title\r\n                                  p\r\n                                      b= `${product.title}`\r\n                                      input(type='hidden', name='title', value=`${product.title}`)\r\n\r\n                                  //- Display product price\r\n                                  p\r\n                                      b= `$${product.price}`\r\n                                      input(type='hidden', name='price', value=`${product.price}`)\r\n\r\n                          .row\r\n                              .col-12.my-2.text-center.text-md-start\r\n                                  //- Select dropdown for product size\r\n                                  label.text-black(for=\"sizing-dropdown\") Size\r\n                                  br\r\n                                  select#sizing-dropdown(name=\"size\")\r\n                                      - for (var i = `${product.size}`; i <= product.size; i++)\r\n                                          option(value=i)= i\r\n\r\n                          .row\r\n                              .col-12.my-2.text-center.text-md-start\r\n                                  //- Select dropdown for product condition\r\n                                  label.text-black(for=\"condition-dropdown\") Condition\r\n                                  br\r\n                                  select#condition-dropdown(name=\"condition\")\r\n                                      - for (var i = `${product.condition}`; i <= product.condition; i++)\r\n                                          option(value=i)= i\r\n\r\n                          .row\r\n                              .col-12.my-2.text-center.text-md-start\r\n                                  //- Select dropdown for product quantity\r\n                                  label.text-black(for=\"quantity-dropdown\") Quantity\r\n                                  br\r\n                                  select(name=\"quantity\")\r\n                                      - for (var i = 1; i <= product.stock; i++)\r\n                                          option(value=i)= i\r\n                                  //- Hidden input fields to capture stock and quantity\r\n                                  input(id=\"stock\", type='hidden', name='stock', value=`${product.stock}`)\r\n                                  input(type='hidden', name='quantity', value=`${product.quantity}`)\r\n\r\n                          .row\r\n                              .col-12.my-2.text-center.text-md-start\r\n                                  //- Button to add product to the cart\r\n                                  button.btn.btn-outline-success.btn-lg.cartbtn(id=\"addToCart\", type=\"submit\") Add To Cart\r\n                                  //- Container to display messages\r\n                                  div#messageContainer\r\n\r\n                              //- Script to handle stock numbers\r\n                              script.\r\n                                  stockNumbers()",
+      "output":"<!DOCTYPE html>\n<html>\n  <head>\n    <script src=\"https://code.jquery.com/jquery-3.6.0.min.js\"><\/script>\n    <script src=\"https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"><\/script>\n    <script src=\"/jquery.nailthumb.1.1.js\"><\/script>\n    <link rel=\"stylesheet\" href=\"/style.css\">\n    <link rel=\"stylesheet\" href=\"/jquery.nailthumb.1.1.css\">\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp\" crossorigin=\"anonymous\">\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N\" crossorigin=\"anonymous\"><\/script>\n    <script src=\"/mainpage.js\"><\/script>\n    <title></title>\n  </head>\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"row justify-content-center\">\n        <div class=\"col-lg-12 col-md-8 text-center col-sm-3 text-center\">\n          <ul class=\"nav justify-content-center\">\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"Home\">\n                <a class=\"nav-link active text-black\" type=\"button\" href=\"/\">\n                  <b>Home</b>\n                </a> \n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"AllProducts\">\n                <a class=\"nav-link text-black\" type=\"button\" href=\"/AllProducts\">\n                  <b>All Products </b>\n                </a> \n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"Shoes\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Shoes </b>\n                </a> \n                <ul class=\"dropdown-menu\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Jordan\">\n                    <b>Jordan</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Yeezy\">\n                    <b>Yeezy</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-2 dropdown-spacing\" id=\"Clothing\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Clothing</b>\n                </a> \n                <ul class=\"dropdown-menu\" id=\"Clothing\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Supreme\">\n                    <b>Supreme</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Sp5der\">\n                    <b>Sp5der</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-1 dropdown-spacing\" id=\"Accessories\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Accessories</b>\n                </a> \n                <ul class=\"dropdown-menu\" id=\"Accessories\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Supreme\">\n                    <b>Supreme</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Other\">\n                    <b>Other</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n          </ul>\n        </div>\n      </div>\n    </div>\n    <body>\n      <div class=\"container-fluid\">\n        <form id=\"cartForm\" action=\"/cart\" method=\"POST\">\n          <div class=\"row justify-content-center\">\n            <div class=\"col-lg-4 col-md-4 col-sm-4 text-center text-md-start\">\n              <ul>\n                <li>Product Brand: Yeezy</li>\n                <li>Product SKU: GW1934</li>\n                <li>Product Title: Slide Pure</li>\n                <li>Product Price: 160</li>\n                <li>Product Size: 7.5</li>\n                <li>Product Condition: New</li>\n                <li>Product Stock: 5</li>\n                <li>Product Quantity: 1</li>\n              </ul>\n            </div>\n            <div class=\"col-md-3 col-sm-3 col-lg-3\">\n              <ul>\n                <li>Product Brand: Yeezy</li>\n                <li>Product SKU: GW1934</li>\n                <li>Product Title: Slide Pure</li>\n                <li>Product Price: 160</li>\n                <li>Product Size: 7.5</li>\n                <li>Product Condition: New</li>\n                <li>Product Stock: 5</li>\n                <li>Product Quantity: 1</li>\n              </ul>\n            </div>\n          </div>\n        </form>\n      </div>\n    </body>\n  </body>\n</html>",
+      "name":"productinfo.pug",
+      "description":"Product Information TemplateThis Pug template defines the structure for displaying detailed product information. It includes a form for adding the product to the cart. The comments below explain the structure and purpose of each section.",
+      "rest":"<ul>\n<li>capture: all</li>\n</ul>\n"},
+      {"meta":{"name":"displayProduct mixin",
+      "description":"Mixin to display product information",
+      "arguments":[{"name":"product",
+      "description":"The product object with details ( default:{ brand:\"Yeezy\", sku:\"GW1934\", title:\"Slide Pure\", price:\"160\", size:\"7.5\", condition:\"New\", stock:\"5\", quantity:\"1\" } )",
+      "type":"",
+      "default":null,
+      "nullable":false,
+      "optional":false,
+      "original":"product - The product object with details ( default:{ brand:\"Yeezy\", sku:\"GW1934\", title:\"Slide Pure\", price:\"160\", size:\"7.5\", condition:\"New\", stock:\"5\", quantity:\"1\" } )"}],
+      "capture":"all"},
+      "file":"views\\productinfo.pug",
+      "source":"//- Define a mixin to display product information by SKU\r\nmixin displayProduct(product)\r\n    ul\r\n        li Product Brand: #{product.brand}\r\n        li Product SKU: #{product.sku}\r\n        li Product Title: #{product.title}\r\n        li Product Price: #{product.price}\r\n        li Product Size: #{product.size}\r\n        li Product Condition: #{product.condition}\r\n        li Product Stock: #{product.stock}\r\n        li Product Quantity: #{product.quantity}\r\n//- @pugdoc\r\n    name: productinfo.pug\r\n    description: Pug Body with mixin\r\n//- Define the content block\r\nblock content\r\n    body\r\n        //- Container for the product information\r\n        .container-fluid\r\n            //- Form to add the product to the cart\r\n            form#cartForm(action=\"/cart\" method=\"POST\")\r\n                .row.justify-content-center\r\n                    //- Column for product image\r\n                    .col-lg-4.col-md-4.col-sm-4.text-center.text-md-start\r\n                        +displayProduct({\r\n                          brand: 'Yeezy',\r\n                          sku: 'GW1934',\r\n                          title: 'Slide Pure',\r\n                          price: '160',\r\n                          size: '7.5',\r\n                          condition: 'New',\r\n                          stock: '5',\r\n                          quantity: '1'})\r\n                          img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style=\"max-width: 80%; height: auto;\")\r\n                          //- Hidden input fields to capture product details\r\n                          input(type='hidden', name='sku', value=`${product.sku}`)\r\n\r\n                    //- Column for product details\r\n                    .col-md-3.col-sm-3.col-lg-3\r\n                        +displayProduct({\r\n                          brand: 'Yeezy',\r\n                          sku: 'GW1934',\r\n                          title: 'Slide Pure',\r\n                          price: '160',\r\n                          size: '7.5',\r\n                          condition: 'New',\r\n                          stock: '5',\r\n                          quantity: '1'})\r\n                          .row\r\n                              .col-sm-12.text-center.text-md-start\r\n                                  //- Display product brand\r\n                                  h4.card-title\r\n                                      b= `${product.brand}`\r\n                                      input(type='hidden', name='brand', value=`${product.brand}`)\r\n\r\n                                  //- Display product title\r\n                                  p\r\n                                      b= `${product.title}`\r\n                                      input(type='hidden', name='title', value=`${product.title}`)\r\n\r\n                                  //- Display product price\r\n                                  p\r\n                                      b= `$${product.price}`\r\n                                      input(type='hidden', name='price', value=`${product.price}`)\r\n\r\n                          .row\r\n                              .col-12.my-2.text-center.text-md-start\r\n                                  //- Select dropdown for product size\r\n                                  label.text-black(for=\"sizing-dropdown\") Size\r\n                                  br\r\n                                  select#sizing-dropdown(name=\"size\")\r\n                                      - for (var i = `${product.size}`; i <= product.size; i++)\r\n                                          option(value=i)= i\r\n\r\n                          .row\r\n                              .col-12.my-2.text-center.text-md-start\r\n                                  //- Select dropdown for product condition\r\n                                  label.text-black(for=\"condition-dropdown\") Condition\r\n                                  br\r\n                                  select#condition-dropdown(name=\"condition\")\r\n                                      - for (var i = `${product.condition}`; i <= product.condition; i++)\r\n                                          option(value=i)= i\r\n\r\n                          .row\r\n                              .col-12.my-2.text-center.text-md-start\r\n                                  //- Select dropdown for product quantity\r\n                                  label.text-black(for=\"quantity-dropdown\") Quantity\r\n                                  br\r\n                                  select(name=\"quantity\")\r\n                                      - for (var i = 1; i <= product.stock; i++)\r\n                                          option(value=i)= i\r\n                                  //- Hidden input fields to capture stock and quantity\r\n                                  input(id=\"stock\", type='hidden', name='stock', value=`${product.stock}`)\r\n                                  input(type='hidden', name='quantity', value=`${product.quantity}`)\r\n\r\n                          .row\r\n                              .col-12.my-2.text-center.text-md-start\r\n                                  //- Button to add product to the cart\r\n                                  button.btn.btn-outline-success.btn-lg.cartbtn(id=\"addToCart\", type=\"submit\") Add To Cart\r\n                                  //- Container to display messages\r\n                                  div#messageContainer\r\n\r\n                              //- Script to handle stock numbers\r\n                              script.\r\n                                  stockNumbers()",
+      "output":"<body>\n  <div class=\"container-fluid\">\n    <form id=\"cartForm\" action=\"/cart\" method=\"POST\">\n      <div class=\"row justify-content-center\">\n        <div class=\"col-lg-4 col-md-4 col-sm-4 text-center text-md-start\">\n          <ul>\n            <li>Product Brand: Yeezy</li>\n            <li>Product SKU: GW1934</li>\n            <li>Product Title: Slide Pure</li>\n            <li>Product Price: 160</li>\n            <li>Product Size: 7.5</li>\n            <li>Product Condition: New</li>\n            <li>Product Stock: 5</li>\n            <li>Product Quantity: 1</li>\n          </ul>\n        </div>\n        <div class=\"col-md-3 col-sm-3 col-lg-3\">\n          <ul>\n            <li>Product Brand: Yeezy</li>\n            <li>Product SKU: GW1934</li>\n            <li>Product Title: Slide Pure</li>\n            <li>Product Price: 160</li>\n            <li>Product Size: 7.5</li>\n            <li>Product Condition: New</li>\n            <li>Product Stock: 5</li>\n            <li>Product Quantity: 1</li>\n          </ul>\n        </div>\n      </div>\n    </form>\n  </div>\n</body>",
+      "name":"displayProduct mixin",
+      "description":"Mixin to display product information",
+      "rest":"<ul>\n<li>arguments<ul>\n<li>0<ul>\n<li>type: </li>\n<li>default</li>\n<li>nullable: false</li>\n<li>optional: false</li>\n<li>original: product - The product object with details ( default:{ brand:&quot;Yeezy&quot;, sku:&quot;GW1934&quot;, title:&quot;Slide Pure&quot;, price:&quot;160&quot;, size:&quot;7.5&quot;, condition:&quot;New&quot;, stock:&quot;5&quot;, quantity:&quot;1&quot; } )</li>\n</ul>\n</li>\n</ul>\n</li>\n<li>capture: all</li>\n</ul>\n"}];
+  </script>
+
+  <!-- render documentation -->
+  <script>
+  'use strict';
+  var $cnt = document.getElementsByClassName('container')[0];
+  var TEMPLATE = document.getElementById('template').innerHTML;
+  var counter = 0;
+
+  function display(obj){
+    obj.uniqueDocId = ++counter;
+
+    var rendered = window.Mustache.render(TEMPLATE, obj);
+    window.Mustache.parse(TEMPLATE);
+    $cnt.innerHTML += rendered;
+    window.Prism.highlightAll();
+  }
+
+
+  var current = 0;
+  function next() {
+    display(window.DATA[current]);
+
+    current++;
+    if (window.DATA[current]) {
+      window.requestAnimationFrame(next);
+    } else {
+      document.body.classList.remove('is-loading');
+    }
+  }
+
+  if (window.DATA.length) {
+    document.body.classList.add('is-loading');
+    next();
+  }
+
+  </script>
+</body>
+</html>

@@ -1,22 +1,48 @@
+//- @pugdoc
+    name: allproducts.pug
+    description: All Products Template
+                This Pug template defines the layout and content for displaying all products in the inventory.
+                It extends the 'layout.pug' template and includes a mixin to render a list of products.
+                The comments below explain the structure and purpose of each section.
 extends layout.pug
 
+//- @pugdoc
+     name: allProduct Mixin
+     description: Define a mixin for rendering all products
+     arguments:
+       - {array} allproducts - An array of products to be rendered
+     examples:
+      - |
+        +allProduct([
+           { name: 'Product 1' },
+           { name: 'Product 2' }
+        ])
 mixin allProduct(allproducts)
     ul
         each product in allproducts
-            li
+                //- Example: p= product.name
 
+//- Define the 'content' block for this template
 block content
     body
+        //- Container for displaying products
         .container.rounded.text-center
+            //- Unordered list for displaying product details
             ul#producttable.text-center.text-black.justify-content-center
+                //- Use the mixin to render all products
 
+            //- Include Bootstrap JS script for functionality
+            script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM", crossorigin="anonymous")
 
-
-                script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM", crossorigin="anonymous")
-                script.
-                    loadProducts();
-                    searchItems();
-                    sideBarGen();
-                    jQuery(document).ready(function() {
-                            jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
-                    });
+            //- Include custom JavaScript functions for functionality
+            script.
+                //- Load products using JavaScript function
+                loadProducts();
+                //- Search for items using JavaScript function
+                searchItems();
+                //- Generate sidebar using JavaScript function
+                sideBarGen();
+                jQuery(document).ready(function() {
+                    //- Use jQuery to apply thumbnail styling to images
+                    jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
+                });

@@ -1,4 +1,18 @@
+/*====================================================
+mainpage.js - Frontend Main Page Handling
+====================================================*/
+/**
+ * @file This file contains frontend JavaScript functions for handling the main page display and user interactions.
+ * It communicates with the backend server to fetch data and updates the UI accordingly.
+ * @module mainpage
+ */
+
+/**
+ * Fetches data using AJAX to populate the main product display.
+ * @function addProducts
+ */
 function addProducts() {
+  // Fetch data using AJAX to populate the main product display
   $.ajax({
     url: '/data',
     type: 'GET',
@@ -6,6 +20,7 @@ function addProducts() {
     success: function (data) {
       for (var i = 0; i < data.length; i++) {
         const item = data[i];
+        // Perform necessary actions with the fetched data
       }
     },
     error: function (xhr, status, error) {
@@ -14,6 +29,10 @@ function addProducts() {
   });
 }
 
+/**
+ * Refreshes product thumbnails using jQuery Nailthumb library.
+ * @function refreshThumbnails
+ */
 function refreshThumbnails() {
   jQuery('img.center-img.thumbnails').nailthumb({
     width: 335,
@@ -22,10 +41,17 @@ function refreshThumbnails() {
   });
 }
 
+/**
+ * Loads products onto the main page.
+ * @async
+ * @function loadProducts
+ */
 const loadProducts = async () => {
+  // Fetch product data from the server
   const response = await axios.get('/data');
   const ubody = document.querySelector('ul#producttable')
   if (response && response.data) {
+    // Populate the main page product display
     for (const product of response.data) {
       const ubodyli = document.createElement('li');
       ubodyli.innerHTML = `
@@ -38,9 +64,11 @@ const loadProducts = async () => {
       `;
       ubody.appendChild(ubodyli)
     }
+    // Add event listeners for dropdowns and buttons
     const dropdowns = document.querySelectorAll("a.nav-link")
     dropdowns.forEach((dropdown) => {
       dropdown.addEventListener('click', () => {
+        // Toggle dropdown visibility
         dropdown.classList.toggle('show');
         if (dropdown.classList.contains('show')) {
           dropdown.nextElementSibling.classList.add('show');
@@ -50,10 +78,15 @@ const loadProducts = async () => {
       })
     })
   }
-  addProducts()
-  refreshThumbnails();
+  addProducts(); // Call function to add products (define this function)
+  refreshThumbnails(); // Refresh thumbnail images using jQuery Nailthumb library
 }
 
+/**
+ * Loads brand-specific products onto the main page.
+ * @async
+ * @function loadBrandProducts
+ */
 const loadBrandProducts = async () => {
   // Extract the brand from the URL
   const brand = window.location.pathname.split('/')[1].toLowerCase();
@@ -65,6 +98,7 @@ const loadBrandProducts = async () => {
   if (response && response.data) {
     // Filter products by the specific brand
     const brandProducts = response.data.filter(product => product.brand.toLowerCase() === brand);
+    // Populate the brand-specific product display
     for (const product of brandProducts) {
       const ubodyli = document.createElement('li');
       ubodyli.innerHTML = `
@@ -79,17 +113,22 @@ const loadBrandProducts = async () => {
     }
   }
 
-  addProducts();
-  refreshThumbnails();
+  addProducts(); // Call function to add products (define this function)
+  refreshThumbnails(); // Refresh thumbnail images using jQuery Nailthumb library
 }
 
+/**
+ * Loads products of a specific type within a brand.
+ * @async
+ * @function loadProductTypes
+ */
 const loadProductTypes = async () => {
   // Extract the brand from the URL
   const brand = window.location.pathname.split('/')[2].toLowerCase();
   const typeofItem = window.location.pathname.split('/')[1].toLowerCase();
   const firstLetter = typeofItem.charAt(0);
 
-  // Request all product data
+  // Fetch product data from the server
   const response = await axios.get('/data');
 
   const ubody = document.querySelector('ul#brandtypetable');
@@ -98,7 +137,7 @@ const loadProductTypes = async () => {
     // Filter products by the specific brand
     const brandProducts = response.data.filter(product => product.brand.toLowerCase() === brand);
     const brandTypeofProducts = brandProducts.filter(product => product.itemtype.toLowerCase() === firstLetter);
-
+    // Populate the product type display
     for (const product of brandTypeofProducts) {
       const ubodyli = document.createElement('li');
       ubodyli.innerHTML = `
@@ -112,16 +151,22 @@ const loadProductTypes = async () => {
       ubody.appendChild(ubodyli);
     }
     if (brandTypeofProducts.length === 0) {
+      // Display a message when no products are available
       const errorMessage = `<li>Check Back Soon!</li><br><button class='btn btn-outline-success' onclick="location.href='/'">Go Home</button>`;
       ubody.innerHTML += errorMessage;
       return;
     }
   }
 
-  addProducts();
-  refreshThumbnails();
+  addProducts(); // Call function to add products (define this function)
+  refreshThumbnails(); // Refresh thumbnail images using jQuery Nailthumb library;
 };
 
+/**
+ * Displays Filtered Products.
+ * @async
+ * @function displayFilteredProducts
+ */
 function displayFilteredProducts(products) {
   // Clear the previous product display
   const productContainer = document.querySelector('ul#producttable');
@@ -145,21 +190,28 @@ function displayFilteredProducts(products) {
 
 
 
-
+/**
+ * Function to generate and manage sidebar filters
+ * @async
+ * @function sideBarGen
+ */
 const sideBarGen = async () => {
+  // Fetch data using axios
   const response = await axios.get('/data');
-
+  // Get sidebar elements
   const sideBarBrandBody = document.querySelector('#brand');
   const sideBarSizeBody = document.querySelector('#sizes');
   const sideBarPriceBody = document.querySelector('#price');
   const sideBarGender = document.querySelector('#gender');
 
   if (response && response.data) {
-    const uniqueBrands = new Set(); // Create a set to store unique brand names
+    // Create sets to store unique attributes
+    const uniqueBrands = new Set();
     const uniqueSizes = new Set();
     const uniquePrices = new Set();
     const uniqueGenders = new Set();
 
+    // Populate sets with unique attributes from data
     for (const product of response.data) {
       uniqueBrands.add(product.brand); // Add brand name to the set
       uniqueSizes.add(product.size) // Add sizes to the set
@@ -170,6 +222,7 @@ const sideBarGen = async () => {
     // Clear the sidebar brand body before appending unique brand elements
     sideBarBrandBody.innerHTML = '';
 
+    // Function to filter products based on user selections
     function getFilteredProducts() {
       // Start with all products
       let filteredProducts = response.data;
@@ -198,6 +251,7 @@ const sideBarGen = async () => {
       return filteredProducts;
     }
 
+    // Sort and display genders with predefined order
     const sortedGenders = Array.from(uniqueGenders).sort((a, b) => {
       const genderOrder = ["M", "W", "GS", "TD", "PS", "ALL"];
       const indexA = genderOrder.findIndex(gender => gender.toLowerCase() === a.toLowerCase());
@@ -219,6 +273,7 @@ const sideBarGen = async () => {
       "ALL": "All"
     };
 
+    // Create gender toggle buttons and apply filters
     for (const gender of sortedGenders) {
       const toggleButton = document.createElement('div');
       toggleButton.classList.add('toggle-button', 'gender-button');
@@ -240,7 +295,7 @@ const sideBarGen = async () => {
 
 
 
-    // Append unique brand elements to the sidebar brand body
+    // Create and display brand filter checkboxes
     for (const brand of uniqueBrands) {
       const brandCheckbox = document.createElement('input');
       brandCheckbox.type = "checkbox";
@@ -273,6 +328,7 @@ const sideBarGen = async () => {
       sideBarBrandBody.appendChild(barBodys);
     }
 
+    // Sort and display size toggle buttons
     const sortedsizes = Array.from(uniqueSizes).sort((a, b) => {
       const order = ["small", "medium", "large", "XL", "XXL"];
       const indexA = order.findIndex(size => size.toLowerCase() === a.toLowerCase());
@@ -301,6 +357,8 @@ const sideBarGen = async () => {
       // Handle same types or non-numeric strings
       return String(a).localeCompare(String(b));
     });
+
+    // Create size toggle buttons and apply filters
     for (const size of sortedsizes) {
       const toggleButton = document.createElement('div');
       toggleButton.classList.add('toggle-button', 'size-button');
@@ -317,7 +375,7 @@ const sideBarGen = async () => {
     }
 
 
-
+    // Define price range filters
     const priceRanges = [{
         label: "$0 - $100",
         test: price => price >= 0 && price <= 100
@@ -340,6 +398,7 @@ const sideBarGen = async () => {
       }
     ];
 
+    // Create price range checkboxes and apply filters
     for (const priceRange of priceRanges) {
       const priceCheckbox = document.createElement('input');
       priceCheckbox.type = "checkbox";
@@ -381,36 +440,56 @@ const sideBarGen = async () => {
 
 }
 
+/**
+ * Function to perform search for items
+ * @async
+ * @function searchItems
+ */
 const searchItems = async () => {
+  // Fetch product data from the server
   const response = await axios.get('/data');
   const form = document.getElementById("searchform");
+
+  // Attach event listener for search form submission
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
+    // Get search term from the form input
     var searchTerm = form.querySelector("input[type='search']").value;
 
+    // Filter products based on the search term
     var filteredProducts = response.data.filter(product =>
       product.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-
+    // Display filtered products
     displayFilteredProducts(filteredProducts);
     refreshThumbnails();
   });
 }
 
+
+/**
+ * Function to update the total price in the cart
+ * @async
+ * @function searchItems
+ */
 const updateTotal = async() => {
+    // Fetch cart items from the server
     const response = await fetch('/api/cart');
     const { cartItems } = await response.json();
     var total = 0;
+    // Iterate through cart items to calculate the total price
     var quantityElements = document.querySelectorAll(".cartQuantity");
     quantityElements.forEach(quantityElement => {
+        // Calculate total price for each cart item
         var sku = quantityElement.getAttribute('data-sku');
         var item = cartItems.find(item => item.sku === sku);
         var quantity = parseInt(quantityElement.value);
         total += item.price * quantity;
     });
+    // Update the total price in the UI
     document.querySelector("#totalPrice").innerText = "$" + total.toFixed(2);
 }
 
@@ -419,13 +498,23 @@ window.onload = updateTotal;
 
 let count = localStorage.getItem("cartCount") || 0;
 
+
+/**
+ * Function to manage stock numbers during cart interactions
+ * @async
+ * @function loadProductTypes
+ */
 const stockNumbers = async () => {
+  // Get necessary DOM elements
   const itemstock = document.getElementById("stock");
   const form = document.getElementById("cartForm");
   const messageContainer = document.getElementById("messageContainer");
+
+  // Attach event listener for cart form submission
   form.addEventListener("submit", function(event) {
     event.preventDefault();
 
+    // Increment cart count and check stock
     count++;
     const stock = parseInt(itemstock.value);
 
@@ -434,17 +523,24 @@ const stockNumbers = async () => {
       messageContainer.textContent = "Item added to cart successfully.";
       form.submit();
     } else {
-      // Display error message
+      // Display error message and disable form
       messageContainer.textContent = "Not enough stock. Please select a lower quantity.";
       form.disabled = true;
+
+      // Clear the count when leaving the page
       window.addEventListener("beforeunload", function() {
-        localStorage.removeItem("cartCount"); // Clear the count when leaving the page
+        localStorage.removeItem("cartCount");
       });
     }
-    localStorage.setItem("cartCount", count); // Store the updated count in local storage
+    // Store the updated count in local storage
+    localStorage.setItem("cartCount", count);
   });
 };
 
+/**
+ * Initializes PayPal checkout.
+ * @function paypalCheckout
+ */
 const paypalCheckout = async () => {
   paypal.Buttons().render('#paypal-buttons-container');
 

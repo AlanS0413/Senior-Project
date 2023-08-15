@@ -1,20 +1,41 @@
+//- @pugdoc
+    name: checkoutsuccess.pug
+    description: Checkout Success Template
+                This Pug template defines the layout and content for displaying a checkout success message.
+                It extends the 'layout.pug' template and includes a block for displaying transaction and shipping details.
+                The comments below explain the structure and purpose of each section.
+
+
+//- Extending the 'layout.pug' template
 extends layout.pug
 
+
+//- Define the 'content' block for this template
 block content
     body
+
+        //- Row for displaying the thank you message and transaction details
         .row.text-center
             .col-lg-12
+                //- Heading for the thank you message
                 h1
                     b Thank you for your purchase!
                     hr
+
+                //- Heading for transaction details
                 h2
                     b Transaction Details
-                    h3
-                        each item in transactionItems
-                            b= item.name + " x " + item.quantity + ": $" + item.unit_amount.value
+                h3
+                    //- Display each item's details in the transaction
+                    each item in transactionItems
+                        b= item.name + " x " + item.quantity + ": $" + item.unit_amount.value
+
+                //- Heading for shipping details
                 h2
                     hr
                     b Shipping Details
+
+                //- Display shipping information
                 p
                     b #{transactionShipping.name.full_name}
                     br
@@ -25,4 +46,5 @@ block content
                     b #{transactionShipping.address.admin_area_1}
                     br
                     b #{transactionShipping.address.postal_code}
+
                 hr

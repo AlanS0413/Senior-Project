@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pug Documentation</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css" rel="stylesheet" />
+
+  <style>
+    html {
+      font-family: Lucida Grande;
+      margin: 10px;
+    }
+
+    @media (min-width: 860px) {
+      html {
+        margin: 50px;
+      }
+    }
+
+    .page-title {
+      font-size: 30px;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /**
+     * Doc item
+     */
+
+    .doc-item {
+      padding: 30px 0;
+    }
+
+    .doc-item__title {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .doc-item__description {
+      font-size: 12px;
+      margin: 0;
+      border-radius: 3px;
+    }
+
+    .doc-item__file {
+      font-size: 10px;
+      padding: 2px;
+      display: inline-block;
+    }
+
+    .doc-item__meta-title {
+      font-size: 12px;
+      margin-top: 20px;
+    }
+
+    .doc-item__meta {
+      font-size: 11px;
+    }
+
+    .doc-item__meta ul {
+      margin: 0;
+      padding: 0;
+      list-style-position: inside;
+    }
+
+    .doc-item__meta ul ul {
+      margin-left: 15px;
+      margin-top: 5px;
+    }
+
+    .doc-item__meta li {
+      margin-bottom: 5px;
+    }
+
+
+
+    /**
+     * Code snippets
+     */
+
+    .code {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (min-width: 860px) {
+      .code .code__jade {
+        display: table-cell;
+        width: 50%;
+      }
+
+      .code .code__jade:first-of-type {
+        border-right: 20px solid white;
+      }
+    }
+
+
+    /**
+     * Page loader
+     */
+
+    .is-loading {
+      background-color: red;
+    }
+
+    .is-loading:before {
+      content: '';
+      display: block;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      width: 14px;
+      height: 14px;
+      border: solid 2px transparent;
+      border-top-color: royalblue;
+      border-left-color: royalblue;
+      border-radius: 10px;
+      -webkit-animation: pace-spinner 400ms linear infinite;
+      animation: pace-spinner 400ms linear infinite;
+    }
+
+    @-webkit-keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="container">
+    <h1 class="page-title">Pug Documentation</h1>
+  </div>
+
+
+  <!-- include prism code highlighter -->
+  <script src="../out/scripts/prism.js"></script>
+
+  <!-- load mustache -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.min.js"></script>
+
+  <!-- doc item template -->
+  <div id="template" style="display: none;">
+    <div class="doc-item" id="doc-{{uniqueDocId}}">
+      {{#name.length}}
+      <h2 class="doc-item__title">{{name}}</h2>
+      {{/name.length}}
+
+      {{#description.length}}
+      <p class="doc-item__description">{{description}}</p>
+      {{/description.length}}
+
+      <p class="doc-item__file">{{file}}</p>
+
+      {{#rest.length}}
+      <h3 class="doc-item__meta-title">Meta</h3>
+      <div class="doc-item__meta">
+        {{{rest}}}
+      </div>
+      {{/rest.length}}
+
+      <div class="code">
+        <div class="code__jade">
+          <pre class="language-jade"><code>{{source}}</code></pre>
+        </div>
+
+        <div class="code__html">
+          <pre class="language-html"><code>{{output}}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- load data -->
+  <script>window.DATA = [{
+      "meta": { "name": "account.pug - User Account/Login Template", "description": "This Pug template defines the layout and content for the user account and login page. It extends the 'layout.pug' template and provides a form for user login. The comments below explain the structure and purpose of each section.", "capture": "all" }, "file": "account.pug", "source": "//- Extending the layout template\r\nextends layout.pug\r\n//- Define the 'content' block for this template\r\nblock content\r\n    body\r\n        //- Container for the login form\r\n        .container.my-5\r\n            //- Card styling for the login form\r\n            .card.col-lg-5.col-md-8.col-sm-12.mx-auto.rounded.log.cardopacity\r\n                //- Card header with the title \"Sign in\"\r\n                .card-header\r\n                    h1.card-title.text-black\r\n                        b Sign in\r\n                    //- Login form with action and method attributes\r\n                    form.form(action=\"/account\", method=\"post\")\r\n                        //- Container for form inputs\r\n                        .container.row.justify-content-around\r\n                            //- Username input field\r\n                            .row\r\n                                .col-lg-12.col-md-12.col-sm-12\r\n                                    label.text-black(for=\"username\")\r\n                                        b Username\r\n                                    input(type=\"text\" name=\"username\").rounded.forminput.bg-danger.bg-gradient\r\n                            //- Password input field\r\n                            .row\r\n                                .col-lg-12.col-md-12.col-sm-12\r\n                                    label.text-black(for=\"password\")\r\n                                        b Password\r\n                                    input(type=\"password\" name=\"password\").rounded.forminput.bg-danger.bg-gradient\r\n                            //- Submit button\r\n                            .row\r\n                                .col-lg-12.col-md-12.col-sm-12.my-2.text-center\r\n                                    button.btn.btn-outline-primary.text-black.btn-lg(type=\"submit\")\r\n                                        b Sign in\r\n                                    //- Display a message if available\r\n                                    if message\r\n                                        p #{message}\r\n                            //- \"Nevermind\" button\r\n                            .row\r\n                                .col-lg-12.col-md-12.col-sm-12.my-2.text-center\r\n                                    a.btn.btn-outline-danger.btn-lg(href='/')\r\n                                        b Nevermind\r\n                            //- Account creation message and link\r\n                            .row\r\n                                .col-lg-12.col-md-12.col-sm-12.my-2.text-center\r\n                                    span.text-black.accttext.mx-auto\r\n                                        b Don't have an account yet?\r\n                                    .col-lg-12.col-md-12.col-sm-12.my-2.text-center\r\n                                        a.btn.btn-outline-primary.btn-md.text-black.btn-lg(href='/signup')\r\n                                            b Sign up Here!\r\n                                    p\r", 
+      "output": "<!DOCTYPE html>\n<html>\n  <head>\n    <script src=\"https://code.jquery.com/jquery-3.6.0.min.js\"><\/script>\n<script src=\"https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"><\/script>\n<script src=\"/jquery.nailthumb.1.1.js\"><\/script>\n<link rel=\"stylesheet\" href=\"/style.css\">\n<link rel=\"stylesheet\" href=\"/jquery.nailthumb.1.1.css\">\n<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css\" rel=\"stylesheet\"integrity=\"sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp\" crossorigin=\"anonymous\">\n<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js\"integrity=\"sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N\"crossorigin=\"anonymous\"><\/script>\n<script src=\"/mainpage.js\"><\/script>\n <title></title>\n </head>\n<body>\n <div class=\"container-fluid\">\n <div class=\"row justify-content-center\">\n <div class=\"col-lg-12col-md-8 text-center col-sm-3 text-center\">\n <ul class=\"nav justify-content-center\">\n <liclass=\"nav-item\">\n <h3 class=\"mx-3 dropdown-spacing\" id=\"Home\">\n <a class=\"nav-link activetext-black\" type=\"button\" href=\"/\">\n <b>Home</b>\n </a> \n </h3>\n </li>\n <liclass=\"nav-item\">\n <h3 class=\"mx-3 dropdown-spacing\" id=\"AllProducts\">\n <a class=\"nav-link text-black\" type=\"button\" href=\"/AllProducts\">\n <b>All Products </b>\n </a> \n </h3>\n </li>\n <li class=\"nav-item\">\n <h3 class=\"mx-3 dropdown-spacing\" id=\"Shoes\">\n <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n <b>Shoes </b>\n </a> \n <ul class=\"dropdown-menu\">\n <li></li>\n <a class=\"dropdown-item\"href=\"/Footwear/Jordan\">\n <b>Jordan</b>\n </a> \n <li></li>\n <a class=\"dropdown-item\"href=\"/Footwear/Nike\">\n <b>Nike</b>\n </a> \n <li></li>\n <a class=\"dropdown-item\"href=\"/Footwear/Yeezy\">\n <b>Yeezy</b>\n </a> \n <li></li>\n </ul>\n </h3>\n </li>\n <li class=\"nav-item\">\n <h3 class=\"mx-2 dropdown-spacing\" id=\"Clothing\">\n <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n <b>Clothing</b>\n </a> \n <ul class=\"dropdown-menu\" id=\"Clothing\">\n <li></li>\n <a class=\"dropdown-item\"href=\"/Clothing/Supreme\">\n <b>Supreme</b>\n </a> \n <li></li>\n <a class=\"dropdown-item\"href=\"/Clothing/Nike\">\n <b>Nike</b>\n </a> \n <li></li>\n <a class=\"dropdown-item\"href=\"/Clothing/Sp5der\">\n <b>Sp5der</b>\n </a> \n <li></li>\n </ul>\n </h3>\n </li>\n <li class=\"nav-item\">\n <h3 class=\"mx-1 dropdown-spacing\" id=\"Accessories\">\n <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n <b>Accessories</b>\n </a> \n <ul class=\"dropdown-menu\" id=\"Accessories\">\n <li></li>\n <a class=\"dropdown-item\" href=\"/Accessories/Supreme\">\n <b>Supreme</b>\n </a> \n <li></li>\n <a class=\"dropdown-item\" href=\"/Accessories/Nike\">\n <b>Nike</b>\n </a> \n <li></li>\n <a class=\"dropdown-item\" href=\"/Accessories/Other\">\n <b>Other</b>\n </a> \n <li></li>\n </ul>\n </h3>\n </li>\n </ul>\n </div>\n </div>\n </div>\n <body>\n <div class=\"container my-5\">\n <div class=\"card col-lg-5 col-md-8 col-sm-12 mx-auto rounded log cardopacity\">\n <div class=\"card-header\">\n <h1 class=\"card-title text-black\">\n <b>Sign in</b>\n </h1>\n <form class=\"form\" action=\"/account\" method=\"post\">\n <div class=\"container row justify-content-around\">\n <div class=\"row\">\n <div class=\"col-lg-12 col-md-12 col-sm-12\">\n <label class=\"text-black\" for=\"username\">\n <b>Username</b>\n </label>\n <input class=\"rounded forminput bg-danger bg-gradient\" type=\"text\" name=\"username\">\n </div>\n </div>\n <div class=\"row\">\n <div class=\"col-lg-12 col-md-12 col-sm-12\">\n <label class=\"text-black\"for=\"password\">\n <b>Password</b>\n </label>\n <input class=\"rounded forminput bg-danger bg-gradient\" type=\"password\" name=\"password\">\n </div>\n </div>\n <div class=\"row\">\n <div class=\"col-lg-12 col-md-12 col-sm-12 my-2 text-center\">\n <button class=\"btn btn-outline-primary text-black btn-lg\" type=\"submit\">\n <b>Sign in</b>\n </button>\n </div>\n </div>\n <div class=\"row\">\n <div class=\"col-lg-12 col-md-12 col-sm-12 my-2 text-center\">\n <a class=\"btn btn-outline-danger btn-lg\" href=\"/\">\n <b>Nevermind</b>\n </a> \n </div>\n </div>\n <div class=\"row\">\n <div class=\"col-lg-12 col-md-12 col-sm-12 my-2 text-center\"><span class=\"text-black accttext mx-auto\"><b>Don't have an account yet?</b></span> \n <div class=\"col-lg-12 col-md-12 col-sm-12 my-2 text-center\">\n <a class=\"btn btn-outline-primary btn-md text-black btn-lg\" href=\"/signup\">\n <b>Sign up Here!</b>\n </a> \n </div>\n <p></p>\n </div>\n </div>\n </div>\n </form>\n </div>\n </div>\n </div>\n </body>\n </body>\n</html>",
+      "name":"account.pug - User Account/Login Template",
+      "description":"This Pug template defines the layout and content for the user account and login page. It extends the 'layout.pug' template and provides a form for user login.The comments below explain the structure and purpose of each section.",
+      "rest":"<ul>\n<li>capture: all</li>\n</ul>\n"}];
+</script>
+
+<!-- render documentation -->
+<script>
+  'use strict';
+    var $cnt = document.getElementsByClassName('container')[0];
+    var TEMPLATE = document.getElementById('template').innerHTML;
+    var counter = 0;
+
+    function display(obj){
+      obj.uniqueDocId = ++counter;
+
+      var rendered = window.Mustache.render(TEMPLATE, obj);
+      window.Mustache.parse(TEMPLATE);
+      $cnt.innerHTML += rendered;
+      window.Prism.highlightAll();
+    }
+
+
+  var current = 0;
+  function next() {
+    display(window.DATA[current]);
+
+    current++;
+    if (window.DATA[current]) {
+      window.requestAnimationFrame(next);
+    } else {
+      document.body.classList.remove('is-loading');
+    }
+  }
+
+  if (window.DATA.length) {
+    document.body.classList.add('is-loading');
+    next();
+  }
+
+</script>
+</body>
+
+</html>

@@ -1,53 +1,81 @@
+//- @pugdoc
+    name: addproduct.pug
+    description: Add Product Template
+                This Pug template defines the layout and content for adding a new product to the inventory.
+                It extends the 'layout.pug' template and provides a form for adding product details, including
+                uploading a CSV file for bulk import.
+                The comments below explain the structure and purpose of each section.
+    capture: all
+
+
+//- Extend the 'layout.pug' template
 extends layout.pug
 
+//- Define the 'content' block for this template
 block content
     body
+        //- Card styling for the add product form
         .card.row.mx-auto.cardopacity(style="width: 30rem")
+            //- Card header with the title "Inventory"
             .card-header.text-center
                 h3
                     b Inventory
+            //- Form for adding a new product
             ul.col-6.mx-auto.text-center
                 form.form(action='/addproduct', method='post', enctype='multipart/form-data')
+                    //- Label and input for the product brand
                     label.my-2.text-black(for='brand')
                         b Brand
                         input#brand(type='text', name='brand', placeholder="Nike" oninput="this.value = this.value.toLowerCase()", )
 
+                    //- Label and input for the product name
                     label.text-black(for='title')
                         b Name
                         input#title(type='text', name='title', placeholder="Panda" oninput="this.value = this.value.toLowerCase()", )
 
+                    //- Label and input for the product SKU
                     label.my-2.text-black(for='sku')
                         b Sku
                         input#sku(type='text', name='sku', placeholder="12345-001" oninput="this.value = this.value.toLowerCase()", )
 
+                    //- Label and input for the product size
                     label.my-2.text-black(for='size')
                         b Size
                         input#size(type='text', name='size', placeholder="11" oninput="this.value = this.value.toLowerCase()", )
 
+                    //- Label and input for the product stock
                     label.my-2.text-black(for='stock')
                         b Stock
                         input#stock(type='text', name='stock', placeholder="1" oninput="this.value = this.value.toLowerCase()", )
 
+                    //- Label and input for the product type
                     label.my-2.text-black(for='itemtype')
                         b Item Type
                         input#stock(type='text', name='itemtype', placeholder="F/C/A" oninput="this.value = this.value.toLowerCase()", )
 
+                    //- Label and input for the product price
                     label.text-black(for='price')
                         b Price
                         input#price(type='text', name='price', placeholder="$" oninput="this.value = this.value.toLowerCase()", )
 
+                    //- Label and input for the product condition
                     label.my-2.text-black(for='condition')
                         b Condition
                         input#condition(type='text', name='condition', placeholder="New/Used/DS" oninput="this.value = this.value.toLowerCase()", )
 
+                    //- Label and input for the product gender
                     label.my-2.text-black(for='gender')
                         b Gender
                         input#condition(type='text', name='gender', placeholder="M/W/GS/PS/TD/All" oninput="this.value = this.value.toLowerCase()", )
 
+                    //- Line break
                     br
+                    //- Label and input for uploading a CSV file
                     label.text-black(for='csvFile')
                         b Import CSV
                     input(type='file', name='csvFile', id='csvFile')
                     br
-                    button.btn.btn-outline-success.my-2(type='submit', value ="upload")
+                    //- Submit button for adding the product
+                    button.btn.btn-outline-success.my-2(type='submit', value="upload")
                         b Add Product
+

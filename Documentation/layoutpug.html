@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pug Documentation</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css" rel="stylesheet" />
+ 
+  <style>
+    html{
+      font-family: Lucida Grande;
+      margin: 10px;
+    }
+
+    @media (min-width: 860px){
+      html{
+        margin: 50px;
+      }
+    }
+
+    .page-title{
+      font-size: 30px;
+    }
+
+    .container{
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /**
+     * Doc item
+     */
+
+    .doc-item{
+      padding: 30px 0;
+    }
+
+    .doc-item__title{
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .doc-item__description{
+      font-size: 18px;
+      margin: 0;
+      border-radius: 3px;
+    }
+
+    .doc-item__file{
+      font-size: 18px;
+      padding: 2px;
+      display: inline-block;
+    }
+
+    .doc-item__meta-title{
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .doc-item__meta{
+      font-size: 18px;
+    }
+
+    .doc-item__meta ul{
+      margin: 0;
+      padding: 0;
+      list-style-position: inside;
+    }
+
+    .doc-item__meta ul ul{
+      margin-left: 15px;
+      margin-top: 5px;
+    }
+
+    .doc-item__meta li{
+      margin-bottom: 5px;
+    }
+
+
+
+    /**
+     * Code snippets
+     */
+
+    .code{
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (min-width: 860px){
+      .code .code__jade{
+        display: table-cell;
+        width: 50%;
+      }
+
+      .code .code__jade:first-of-type{
+        border-right: 20px solid white;
+      }
+    }
+
+
+    /**
+     * Page loader
+     */
+
+    .is-loading {
+      background-color: red;
+    }
+
+    .is-loading:before {
+      content: '';
+      display: block;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      width: 14px;
+      height: 14px;
+      border: solid 2px transparent;
+      border-top-color: royalblue;
+      border-left-color: royalblue;
+      border-radius: 10px;
+      -webkit-animation: pace-spinner 400ms linear infinite;
+              animation: pace-spinner 400ms linear infinite;
+    }
+
+    @-webkit-keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="container">
+    <h1 class="page-title">Pug Documentation</h1>
+  </div>
+
+
+  <!-- include prism code highlighter -->
+  <script src="../out/scripts/prism.js"></script>
+
+  <!-- load mustache -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.min.js"></script>
+
+  <!-- doc item template -->
+  <div id="template" style="display: none;">
+    <div class="doc-item" id="doc-{{uniqueDocId}}">
+      {{#name.length}}
+        <h2 class="doc-item__title">{{name}}</h2>
+      {{/name.length}}
+
+      {{#description.length}}
+        <p class="doc-item__description">{{description}}</p>
+      {{/description.length}}
+
+      <p class="doc-item__file">{{file}}</p>
+
+      {{#rest.length}}
+        <h3 class="doc-item__meta-title">Meta</h3>
+        <div class="doc-item__meta">
+        {{{rest}}}
+        </div>
+      {{/rest.length}}
+
+      <div class="code">
+        <div class="code__jade">
+          <pre class="language-jade"><code>{{source}}</code></pre>
+        </div>
+
+        <div class="code__html">
+          <pre class="language-html"><code>{{output}}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- load data -->
+  <script>window.DATA = [{"meta":{
+    "name":"layout.pug",
+    "description":"Layout Template This Pug template defines the layout structure that is used across multiple pages. It includes the necessary scripts, stylesheets, and navigation components. The comments below explain the structure and purpose of each section.",
+    "capture":"all"},
+    "file":"views\\layout.pug",
+    "source":"//- Set the doctype and start the HTML tag\r\ndoctype html\r\nhtml\r\n    head\r\n        //- Include jQuery and Axios scripts\r\n        script(src=\"https://code.jquery.com/jquery-3.6.0.min.js\")\r\n        script(src=\"https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\")\r\n\r\n        //- Include Nailthumb plugin scripts and custom styles\r\n        script(src=\"/jquery.nailthumb.1.1.js\")\r\n        link(rel=\"stylesheet\", href=\"/style.css\")\r\n        link(rel=\"stylesheet\", href=\"/jquery.nailthumb.1.1.css\")\r\n\r\n        //- Include Bootstrap CSS from a CDN\r\n        link(href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css\", rel=\"stylesheet\", integrity=\"sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp\", crossorigin=\"anonymous\")\r\n\r\n        //- Include Bootstrap JS bundle from a CDN\r\n        script(src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js\", integrity=\"sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N\", crossorigin=\"anonymous\")\r\n\r\n        //- Include custom JavaScript for main page functionality\r\n        script(src=\"/mainpage.js\")\r\n\r\n        //- Set the title of the page using a dynamic variable\r\n        title= title\r\n\r\n    body\r\n        //- Navigation bar based on the user's authentication state\r\n        if show_login\r\n            //- Display navigation for logged-in users\r\n            if user || Admin\r\n                //- Navigation bar for logged-in users\r\n                span\r\n                    ul.navbar.navbar-expand-sm.bars\r\n                        .container-fluid\r\n                            .navbar-nav.mr-auto\r\n                                li.nav-item\r\n                                    //- Search form for products\r\n                                    form#searchform(role=\"search\")\r\n                                        .input-group\r\n                                            input#searchinput.rounded(type=\"search\", placeholder=\"Search\", aria-label=\"Search\")\r\n                                            .input-group-append\r\n                                                button#searchbtn.btn.btn-outline-success.rounded(type=\"submit\") Search\r\n                            .navbar-nav.ml-auto\r\n                                //- Display admin or user information\r\n                                if Admin\r\n                                    li.nav-item\r\n                                        span.nav-link.text-white\r\n                                            b Logged in as Admin #{Admin.username}\r\n                                else if user\r\n                                    li.nav-item\r\n                                        span.nav-link.text-white\r\n                                            b Logged in as #{user.username}\r\n                                //- Logout button\r\n                                li#logoutbutton.nav-item\r\n                                    a#logoutbutton.btn.btn-outline-danger.btn-md(href='/logout') Logout\r\n                                //- Cart button\r\n                                li#cartbutton.nav-item\r\n                                    a.btn.btn-sm(href='/cart')\r\n                                        img(src=\"https://www.dropbox.com/s/ywasy8lwkk2pldb/thenounproject.png?dl=1\", alt=\"Cart\", style=\"width: 40px; height: 40px;\")\r\n            else\r\n                //- Display navigation for guests\r\n                ul.navbar.navbar-expand-sm.bars\r\n                    .container-fluid\r\n                        .navbar-nav.mr-auto\r\n                            li.nav-item\r\n                                //- Search form for products\r\n                                form#searchform(role=\"search\")\r\n                                    .input-group\r\n                                    input#searchform.rounded(type=\"search\", placeholder=\"Search\", aria-label=\"Search\")\r\n                                    .input-group-append\r\n                                        button#searchbtn.btn.btn-outline-success.rounded(type=\"submit\") Search\r\n                        .navbar-nav.ml-auto\r\n                            //- Account login button\r\n                            a.btn.btn-md.mx-1(href='/account')\r\n                                img(src=\"https://www.dropbox.com/s/160nat60id0a9ar/Account.jpg?dl=1\", alt=\"Account login\", style=\"width: 35px; height: 35px;\")\r\n                            //- Cart button\r\n                            a.btn.btn-md(href='/cart')\r\n                                img(src=\"https://www.dropbox.com/s/ywasy8lwkk2pldb/thenounproject.png?dl=1\", alt=\"Cart\", style=\"width: 35px; height: 35px;\")\r\n\r\n        //- Conditionally display navigation options based on page type\r\n        if at_Home\r\n            //- Navigation options for the home page\r\n            .container\r\n                .row.justify-content-center\r\n                    .col-lg-12.col-md-8.text-center.col-sm-8.text-center\r\n                        ul.nav.flex-row.justify-content-center\r\n                            li.nav-item\r\n                                //- All Products link\r\n                                h3.dropdown-spacing\r\n                                    a.nav-link.text-black(type=\"button\", href=\"/AllProducts\")  \r\n                                            b All Products \r\n                                //- Shoes dropdown\r\n                                h3.dropdown-spacing\r\n                                    a.nav-link.text-black(data-bs-toggle=\"dropdown\", role=\"button\", aria-expanded=\"false\")\r\n                                        b Shoes\r\n                                    ul.dropdown-menu\r\n                                        //- Links to specific shoe brands\r\n                                        li.dropdown-item\r\n                                        a.dropdown-item(href=\"/Footwear/jordan\")\r\n                                            b Jordan\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Footwear/nike\") \r\n                                            b Nike\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Footwear/yeezy\") \r\n                                            b Yeezy\r\n                                //- Clothing dropdown\r\n                                h3.dropdown-spacing\r\n                                    a.nav-link.text-black(data-bs-toggle=\"dropdown\", role=\"button\", aria-expanded=\"false\")\r\n                                        b Clothing \r\n                                    ul.dropdown-menu(id=\"Clothing\")\r\n                                        //- Links to specific clothing brands\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Clothing/Supreme\")\r\n                                            b Supreme\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Clothing/Nike\") \r\n                                            b Nike\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Clothing/Sp5der\") \r\n                                            b Sp5der\r\n                                //- Accessories dropdown\r\n                                h3.dropdown-spacing \r\n                                    a.nav-link.text-black(data-bs-toggle=\"dropdown\", role=\"button\", aria-expanded=\"false\")  \r\n                                        b Accessories \r\n                                    ul.dropdown-menu(id=\"Accessories\")\r\n                                        //- Links to specific accessory brands\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Accessories/Supreme\")\r\n                                            b Supreme\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Accessories/Nike\") \r\n                                            b Nike\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Accessories/Other\") \r\n                                            b Other\r\n        else \r\n            //- Navigation options for other pages\r\n            .container-fluid\r\n                .row.justify-content-center\r\n                    .col-lg-12.col-md-8.text-center.col-sm-3.text-center\r\n                        ul.nav.justify-content-center\r\n                            li.nav-item\r\n                                //- Home link\r\n                                h3#Home.mx-3.dropdown-spacing\r\n                                    a.nav-link.active.text-black(type=\"button\", href=\"/\")\r\n                                        b Home\r\n                            li.nav-item\r\n                                //- All Products link\r\n                                h3#AllProducts.mx-3.dropdown-spacing\r\n                                    a.nav-link.text-black(type=\"button\", href=\"/AllProducts\")  \r\n                                        b All Products \r\n                            li.nav-item\r\n                                //- Shoes dropdown\r\n                                h3#Shoes.mx-3.dropdown-spacing\r\n                                    a.nav-link.text-black(data-bs-toggle=\"dropdown\", role=\"button\", aria-expanded=\"false\") \r\n                                        b Shoes \r\n                                    ul.dropdown-menu\r\n                                        //- Links to specific shoe brands\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Footwear/Jordan\")\r\n                                            b Jordan\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Footwear/Nike\") \r\n                                            b Nike\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Footwear/Yeezy\") \r\n                                            b Yeezy\r\n                                        li\r\n                            li.nav-item\r\n                                //- Clothing dropdown\r\n                                h3#Clothing.mx-2.dropdown-spacing\r\n                                    a.nav-link.text-black(data-bs-toggle=\"dropdown\", role=\"button\", aria-expanded=\"false\")\r\n                                        b Clothing\r\n                                    ul.dropdown-menu(id=\"Clothing\")\r\n                                        //- Links to specific clothing brands\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Clothing/Supreme\")\r\n                                            b Supreme\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Clothing/Nike\") \r\n                                            b Nike\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Clothing/Sp5der\") \r\n                                            b Sp5der\r\n                                        li\r\n                            li.nav-item\r\n                                //- Accessories dropdown\r\n                                h3#Accessories.mx-1.dropdown-spacing\r\n                                    a.nav-link.text-black(data-bs-toggle=\"dropdown\", role=\"button\", aria-expanded=\"false\") \r\n                                        b Accessories\r\n                                    ul.dropdown-menu(id=\"Accessories\")\r\n                                        //- Links to specific accessory brands\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Accessories/Supreme\")\r\n                                            b Supreme\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Accessories/Nike\") \r\n                                            b Nike\r\n                                        li\r\n                                        a.dropdown-item(href=\"/Accessories/Other\") \r\n                                            b Other\r\n                                        li\r\n\r\n        //- Display the sidebar if required\r\n        if showSidebar\r\n            .container#sidebar.rounded.d-none.d-xxl-block\r\n                aside.sidebar\r\n                        .col-xxl-12.col-xl-12.col-lg-12\r\n                            .offcanvas-lg.offcanvas-start#bdSidebar(aria-labelledby=\"bdSidebarOffcanvasLabel\")\r\n                                //- Gender filter section\r\n                                .accordion\r\n                                    .accordion-item\r\n                                        h5.accordion-header#headingOne\r\n                                            button.accordion-button.text-black(data-bs-parent=\"accordian\", type=\"button\", data-bs-toggle=\"collapse\", data-bs-target=\"#collapseOne.accordion-collapse.collapse\", aria-expanded=\"false\", aria-controls=\"#collapseOne.accordion-collapse.collapse\")\r\n                                                b Gender\r\n                                        #collapseOne.accordion-collapse.collapse.show(aria-labelledby=\"headingOne\")\r\n                                            .accordion-body#gender\r\n\r\n                                //- Brand filter section\r\n                                .accordion\r\n                                    .accordion-item\r\n                                        h5.accordion-header#headingTwo\r\n                                            button.accordion-button.text-black(data-bs-parent=\"accordian\", type=\"button\", data-bs-toggle=\"collapse\", data-bs-target=\"#collapseTwo.accordion-collapse.collapse\", aria-expanded=\"false\", aria-controls=\"#collapseTwo.accordion-collapse.collapse\")\r\n                                                b Brand\r\n                                        #collapseTwo.accordion-collapse.collapse.show(aria-labelledby=\"headingTwo\")\r\n                                            .accordion-body#brand\r\n\r\n                                //- Size filter section\r\n                                .accordion\r\n                                    .accordion-item\r\n                                        h5.accordion-header#headingThree\r\n                                            button.accordion-button.text-black(data-bs-parent=\"accordian\", type=\"button\", data-bs-toggle=\"collapse\", data-bs-target=\"#collapseThree.accordion-collapse.collapse\", aria-expanded=\"false\", aria-controls=\"#collapseThree.accordion-collapse.collapse\")\r\n                                                b Size\r\n                                        #collapseThree.accordion-collapse.collapse.show(aria-labelledby=\"headingThree\")\r\n                                            .accordion-body#sizes\r\n\r\n                                //- Price filter section\r\n                                .accordion\r\n                                    .accordion-item\r\n                                        h5.accordion-header#headingFour\r\n                                            button.accordion-button.text-black(data-bs-parent=\"accordian\", type=\"button\", data-bs-toggle=\"collapse\", data-bs-target=\"#collapseFour.accordion-collapse.collapse\", aria-expanded=\"false\", aria-controls=\"#collapseThree.accordion-collapse.collapse\")\r\n                                                b Price\r\n                                        #collapseFour.accordion-collapse.collapse.show(aria-labelledby=\"headingFour\")\r\n                                            .accordion-body#price\r\n\r\n        //- Define the 'content' block for child templates\r\n        block content\r",
+    "output":"<!DOCTYPE html>\n<html>\n  <head>\n    <script src=\"https://code.jquery.com/jquery-3.6.0.min.js\"><\/script>\n    <script src=\"https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"><\/script>\n    <script src=\"/jquery.nailthumb.1.1.js\"><\/script>\n    <link rel=\"stylesheet\" href=\"/style.css\">\n    <link rel=\"stylesheet\" href=\"/jquery.nailthumb.1.1.css\">\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp\" crossorigin=\"anonymous\">\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N\" crossorigin=\"anonymous\"><\/script>\n    <script src=\"/mainpage.js\"><\/script>\n    <title></title>\n  </head>\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"row justify-content-center\">\n        <div class=\"col-lg-12 col-md-8 text-center col-sm-3 text-center\">\n          <ul class=\"nav justify-content-center\">\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"Home\">\n                <a class=\"nav-link active text-black\" type=\"button\" href=\"/\">\n                  <b>Home</b>\n                </a> \n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"AllProducts\">\n                <a class=\"nav-link text-black\" type=\"button\" href=\"/AllProducts\">\n                  <b>All Products </b>\n                </a> \n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"Shoes\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Shoes </b>\n                </a> \n                <ul class=\"dropdown-menu\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Jordan\">\n                    <b>Jordan</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Yeezy\">\n                    <b>Yeezy</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-2 dropdown-spacing\" id=\"Clothing\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Clothing</b>\n                </a> \n                <ul class=\"dropdown-menu\" id=\"Clothing\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Supreme\">\n                    <b>Supreme</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Sp5der\">\n                    <b>Sp5der</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-1 dropdown-spacing\" id=\"Accessories\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Accessories</b>\n                </a> \n                <ul class=\"dropdown-menu\" id=\"Accessories\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Supreme\">\n                    <b>Supreme</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Other\">\n                    <b>Other</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </body>\n</html>",
+    "name":"layout.pug",
+    "description":"Layout Template This Pug template defines the layout structure that is used across multiple pages. It includes the necessary scripts, stylesheets, and navigation components. The comments below explain the structure and purpose of each section.",
+    "rest":"<ul>\n<li>capture: all</li>\n</ul>\n"}];
+  </script>
+
+  <!-- render documentation -->
+  <script>
+  'use strict';
+  var $cnt = document.getElementsByClassName('container')[0];
+  var TEMPLATE = document.getElementById('template').innerHTML;
+  var counter = 0;
+
+  function display(obj){
+    obj.uniqueDocId = ++counter;
+
+    var rendered = window.Mustache.render(TEMPLATE, obj);
+    window.Mustache.parse(TEMPLATE);
+    $cnt.innerHTML += rendered;
+    window.Prism.highlightAll();
+  }
+
+
+  var current = 0;
+  function next() {
+    display(window.DATA[current]);
+
+    current++;
+    if (window.DATA[current]) {
+      window.requestAnimationFrame(next);
+    } else {
+      document.body.classList.remove('is-loading');
+    }
+  }
+
+  if (window.DATA.length) {
+    document.body.classList.add('is-loading');
+    next();
+  }
+
+  </script>
+</body>
+</html>

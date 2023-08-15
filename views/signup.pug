@@ -1,61 +1,88 @@
+//- @pugdoc
+    name: signup.pug
+    description: User Registration Template
+                This Pug template defines the structure for user registration.
+                It includes a form for users to sign up with their information.
+                The comments below explain the structure and purpose of each section.
+    capture: all
+
+//- Extends the layout template
 extends layout.pug
+
+//- Content block
 block content
+    //- Body of the page
     body
+        //- Container for content
         .container.rounded
+            //- Card for user registration
             .card.col-mx-auto.rounded.log.cardopacity
-                        .card-header
-                            h1.card-title.text-black
-                                b Sign Up 
-                                h3
-                                p
-                                h.text-black 
-                                b Please select a username and password
-                                br 
-                                b Password must contain at least one number, one uppercase letter, one lowercase letter, and be at least 8 characters long
-                                p
-                            .row.g-3.align-items-center
-                                .form
-                                    form(action="/signup", method = "post") 
-                                        .form.row.g-3
-                                            .col-md-3
-                                                label(class="form-label", for = 'first').text-black 
-                                                b First Name
-                                                input(class= "form-control", aria-labelledby="first", name = 'first' required = "").log.text-black.bg-danger.bg-gradient
+                //- Card header
+                .card-header
+                    //- Title of the card
+                    h1.card-title.text-black
+                        b Sign Up 
+                    //- Additional information
+                    h3
+                    p
+                        h.text-black 
+                            b Please select a username and password
+                        br 
+                        b Password must contain at least one number, one uppercase letter, one lowercase letter, and be at least 8 characters long
+                    p
+                //- Form section
+                .row.g-3.align-items-center
+                    //- Form container
+                    .form
+                        //- Registration form
+                        form(action="/signup", method="post")
+                            //- Form fields
 
+                            //- First Name input field
+                            .form.row.g-3
+                                .col-md-3
+                                    label(class="form-label", for='first').text-black 
+                                        b First Name
+                                    input(class="form-control", aria-labelledby="first", name='first' required="").log.text-black.bg-danger.bg-gradient
 
-                                            .col-md-3
-                                                label(class="form-label",for = 'last').text-black 
-                                                b Last Name
-                                                input(class= "form-control", aria-labelledby="last",name = 'last' required= "").log.text-black.bg-danger.bg-gradient
-                                            .col-md-6
-                                            hr
+                                //- Last Name input field
+                                .col-md-3
+                                    label(class="form-label", for='last').text-black 
+                                        b Last Name
+                                    input(class="form-control", aria-labelledby="last", name='last' required="").log.text-black.bg-danger.bg-gradient
+                                .col-md-6
+                                hr
 
-                                            .col-md-3
-                                                label(class="form-label", for = 'username').text-black 
-                                                b Username
-                                                input(class= "form-control", aria-labelledby="username",type='text', name = 'username' required="").log.text-black.bg-danger.bg-gradient
-                                            .col-md-9
+                                //- Username input field
+                                .col-md-3
+                                    label(class="form-label", for='username').text-black 
+                                        b Username
+                                    input(class="form-control", aria-labelledby="username", type='text', name='username' required="").log.text-black.bg-danger.bg-gradient
+                                .col-md-9
 
-                                            .col-md-3
-                                                label(class="form-label", for = 'password').text-black  
-                                                b Password
-                                                input(class= "form-control", aria-labelledby="password",type = 'password' name = 'signuppassword' required pattern= "^.{8,}$").log.text-black.bg-danger.bg-gradient
-                                            .col-md-9
+                                //- Password input field
+                                .col-md-3
+                                    label(class="form-label", for='password').text-black  
+                                        b Password
+                                    input(class="form-control", aria-labelledby="password", type='password', name='signuppassword' required pattern="^.{8,}$").log.text-black.bg-danger.bg-gradient
+                                .col-md-9
 
-                                            .col-md-3
-                                                label(class="form-label",for = 'confirmpassword').text-black 
-                                                b Confirm Password
-                                                input(class= "form-control", aria-labelledby="confirmpassword",type = 'password' name = 'confirmpassword' required pattern= "^.{8,}$").log.text-black.bg-danger.bg-gradient
-                                            .col-md-9
-                                            hr
+                                //- Confirm Password input field
+                                .col-md-3
+                                    label(class="form-label", for='confirmpassword').text-black 
+                                        b Confirm Password
+                                    input(class="form-control", aria-labelledby="confirmpassword", type='password', name='confirmpassword' required pattern="^.{8,}$").log.text-black.bg-danger.bg-gradient
+                                .col-md-9
+                                hr
 
-                                        p
-                                            button.btn.btn-outline-primary(type='submit') 
-                                                b Sign Up
-                                            a.btn.btn-link-danger(href='/') 
-                                                b Nevermind
-                                        p 
-                                        b.text-black Already have an account?
-                                            a.btn.btn-link(href='/login') 
-                                                b Sign in Here!
-                                        p
+                            //- Submit and Cancel buttons
+                            p
+                                button.btn.btn-outline-primary(type='submit') 
+                                    b Sign Up
+                                a.btn.btn-link-danger(href='/') 
+                                    b Nevermind
+                            p 
+                            b.text-black Already have an account?
+                                a.btn.btn-link(href='/login') 
+                                    b Sign in Here!
+                            p

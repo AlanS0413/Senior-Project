@@ -20,6 +20,8 @@
         "paypal-rest-sdk": "^1.8.1",
         "promisify": "^0.0.3",
         "pug": "^3.0.2",
+        "pug-doc": "^2.23.1",
+        "pug-doc-html": "^1.1.0",
         "sqlite3": "5.1.6",
         "util": "^0.12.5"
     }

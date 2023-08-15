@@ -1,37 +1,43 @@
 /* style.css */
 
+
+/* Header styles */
 h1 {
     color:black;
     font-size: 2rem;
     font-family:'Times New Roman', Times, serif
 
 }
+
+/* Common styles */
 .log {
     background-color: transparent!important;
 }
 
+/* Search form styles */
 #searchform {
     display: flex;
     align-items: center;
-  }
+}
   
-  .form-control {
+.form-control {
     flex: 1;
     margin-bottom: 5%;
-  }
+}
   
-  .input-group-append {
+.input-group-append {
     display: flex;
     padding: 5px;
     margin-top: 5px;
     margin-bottom: 0px;
-  }
+}
   
-  .btn-outline-success {
+.btn-outline-success {
     margin-left: 5px;
     margin-bottom: 5%;
-  }
+}
 
+/* Dropdown heading styles */
 h3.dropdown-spacing {
     color: black;
     font-size: x-large;
@@ -39,6 +45,7 @@ h3.dropdown-spacing {
 
 }
 
+/* Label styles */
 label {
     display: block;
     margin-bottom: 0.25rem;
@@ -47,7 +54,7 @@ label {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
+/* P and link styles */
 .padded{
     padding: 6rem;
 }
@@ -63,7 +70,7 @@ body::before {
     height: 100%;
     opacity: 0.1;
     z-index: -1;
-  }
+}
 
 p {
     font-size: large;
@@ -75,16 +82,19 @@ a {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-
+/* Button styles */
 button.btn.btn-outline-primary.text-white {
     color: white;
     border-color: white;
 }
 
+/* Additional button styles */
 button.btn.btn-outline-primary.text-black.btn-lg{
     width: 50%;
     text-align: center;
 }
+
+/* Link button styles */
 a.btn.btn-outline-danger.btn-lg{
     width: 50%;
     text-align: center;
@@ -94,26 +104,30 @@ a.btn.btn-outline-primary.btn-md.text-black.btn-lg{
     text-align: center;
 }
 
+/* Link button styles with white text and border */
 a.btn.btn-outline-primary.btn-md{
     color: white;
     border-color: white;
 }
 
-
+/* Navbar styles */
 ul.navbar.navbar-expand-sm.bars {
     background-color: black;
 }
 
+/* Button in navbar styles */
 button.btn.btn-outline-success.my-1{
     margin-right: auto;
 
 }
 
+/* Navbar pill styles */
 ul.nav.nav-pills.flex-row {
     margin: 0 10px;
-    
+
 }
 
+/* Dropdown spacing class */
 .dropdown-spacing {
     margin-right: 25px;
     margin-left: 25px;
@@ -128,6 +142,7 @@ ul.nav.nav-pills.flex-row {
     cursor: pointer;
 }
 
+/* Home spacing class */
 .home-spacing
 {
     padding: 3rem;
@@ -163,10 +178,12 @@ li.nav-item.dropdown > ul.dropdown-menu {
     margin-top: 0.2rem; /* adjust the top margin to remove gap */
 }
 
+/* Button alignment */
 .btn-move{
     float: right;
 }
 
+/* Custom navigation */
 .custom-nav {
     display: flex;
     justify-content: space-between;
@@ -177,6 +194,7 @@ li.nav-item.dropdown > ul.dropdown-menu {
     margin-left: auto;
 }
 
+/* Dropdown menu styles */
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -196,10 +214,12 @@ li.nav-item.dropdown > ul.dropdown-menu {
 
 .dropdown-menu .dropdown-menu:hover {display: block;}
 
+/* Padding for columns */
 .padded-cols{
     padding: 2rem;
 }
 
+/* Sidebar styles */
 .sidebar {
     position:absolute;
     top: 6%;
@@ -211,12 +231,14 @@ li.nav-item.dropdown > ul.dropdown-menu {
     overflow-y: clip;
 }
 
+/* Subheading styles */
 h5.my-2 {
     font-weight: bold;
     font-size: 30px;
     font-family:Arial, Helvetica, sans-serif;
 }
 
+/* Sidebar list styles */
 .sidebar-lists{
     font-weight: bold;
     font-size: 20px;
@@ -228,37 +250,45 @@ h5.my-2 {
     margin-left:auto;
 }
 
+/* Form input styles */
 .forminput {
   width: 100%;
   font-size: 20px;
   box-sizing:content-box;
 }
 
+/* Account text styles */
 .accttext{
     font-size: 25px;
 
 }
 
+/* Brand text styles */
 .brandtext{
     margin-left: 16%;
     font-size: xx-large;
 
 }
 
+/* Card opacity styles */
 .cardopacity{
     background-color: rgba(216, 216, 216, 0.7)!important;
 }
 
+/* Alignment text styles */
 .aligntext{
     margin-left: 23%;
     font-size: xx-large;
 
 }
+
+/* Price text styles */
 .pricetext{
     margin-left: -13%;
     font-size: x-large;
 }
 
+/* Margin styles */
 .sizingmargin{
     margin-left: -5%;
 }
@@ -267,60 +297,76 @@ h5.my-2 {
     margin-left: -4%;
 }
 
+/* Cart button styles */
 .cartbtn{
     width: 58%;
 }
 
+/* Clear list styles */
 ul.list-group:after {
     clear: both;
     display: block;
     content: "";
-  }
+}
 
+/* List group item styles */
 .list-group-item {
     float: left;
 }
 
+/* Main display styles */
 #maindisplay{
     display: flex;
 }
 
-
+/* Product table styles */
 #producttable li {
     display:inline-block;
 }
 
+/* Centered image styles */
 .center-img {
     display: block;
     margin: 0 auto;
 }
 
+/* Brand type table styles */
 #brandtypetable li {
     display:inline-block;
 }
+
+/* Card display styles */
 .carddisplay{
     display:inline-block;
     margin-left: 500px;
 }
 
+/* Card body display styles */
 .cardbodydisplay{
    display:grid
 }
 
+/* Brand product table styles */
 #brandproducttable li {
     display:inline-block;
 }
 
+/* Text-black link styles */
 a.text-black {
     text-transform: capitalize;
-  }
+}
+
+/* Text capitalize styles */
 .textcap{
     text-transform: capitalize;
 }
 
+/* Show dropdown menu styles */
 .dropdown-menu.show {
     display: block;
 }
+
+/* Home navigation styles */
 .homenav{
     display:flex;
     list-style: none;
@@ -328,68 +374,89 @@ a.text-black {
     --bs-nav-link-padding-y: 0.5rem;
 }
 
+/* Home padding styles */
 .homepad{
     margin-right: auto;
 }
 
-
+/* Accordion button styles */
 .accordion-button{
     background-color: rgba(255, 255, 255, 0.1)!important;
 }
 
+/* Accordion button after styles */
 .accordion-button::after{
     background-image: url("https://s3.amazonaws.com/static.graphemica.com/glyphs/i300s/000/012/536/original/2212-300x300.png?1275331328")!important;
 }
 
+/* Accordion styles */
 .accordion {
     --bs-accordion-bg: transparent!important;
 }
 
+/* Brand accordion body styles */
 .accordion-body#brand{
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 1px;
 }
+
+/* Brand buttons styles */
 .barbody.brand-buttons{
     float: right;
 }
 
+/* Brand label styles */
 label.barbodylabels{
     color:black;
     text-transform: capitalize;
     text-decoration: none;
     font-weight: bold;
 }
+
+/* Sizes accordion body styles */
 .accordion-body#sizes{
     display: grid;
     grid-template-columns: repeat(3, 3fr);
     grid-gap: 3px;
 }
+
+/* Size label styles */
 label.sizebodylabels{
     color:black;
     text-transform: capitalize;
     text-decoration: none;
     font-weight: bold;
 }
+
+/* Price accordion body styles */
 .accordion-body#price{
     display: grid;
     grid-template-columns: repeat(1, 2fr);
     grid-gap: 3px;
 }
+
+/* Price label styles */
 label.pricebodylabels{
     color:black;
     text-transform: capitalize;
     text-decoration: none;
     font-weight: bold;
 }
+
+/* Price buttons styles */
 .pricebodylabels.price-buttons{
     float: right;
 }
+
+/* Gender accordion body styles */
 .accordion-body#gender{
     display: grid;
     grid-template-columns: repeat(3, 3fr);
     grid-gap: 1px;
 }
+
+/* Toggle button styles */
 .toggle-button {
     display: inline-block;
     padding: 3px 8px;
@@ -402,12 +469,14 @@ label.pricebodylabels{
     text-transform: capitalize;
 }
 
+/* Active toggle button styles */
 .toggle-button.active {
     background-color: rgba(255, 0, 0, 0.651);
     color: white;
     font-family:Verdana, Tahoma, sans-serif;
 }
 
+/* Price checkbox styles */
 .pricebodylabels[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
@@ -420,11 +489,13 @@ label.pricebodylabels{
     position: relative;
 }
 
+/* Checked price checkbox styles */
 .pricebodylabels[type="checkbox"]:checked {
     background-color: rgba(255, 0, 0, 0.651);
     border-color: gray;
 }
 
+/* Checkbox before styles */
 .pricebodylabels[type="checkbox"]::before {
     content: "";
     position: absolute;
@@ -439,10 +510,12 @@ label.pricebodylabels{
     transition: opacity 0.3s ease-in-out;
 }
 
+/* Checked price checkbox before styles */
 .pricebodylabels[type="checkbox"]:checked::before {
     opacity: 1;
 }
 
+/* Bar body checkbox styles */
 .barbody[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
@@ -455,11 +528,13 @@ label.pricebodylabels{
     position: relative;
 }
 
+/* Checked bar body checkbox styles */
 .barbody[type="checkbox"]:checked {
     background-color: rgba(255, 0, 0, 0.651);
     border-color: gray;
 }
 
+/* Bar body checkbox before styles */
 .barbody[type="checkbox"]::before {
     content: "";
     position: absolute;
@@ -474,37 +549,47 @@ label.pricebodylabels{
     transition: opacity 0.3s ease-in-out;
 }
 
+/* Checked bar body checkbox before styles */
 .barbody[type="checkbox"]:checked::before {
     opacity: 1;
 }
+
+/* Search form input styles */
 input#searchform{
     margin: 20px 10px 10px;
     padding: 5px;
 }
 
+/* Search button styles */
 button#searchbtn{
     margin-top: 10px;
 }
 
+/* Cart button styles */
 li#cartbutton{
     margin: 0;
     padding: 0;
 }
 
+/* Logout button styles */
 li#logoutbutton{
     padding: 0;
     margin-top: 7px;
 }
+
+/* Logout text styles */
 li#logouttext{
     padding: 0;
     margin: 7px;
 }
 
+/* Search input styles */
 input#searchinput{
     margin: 20px 10px 10px;
     padding: 5px;
 }
 
+/* PayPal buttons container styles */
 #paypal-buttons-container{
     padding-right: 100%;
     margin-left: 95%;
@@ -512,6 +597,7 @@ input#searchinput{
     justify-content: center;
 }
 
+/* Media query for small screens */
 @media (min-width:320px)  { 
     #paypal-buttons-container{
     margin-left: 75%;
@@ -519,6 +605,7 @@ input#searchinput{
     justify-content: center;
 } }
 
+/* Media query for large screens */
 @media (max-width:1800px) {
     .sidebar {
         display: none!important;
@@ -526,6 +613,7 @@ input#searchinput{
 
 }
 
+/* Media query for screens with width greater than 480px */
 @media (min-width:481px)  { 
     #paypal-buttons-container{
         margin-left: 75%;
@@ -533,6 +621,8 @@ input#searchinput{
         justify-content: center;
     }
 }
+
+/* Media query for screens with width greater than 640px */
 @media (min-width:641px)  { 
     #paypal-buttons-container{
         margin-left: 85%;
@@ -540,6 +630,8 @@ input#searchinput{
         justify-content: center;
     }
 }
+
+/* Media query for screens with width greater than 960px */
 @media (min-width:961px)  {
     #paypal-buttons-container{
         margin-left: 90%;
@@ -547,6 +639,8 @@ input#searchinput{
         justify-content: center;
     }
 }
+
+/* Media query for screens with width greater than 1024px */
 @media (min-width:1025px) { 
     #paypal-buttons-container{
         margin-left: 95%;

@@ -1,33 +1,57 @@
+//- @pugdoc
+    name: layout.pug
+    description: Layout Template
+        This Pug template defines the layout structure that is used across multiple pages.
+        It includes the necessary scripts, stylesheets, and navigation components.
+        The comments below explain the structure and purpose of each section.
+    capture: all
 
+ 
 
+//- Set the doctype and start the HTML tag
 doctype html
 html
     head
-    
+        //- Include jQuery and Axios scripts
         script(src="https://code.jquery.com/jquery-3.6.0.min.js")
         script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+
+        //- Include Nailthumb plugin scripts and custom styles
         script(src="/jquery.nailthumb.1.1.js")
         link(rel="stylesheet", href="/style.css")
         link(rel="stylesheet", href="/jquery.nailthumb.1.1.css")
-        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous")
-        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous")
+
+        //- Include Bootstrap CSS from a CDN
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp", crossorigin="anonymous")
+
+        //- Include Bootstrap JS bundle from a CDN
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js", integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N", crossorigin="anonymous")
+
+        //- Include custom JavaScript for main page functionality
         script(src="/mainpage.js")
+
+        //- Set the title of the page using a dynamic variable
         title= title
 
     body
+        //- Navigation bar based on the user's authentication state
         if show_login
+            //- Display navigation for logged-in users
             if user || Admin
+                //- Navigation bar for logged-in users
                 span
                     ul.navbar.navbar-expand-sm.bars
                         .container-fluid
                             .navbar-nav.mr-auto
                                 li.nav-item
+                                    //- Search form for products
                                     form#searchform(role="search")
                                         .input-group
                                             input#searchinput.rounded(type="search", placeholder="Search", aria-label="Search")
                                             .input-group-append
                                                 button#searchbtn.btn.btn-outline-success.rounded(type="submit") Search
                             .navbar-nav.ml-auto
+                                //- Display admin or user information
                                 if Admin
                                     li.nav-item
                                         span.nav-link.text-white
@@ -36,43 +60,51 @@ html
                                     li.nav-item
                                         span.nav-link.text-white
                                             b Logged in as #{user.username}
+                                //- Logout button
                                 li#logoutbutton.nav-item
                                     a#logoutbutton.btn.btn-outline-danger.btn-md(href='/logout') Logout
+                                //- Cart button
                                 li#cartbutton.nav-item
                                     a.btn.btn-sm(href='/cart')
                                         img(src="https://www.dropbox.com/s/ywasy8lwkk2pldb/thenounproject.png?dl=1", alt="Cart", style="width: 40px; height: 40px;")
             else
+                //- Display navigation for guests
                 ul.navbar.navbar-expand-sm.bars
                     .container-fluid
                         .navbar-nav.mr-auto
                             li.nav-item
+                                //- Search form for products
                                 form#searchform(role="search")
                                     .input-group
                                     input#searchform.rounded(type="search", placeholder="Search", aria-label="Search")
                                     .input-group-append
                                         button#searchbtn.btn.btn-outline-success.rounded(type="submit") Search
                         .navbar-nav.ml-auto
+                            //- Account login button
                             a.btn.btn-md.mx-1(href='/account')
                                 img(src="https://www.dropbox.com/s/160nat60id0a9ar/Account.jpg?dl=1", alt="Account login", style="width: 35px; height: 35px;")
+                            //- Cart button
                             a.btn.btn-md(href='/cart')
                                 img(src="https://www.dropbox.com/s/ywasy8lwkk2pldb/thenounproject.png?dl=1", alt="Cart", style="width: 35px; height: 35px;")
 
-
-
-
+        //- Conditionally display navigation options based on page type
         if at_Home
+            //- Navigation options for the home page
             .container
                 .row.justify-content-center
                     .col-lg-12.col-md-8.text-center.col-sm-8.text-center
                         ul.nav.flex-row.justify-content-center
                             li.nav-item
+                                //- All Products link
                                 h3.dropdown-spacing
                                     a.nav-link.text-black(type="button", href="/AllProducts")  
                                             b All Products 
+                                //- Shoes dropdown
                                 h3.dropdown-spacing
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")
                                         b Shoes
                                     ul.dropdown-menu
+                                        //- Links to specific shoe brands
                                         li.dropdown-item
                                         a.dropdown-item(href="/Footwear/jordan")
                                             b Jordan
@@ -82,10 +114,12 @@ html
                                         li
                                         a.dropdown-item(href="/Footwear/yeezy") 
                                             b Yeezy
+                                //- Clothing dropdown
                                 h3.dropdown-spacing
-                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")    
-                                            b Clothing 
+                                    a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")
+                                        b Clothing 
                                     ul.dropdown-menu(id="Clothing")
+                                        //- Links to specific clothing brands
                                         li
                                         a.dropdown-item(href="/Clothing/Supreme")
                                             b Supreme
@@ -95,10 +129,12 @@ html
                                         li
                                         a.dropdown-item(href="/Clothing/Sp5der") 
                                             b Sp5der
+                                //- Accessories dropdown
                                 h3.dropdown-spacing 
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")  
                                         b Accessories 
                                     ul.dropdown-menu(id="Accessories")
+                                        //- Links to specific accessory brands
                                         li
                                         a.dropdown-item(href="/Accessories/Supreme")
                                             b Supreme
@@ -109,23 +145,28 @@ html
                                         a.dropdown-item(href="/Accessories/Other") 
                                             b Other
         else 
+            //- Navigation options for other pages
             .container-fluid
                 .row.justify-content-center
                     .col-lg-12.col-md-8.text-center.col-sm-3.text-center
                         ul.nav.justify-content-center
                             li.nav-item
+                                //- Home link
                                 h3#Home.mx-3.dropdown-spacing
                                     a.nav-link.active.text-black(type="button", href="/")
                                         b Home
                             li.nav-item
+                                //- All Products link
                                 h3#AllProducts.mx-3.dropdown-spacing
                                     a.nav-link.text-black(type="button", href="/AllProducts")  
                                         b All Products 
                             li.nav-item
+                                //- Shoes dropdown
                                 h3#Shoes.mx-3.dropdown-spacing
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false") 
                                         b Shoes 
                                     ul.dropdown-menu
+                                        //- Links to specific shoe brands
                                         li
                                         a.dropdown-item(href="/Footwear/Jordan")
                                             b Jordan
@@ -137,10 +178,12 @@ html
                                             b Yeezy
                                         li
                             li.nav-item
+                                //- Clothing dropdown
                                 h3#Clothing.mx-2.dropdown-spacing
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false")
                                         b Clothing
                                     ul.dropdown-menu(id="Clothing")
+                                        //- Links to specific clothing brands
                                         li
                                         a.dropdown-item(href="/Clothing/Supreme")
                                             b Supreme
@@ -152,10 +195,12 @@ html
                                             b Sp5der
                                         li
                             li.nav-item
+                                //- Accessories dropdown
                                 h3#Accessories.mx-1.dropdown-spacing
                                     a.nav-link.text-black(data-bs-toggle="dropdown", role="button", aria-expanded="false") 
                                         b Accessories
                                     ul.dropdown-menu(id="Accessories")
+                                        //- Links to specific accessory brands
                                         li
                                         a.dropdown-item(href="/Accessories/Supreme")
                                             b Supreme
@@ -167,11 +212,13 @@ html
                                             b Other
                                         li
 
+        //- Display the sidebar if required
         if showSidebar
             .container#sidebar.rounded.d-none.d-xxl-block
                 aside.sidebar
                         .col-xxl-12.col-xl-12.col-lg-12
                             .offcanvas-lg.offcanvas-start#bdSidebar(aria-labelledby="bdSidebarOffcanvasLabel")
+                                //- Gender filter section
                                 .accordion
                                     .accordion-item
                                         h5.accordion-header#headingOne
@@ -180,6 +227,7 @@ html
                                         #collapseOne.accordion-collapse.collapse.show(aria-labelledby="headingOne")
                                             .accordion-body#gender
 
+                                //- Brand filter section
                                 .accordion
                                     .accordion-item
                                         h5.accordion-header#headingTwo
@@ -188,7 +236,7 @@ html
                                         #collapseTwo.accordion-collapse.collapse.show(aria-labelledby="headingTwo")
                                             .accordion-body#brand
 
-
+                                //- Size filter section
                                 .accordion
                                     .accordion-item
                                         h5.accordion-header#headingThree
@@ -197,6 +245,7 @@ html
                                         #collapseThree.accordion-collapse.collapse.show(aria-labelledby="headingThree")
                                             .accordion-body#sizes
 
+                                //- Price filter section
                                 .accordion
                                     .accordion-item
                                         h5.accordion-header#headingFour
@@ -205,4 +254,5 @@ html
                                         #collapseFour.accordion-collapse.collapse.show(aria-labelledby="headingFour")
                                             .accordion-body#price
 
+        //- Define the 'content' block for child templates
         block content

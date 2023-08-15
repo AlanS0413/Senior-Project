@@ -1,133 +1,199 @@
+//- @pugdoc
+    name: cart.pug
+    description: Cart Template
+                This Pug template defines the layout and content for displaying the shopping cart.
+                It extends the 'layout.pug' template and includes a mixin for rendering cart items and JavaScript for functionality.
+                The comments below explain the structure and purpose of each section.
+
+//- Extending the 'layout.pug' template
 extends layout.pug
+
+//- @pugdoc
+     name: getCartInfo Mixin
+     description: Define a mixin for rendering cart items
+     arguments:
+       - {array} cartItems - An array of cart items to be rendered
+     examples:
+       - |
+         +getCartInfo([
+           { 
+             product: 'Product 1', 
+             brand: 'Brand A', 
+             price: 10, 
+             size: 'Small', 
+             sku: 'SKU123', 
+             stock: 5, 
+             quantity: 2 
+           },
+           { 
+             product: 'Product 2', 
+             brand: 'Brand B', 
+             price: 20, 
+             size: 'Medium', 
+             sku: 'SKU456', 
+             stock: 8, 
+             quantity: 1 
+           }
+         ])
+
 mixin getCartInfo(cartItems)
     ul
         each product in cartItems
             li
+                //- Cart item details can be added here
 
+//- @pugdoc
+    name: cart body
+    description: Cart Body
+                This Pug template defines the layout and content for displaying the shopping cart.
+                It extends the 'layout.pug' template and includes a mixin for rendering cart items and JavaScript for functionality.
+                The comments below explain the structure and purpose of each section.
+    capture: all
+
+//- Define the 'content' block for this template
 block content
     body
+        //- Header for the shopping cart
         header
             h2.text-center
                 b Your Cart
             hr
+
+        //- Container for displaying cart items
         .container.rounded
-                .row
-                    .col-12
-                        ul
-                            each product in cartItems
-                                .container#cart.justify-content-center.rounded
-                                    .row.lg-3
-                                        .col-lg-4
-                                            img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style="max-width: 80%; height: 80%;")
-                                        .col-lg-4
-                                            p
-                                                b=`${product.brand}`
-                                            p
-                                                b#itemName=`${product.product} - $${product.price}`
-                                            p
-                                                b=`${product.size}`
-                                            p
-                                                b#productsku=`${product.sku}`
-                                            p
-                                                form.form(action='/cart', method='GET')
-                                                    label#cartQuantity.text-black.text-start
-                                                    b Quantity:
-                                                        select#cartQuantityTotal.cartQuantity(name="quantity", onchange='updateTotal()', data-sku=`${product.sku}`)
-                                                            - for (var i = 1; i <= Math.min(product.stock, 20); i++)
-                                                                option(value=i, selected=i==product.quantity)= i
-                                        .col-lg-4.d-flex.justify-content-end
-                                            p.text-end
-                                                form(action=`/cart/${product.sku}/${product.size}`, method="POST")
-                                                    button.btn.btn-danger(id="removerCartItem", type="submit")= 'Remove'
-                                        .col-lg-4
-                                        br
-                                        hr
-                        form(action='/checkout', method="POST")
-                            .col-lg-12.col-md-10.col-sm-8.col-xs-12
-                                p.text-end
-                                    b Total: 
-                                        span(id="totalPrice") $0.00
-                            .col-lg-4.mx-auto
-                                #paypal-button-container
+            .row
+                .col-12
+                    ul
+                        each product in cartItems
+                            //- Display cart items using the 'getCartInfo' mixin
+                            .container#cart.justify-content-center.rounded
+                                .row.lg-3
+                                    .col-lg-4
+                                        //- Display product image
+                                        img(src=`https://seniorprojectcmps450.s3.amazonaws.com/images/${product.sku}`, style="max-width: 80%; height: 80%;")
 
+                                    .col-lg-4
+                                        //- Display product details
+                                        p
+                                            b=`${product.brand}`
+                                        p
+                                            b#itemName=`${product.product} - $${product.price}`
+                                        p
+                                            b=`${product.size}`
+                                        p
+                                            b#productsku=`${product.sku}`
+                                        p
+                                            //- Form for updating cart quantity
+                                            form.form(action='/cart', method='GET')
+                                                label#cartQuantity.text-black.text-start
+                                                b Quantity:
+                                                    //- Dropdown for selecting quantity
+                                                    select#cartQuantityTotal.cartQuantity(name="quantity", onchange='updateTotal()', data-sku=`${product.sku}`)
+                                                        - for (var i = 1; i <= Math.min(product.stock, 20); i++)
+                                                            option(value=i, selected=i==product.quantity)= i
 
-                                    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM", crossorigin="anonymous")
-                                    script(src="https://www.paypal.com/sdk/js?client-id=Af2AfpaS9hVvqkAmIYFgjes8XN00wOtPtfFvO1KVhkPdRIWyeRkEEPRXpkikeItaowW63b4OwBX5x1Bz&components=buttons")
-                                    script.
-                                        jQuery(document).ready(function() {
-                                                jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
-                                        });
-                                        fetch('/api/cart')
-                                            .then(response => response.json())
-                                            .then(data => {
-                                                const cart_id = data.cart_id; // this is just the cart id
-                                                const cartItems = data.cartItems; // these are the actual items in the cart
+                                    .col-lg-4.d-flex.justify-content-end
+                                        //- Form for removing item from cart
+                                        p.text-end
+                                            form(action=`/cart/${product.sku}/${product.size}`, method="POST")
+                                                button.btn.btn-danger(id="removerCartItem", type="submit")= 'Remove'
 
-                                                paypal.Buttons({
-                                                    createOrder: function(data, actions) {
-                                                        let items = [];
-                                                        let total = 0;
+                                    .col-lg-4
+                                    br
+                                    hr
 
-                                                        for (let i = 0; i < cartItems.length; i++) {
-                                                            let itemTotal = cartItems[i].quantity * cartItems[i].price; // calculate total for each item
-                                                            total += itemTotal; // accumulate totals for all items
+                    //- Form for checkout
+                    form(action='/checkout', method="POST")
+                        .col-lg-12.col-md-10.col-sm-8.col-xs-12
+                            p.text-end
+                                b Total: 
+                                    span(id="totalPrice") $0.00
+                        .col-lg-4.mx-auto
+                            //- Container for PayPal button
+                            #paypal-button-container
 
-                                                            // push each item to the items array
-                                                            items.push({
-                                                                name: cartItems[i].product,
-                                                                quantity: cartItems[i].quantity.toString(),
-                                                                sku: cartItems[i].sku,
-                                                                category: "PHYSICAL_GOODS",
-                                                                unit_amount: {
-                                                                    currency_code: "USD",
-                                                                    value: cartItems[i].price.toFixed(2) // unit cost for an item
-                                                                }
-                                                            });
+                    //- Include necessary JavaScript libraries and functions
+                    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM", crossorigin="anonymous")
+                    script(src="https://www.paypal.com/sdk/js?client-id=Af2AfpaS9hVvqkAmIYFgjes8XN00wOtPtfFvO1KVhkPdRIWyeRkEEPRXpkikeItaowW63b4OwBX5x1Bz&components=buttons")
+                    script.
+                        //- Call JavaScript functions for thumbnail styling and functionality
+                        jQuery(document).ready(function() {
+                            jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
+                        });
+                        fetch('/api/cart')
+                            .then(response => response.json())
+                            .then(data => {
+                                //- Extract cart ID and cart items from API response
+                                const cart_id = data.cart_id;
+                                const cartItems = data.cartItems;
+
+                                //- Initialize PayPal buttons
+                                paypal.Buttons({
+                                    createOrder: function(data, actions) {
+                                        //- Define items and calculate total price for PayPal payment
+                                        let items = [];
+                                        let total = 0;
+
+                                        for (let i = 0; i < cartItems.length; i++) {
+                                            let itemTotal = cartItems[i].quantity * cartItems[i].price;
+                                            total += itemTotal;
+
+                                            //- Push item details to the items array
+                                            items.push({
+                                                name: cartItems[i].product,
+                                                quantity: cartItems[i].quantity.toString(),
+                                                sku: cartItems[i].sku,
+                                                category: "PHYSICAL_GOODS",
+                                                unit_amount: {
+                                                    currency_code: "USD",
+                                                    value: cartItems[i].price.toFixed(2)
+                                                }
+                                            });
+                                        }
+
+                                        total = total.toFixed(2);
+
+                                        //- Return order details to PayPal
+                                        return actions.order.create({
+                                            purchase_units: [{
+                                                amount: {
+                                                    value: total,
+                                                    breakdown: {
+                                                        item_total: {
+                                                            currency_code: "USD",
+                                                            value: total
                                                         }
-
-                                                        total = total.toFixed(2); // format total as string with 2 decimal places
-
-                                                        return actions.order.create({
-                                                            purchase_units: [{
-                                                                amount: {
-                                                                    value: total, // Total price for all items
-                                                                    breakdown: {
-                                                                        item_total: {
-                                                                            currency_code: "USD",
-                                                                            value: total // Total price for all items
-                                                                        }
-                                                                    }
-                                                                },
-                                                                items: items // add all items
-                                                            }]
-                                                        });
-                                                    },
-                                                    onApprove: function(data, actions) {
-                                                        return actions.order.capture().then(function(details) {
-
-                                                            // make a call to the server to record this transaction
-                                                            fetch('/transaction-success', {
-                                                                method: 'POST', 
-                                                                headers: {
-                                                                    'Content-Type': 'application/json',
-                                                                },
-                                                                body: JSON.stringify({
-                                                                    transactionData: details,
-                                                                }),
-                                                            })
-                                                            .then(function(response) {
-                                                                return response.json();
-                                                            })
-                                                            .then(function(data) {
-                                                                console.log('Success:', data);
-                                                                window.location.href = data.redirectUrl;
-                                                            })
-                                                            .catch((error) => {
-                                                                console.error('Error:', error);
-                                                            });
-                                                        });
                                                     }
-                                                }).render('#paypal-button-container');
+                                                },
+                                                items: items
+                                            }]
+                                        });
+                                    },
+                                    onApprove: function(data, actions) {
+                                        return actions.order.capture().then(function(details) {
+                                            //- Call the server to record the transaction
+                                            fetch('/transaction-success', {
+                                                method: 'POST', 
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    transactionData: details,
+                                                }),
                                             })
-                                            .catch(error => console.error('Error:', error));
-                                        updateTotal();
+                                            .then(function(response) {
+                                                return response.json();
+                                            })
+                                            .then(function(data) {
+                                                console.log('Success:', data);
+                                                window.location.href = data.redirectUrl;
+                                            })
+                                            .catch((error) => {
+                                                console.error('Error:', error);
+                                            });
+                                        });
+                                    }
+                                }).render('#paypal-button-container');
+                            })
+                            .catch(error => console.error('Error:', error));
+                        updateTotal(); //- Call the updateTotal JavaScript function

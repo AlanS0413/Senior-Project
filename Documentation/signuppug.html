@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pug Documentation</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css" rel="stylesheet" />
+ 
+  <style>
+    html{
+      font-family: Lucida Grande;
+      margin: 10px;
+    }
+
+    @media (min-width: 860px){
+      html{
+        margin: 50px;
+      }
+    }
+
+    .page-title{
+      font-size: 30px;
+    }
+
+    .container{
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /**
+     * Doc item
+     */
+
+    .doc-item{
+      padding: 30px 0;
+    }
+
+    .doc-item__title{
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .doc-item__description{
+      font-size: 18px;
+      margin: 0;
+      border-radius: 3px;
+    }
+
+    .doc-item__file{
+      font-size: 18px;
+      padding: 2px;
+      display: inline-block;
+    }
+
+    .doc-item__meta-title{
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .doc-item__meta{
+      font-size: 18px;
+    }
+
+    .doc-item__meta ul{
+      margin: 0;
+      padding: 0;
+      list-style-position: inside;
+    }
+
+    .doc-item__meta ul ul{
+      margin-left: 15px;
+      margin-top: 5px;
+    }
+
+    .doc-item__meta li{
+      margin-bottom: 5px;
+    }
+
+
+
+    /**
+     * Code snippets
+     */
+
+    .code{
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (min-width: 860px){
+      .code .code__jade{
+        display: table-cell;
+        width: 50%;
+      }
+
+      .code .code__jade:first-of-type{
+        border-right: 20px solid white;
+      }
+    }
+
+
+    /**
+     * Page loader
+     */
+    
+    .is-loading {
+      background-color: red;
+    }
+
+    .is-loading:before {
+      content: '';
+      display: block;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      width: 14px;
+      height: 14px;
+      border: solid 2px transparent;
+      border-top-color: royalblue;
+      border-left-color: royalblue;
+      border-radius: 10px;
+      -webkit-animation: pace-spinner 400ms linear infinite;
+              animation: pace-spinner 400ms linear infinite;
+    }
+
+    @-webkit-keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pace-spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="container">
+    <h1 class="page-title">Pug Documentation</h1>
+  </div>
+
+
+  <!-- include prism code highlighter -->
+  <script src="../out/scripts/prism.js"></script>
+
+  <!-- load mustache -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.min.js"></script>
+
+  <!-- doc item template -->
+  <div id="template" style="display: none;">
+    <div class="doc-item" id="doc-{{uniqueDocId}}">
+      {{#name.length}}
+        <h2 class="doc-item__title">{{name}}</h2>
+      {{/name.length}}
+
+      {{#description.length}}
+        <p class="doc-item__description">{{description}}</p>
+      {{/description.length}}
+
+      <p class="doc-item__file">{{file}}</p>
+
+      {{#rest.length}}
+        <h3 class="doc-item__meta-title">Meta</h3>
+        <div class="doc-item__meta">
+        {{{rest}}}
+        </div>
+      {{/rest.length}}
+
+      <div class="code">
+        <div class="code__jade">
+          <pre class="language-jade"><code>{{source}}</code></pre>
+        </div>
+
+        <div class="code__html">
+          <pre class="language-html"><code>{{output}}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- load data -->
+  <script>window.DATA = [{"meta":{
+    "name":"signup.pug",
+    "description":"User Registration Template This Pug template defines the structure for user registration. It includes a form for users to sign up with their information. The comments below explain the structure and purpose of each section.",
+    "capture":"all"},
+    "file":"views\\signup.pug",
+    "source":"//- Extends the layout template\r\nextends layout.pug\r\n//- Content block\r\nblock content\r\n    //- Body of the page\r\n    body\r\n        //- Container for content\r\n        .container.rounded\r\n            //- Card for user registration\r\n            .card.col-mx-auto.rounded.log.cardopacity\r\n                //- Card header\r\n                .card-header\r\n                    //- Title of the card\r\n                    h1.card-title.text-black\r\n                        b Sign Up \r\n                    //- Additional information\r\n                    h3\r\n                    p\r\n                        h.text-black \r\n                            b Please select a username and password\r\n                        br \r\n                        b Password must contain at least one number, one uppercase letter, one lowercase letter, and be at least 8 characters long\r\n                    p\r\n                //- Form section\r\n                .row.g-3.align-items-center\r\n                    //- Form container\r\n                    .form\r\n                        //- Registration form\r\n                        form(action=\"/signup\", method=\"post\")\r\n                            //- Form fields\r\n\r\n                            //- First Name input field\r\n                            .form.row.g-3\r\n                                .col-md-3\r\n                                    label(class=\"form-label\", for='first').text-black \r\n                                        b First Name\r\n                                    input(class=\"form-control\", aria-labelledby=\"first\", name='first' required=\"\").log.text-black.bg-danger.bg-gradient\r\n\r\n                                //- Last Name input field\r\n                                .col-md-3\r\n                                    label(class=\"form-label\", for='last').text-black \r\n                                        b Last Name\r\n                                    input(class=\"form-control\", aria-labelledby=\"last\", name='last' required=\"\").log.text-black.bg-danger.bg-gradient\r\n                                .col-md-6\r\n                                hr\r\n\r\n                                //- Username input field\r\n                                .col-md-3\r\n                                    label(class=\"form-label\", for='username').text-black \r\n                                        b Username\r\n                                    input(class=\"form-control\", aria-labelledby=\"username\", type='text', name='username' required=\"\").log.text-black.bg-danger.bg-gradient\r\n                                .col-md-9\r\n\r\n                                //- Password input field\r\n                                .col-md-3\r\n                                    label(class=\"form-label\", for='password').text-black  \r\n                                        b Password\r\n                                    input(class=\"form-control\", aria-labelledby=\"password\", type='password', name='signuppassword' required pattern=\"^.{8,}$\").log.text-black.bg-danger.bg-gradient\r\n                                .col-md-9\r\n\r\n                                //- Confirm Password input field\r\n                                .col-md-3\r\n                                    label(class=\"form-label\", for='confirmpassword').text-black \r\n                                        b Confirm Password\r\n                                    input(class=\"form-control\", aria-labelledby=\"confirmpassword\", type='password', name='confirmpassword' required pattern=\"^.{8,}$\").log.text-black.bg-danger.bg-gradient\r\n                                .col-md-9\r\n                                hr\r\n\r\n                            //- Submit and Cancel buttons\r\n                            p\r\n                                button.btn.btn-outline-primary(type='submit') \r\n                                    b Sign Up\r\n                                a.btn.btn-link-danger(href='/') \r\n                                    b Nevermind\r\n                            p \r\n                            b.text-black Already have an account?\r\n                                a.btn.btn-link(href='/login') \r\n                                    b Sign in Here!\r\n                            p\r",
+    "output":"<!DOCTYPE html>\n<html>\n  <head>\n    <script src=\"https://code.jquery.com/jquery-3.6.0.min.js\"><\/script>\n    <script src=\"https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"><\/script>\n    <script src=\"/jquery.nailthumb.1.1.js\"><\/script>\n    <link rel=\"stylesheet\" href=\"/style.css\">\n    <link rel=\"stylesheet\" href=\"/jquery.nailthumb.1.1.css\">\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp\" crossorigin=\"anonymous\">\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N\" crossorigin=\"anonymous\"><\/script>\n    <script src=\"/mainpage.js\"><\/script>\n    <title></title>\n  </head>\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"row justify-content-center\">\n        <div class=\"col-lg-12 col-md-8 text-center col-sm-3 text-center\">\n          <ul class=\"nav justify-content-center\">\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"Home\">\n                <a class=\"nav-link active text-black\" type=\"button\" href=\"/\">\n                  <b>Home</b>\n                </a> \n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"AllProducts\">\n                <a class=\"nav-link text-black\" type=\"button\" href=\"/AllProducts\">\n                  <b>All Products </b>\n                </a> \n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-3 dropdown-spacing\" id=\"Shoes\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Shoes </b>\n                </a> \n                <ul class=\"dropdown-menu\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Jordan\">\n                    <b>Jordan</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Footwear/Yeezy\">\n                    <b>Yeezy</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-2 dropdown-spacing\" id=\"Clothing\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Clothing</b>\n                </a> \n                <ul class=\"dropdown-menu\" id=\"Clothing\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Supreme\">\n                    <b>Supreme</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Clothing/Sp5der\">\n                    <b>Sp5der</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n            <li class=\"nav-item\">\n              <h3 class=\"mx-1 dropdown-spacing\" id=\"Accessories\">\n                <a class=\"nav-link text-black\" data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n                  <b>Accessories</b>\n                </a> \n                <ul class=\"dropdown-menu\" id=\"Accessories\">\n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Supreme\">\n                    <b>Supreme</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Nike\">\n                    <b>Nike</b>\n                  </a> \n                  <li></li>\n                  <a class=\"dropdown-item\" href=\"/Accessories/Other\">\n                    <b>Other</b>\n                  </a> \n                  <li></li>\n                </ul>\n              </h3>\n            </li>\n          </ul>\n        </div>\n      </div>\n    </div>\n    <body>\n      <div class=\"container rounded\">\n        <div class=\"card col-mx-auto rounded log cardopacity\">\n          <div class=\"card-header\">\n            <h1 class=\"card-title text-black\">\n              <b>Sign Up </b>\n            </h1>\n            <h3></h3>\n            <p>\n              <h class=\"text-black\">\n                <b>Please select a username and password</b>\n              </h>\n              <br>\n              <b>Password must contain at least one number, one uppercase letter, one lowercase letter, and be at least 8 characters long</b>\n            </p>\n            <p></p>\n          </div>\n          <div class=\"row g-3 align-items-center\">\n            <div class=\"form\">\n              <form action=\"/signup\" method=\"post\">\n                <div class=\"form row g-3\">\n                  <div class=\"col-md-3\">\n                    <label class=\"form-label text-black\" for=\"first\">\n                      <b>First Name</b>\n                    </label>\n                    <input class=\"form-control log text-black bg-danger bg-gradient\" aria-labelledby=\"first\" name=\"first\" required=\"\">\n                  </div>\n                  <div class=\"col-md-3\">\n                    <label class=\"form-label text-black\" for=\"last\">\n                      <b>Last Name</b>\n                    </label>\n                    <input class=\"form-control log text-black bg-danger bg-gradient\" aria-labelledby=\"last\" name=\"last\" required=\"\">\n                  </div>\n                  <div class=\"col-md-6\"></div>\n                  <hr>\n                  <div class=\"col-md-3\">\n                    <label class=\"form-label text-black\" for=\"username\">\n                      <b>Username</b>\n                    </label>\n                    <input class=\"form-control log text-black bg-danger bg-gradient\" aria-labelledby=\"username\" type=\"text\" name=\"username\" required=\"\">\n                  </div>\n                  <div class=\"col-md-9\"></div>\n                  <div class=\"col-md-3\">\n                    <label class=\"form-label text-black\" for=\"password\">\n                      <b>Password</b>\n                    </label>\n                    <input class=\"form-control log text-black bg-danger bg-gradient\" aria-labelledby=\"password\" type=\"password\" name=\"signuppassword\" required pattern=\"^.{8,}$\">\n                  </div>\n                  <div class=\"col-md-9\"></div>\n                  <div class=\"col-md-3\">\n                    <label class=\"form-label text-black\" for=\"confirmpassword\">\n                      <b>Confirm Password</b>\n                    </label>\n                    <input class=\"form-control log text-black bg-danger bg-gradient\" aria-labelledby=\"confirmpassword\" type=\"password\" name=\"confirmpassword\" required pattern=\"^.{8,}$\">\n                  </div>\n                  <div class=\"col-md-9\"></div>\n                  <hr>\n                </div>\n                <p>\n                  <button class=\"btn btn-outline-primary\" type=\"submit\">\n                    <b>Sign Up</b>\n                  </button>\n                  <a class=\"btn btn-link-danger\" href=\"/\">\n                    <b>Nevermind</b>\n                  </a> \n                </p>\n                <p> </p>\n                <b class=\"text-black\">Already have an account?\n                  <a class=\"btn btn-link\" href=\"/login\">\n                    <b>Sign in Here!</b>\n                  </a> \n                </b>\n                <p></p>\n              </form>\n            </div>\n          </div>\n        </div>\n      </div>\n    </body>\n  </body>\n</html>",
+    "name":"signup.pug",
+    "description":"User Registration Template This Pug template defines the structure for user registration. It includes a form for users to sign up with their information. The comments below explain the structure and purpose of each section.",
+    "rest":"<ul>\n<li>capture: all</li>\n</ul>\n"}];
+  </script>
+
+  <!-- render documentation -->
+  <script>
+  'use strict';
+  var $cnt = document.getElementsByClassName('container')[0];
+  var TEMPLATE = document.getElementById('template').innerHTML;
+  var counter = 0;
+
+  function display(obj){
+    obj.uniqueDocId = ++counter;
+
+    var rendered = window.Mustache.render(TEMPLATE, obj);
+    window.Mustache.parse(TEMPLATE);
+    $cnt.innerHTML += rendered;
+    window.Prism.highlightAll();
+  }
+
+
+  var current = 0;
+  function next() {
+    display(window.DATA[current]);
+
+    current++;
+    if (window.DATA[current]) {
+      window.requestAnimationFrame(next);
+    } else {
+      document.body.classList.remove('is-loading');
+    }
+  }
+
+  if (window.DATA.length) {
+    document.body.classList.add('is-loading');
+    next();
+  }
+
+  </script>
+</body>
+</html>

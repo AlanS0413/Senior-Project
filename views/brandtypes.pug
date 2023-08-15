@@ -1,29 +1,64 @@
+//- @pugdoc
+    name: brandtypes.pug
+    description: Brand Types Template
+                 This Pug template defines the layout and content for displaying different types of products for a specific brand.
+                 It extends the 'layout.pug' template and includes mixins to render lists of products and brand options.
+                 The comments below explain the structure and purpose of each section.
+
+//- Extending the 'layout.pug' template
 extends layout.pug
+
+//- @pugdoc
+     name: jordanBrand Mixin
+     description: Define a mixin for rendering products of a specific brand (Jordan brand, in this case)
+     arguments:
+       - {array} brandProducts - An array of products for the specific brand
+     examples:
+       - |
+         +jordanBrand([
+           { name: 'Product 1' },
+           { name: 'Product 2' }
+         ])
 
 mixin jordanBrand(brandProducts)
     ul
         each jordan in brandProducts
             li
+                //- Product details for Jordan brand can be added here
+
+//- @pugdoc
+     name: brandOptions Mixin
+     description: Define a mixin for rendering brand options (e.g., different types of products for a brand)
+     arguments:
+       - {array} brandTypes - An array of different types of products for the brand
+     examples:
+       - |
+         +brandOptions([
+           { type: 'Type 1' },
+           { type: 'Type 2' }
+         ])
+
 mixin brandOptions(brandTypes)
     ul
         each types in brandTypes
             li
+                //- Brand type options can be added here
 
+//- Define the 'content' block for this template
 block content
     body
-
+        //- Container for displaying brand types
         .container.rounded.text-center
+            //- Unordered list for displaying different types of products for a brand
             ul#brandtypetable.text-center.text-black.justify-content-center
 
-
-
-
-
-
-
+            //- Include custom JavaScript functions for functionality
             script.
-                    loadProductTypes();
-                    searchItems();
-                    jQuery(document).ready(function() {
-                            jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
-                    });
+                //- Load product types using JavaScript function
+                loadProductTypes();
+                //- Search for items using JavaScript function
+                searchItems();
+                jQuery(document).ready(function() {
+                    //- Use jQuery to apply thumbnail styling to images
+                    jQuery('img.center-img.thumbnails').nailthumb({width:335,height:185, method:'resize'});
+                });

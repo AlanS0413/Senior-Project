@@ -40,7 +40,6 @@ npm start
 - [Pug Back-End Code](/views/): The back-end HTML generated code of the application.
 - [ExpressJs Routes](/routes/): The source code of the ExpressJs routes.
 - [Assets](/public/styles/): Fonts and other assets used in the project.
-- [Scripts](scripts/): Build scripts, automation scripts, and other utility
 
 
 ## Documentation

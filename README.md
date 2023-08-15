@@ -9,6 +9,7 @@ It's AWS bucket intergrated for pictures and is written in PUG and JS.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
+- [Index of Folders](#index-of-folders)
 
 ## Installation
 
@@ -34,7 +35,6 @@ npm start
 
 ## Index of Folders
 
-- [Documentation](/Documentation/documentationindex.html): User guides and other documentation.
 - [Source Code](/): The source code of the application.
 - [Front-End Js Code](/public/): The front-end source code of the application.
 - [Pug Back-End Code](/views/): The back-end HTML generated code of the application.
@@ -46,4 +46,7 @@ npm start
 
 My documentation was generated with JSDoc and PUG-Doc I ran into some issues with PUG-Doc but, found a way to fix them to get the documentation to generate nicely.
 
-[Documentation](/Documentation/documentationindex.html)
+# Documentation index
+## Node JS / JS Documentation
+- [Index JS](/Documentation/index.html)
+

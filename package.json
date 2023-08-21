@@ -1,6 +1,5 @@
 {
-  "dependencies":
-  {
+  "dependencies": {
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/paypal-js": "^6.0.1",
     "ajax": "^0.0.4",
@@ -22,7 +21,6 @@
     "paypal-rest-sdk": "^1.8.1",
     "promisify": "^0.0.3",
     "pug": "^3.0.2",
-    "pug-doc": "^2.23.1",
     "sqlite3": "5.1.6",
     "util": "^0.12.5"
   },
@@ -30,8 +28,7 @@
   "description": "This is a full website that allows purchasing and inventory managment.\r It's AWS bucket intergrated for pictures and is written in PUG and JS.",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts":
-  {
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc": "jsdoc - d jsdoc.conf.json",
     "start": "node ."
